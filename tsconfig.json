@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/components/AuthorizationModules/AuthFabric/AuthFabic"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

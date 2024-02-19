@@ -18,7 +18,7 @@ import { BAN_STATUS, REFRESH_TOKEN, TOKEN, USER_ROLE } from "./config/types";
 import { useCookies } from "react-cookie";
 // import HelpButton from "./components/HelpButton/HelpButton";
 // import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
-// import { lazyWithRetry } from "./tools/lazyWithRetry";
+import { lazyWithRetry } from "./tools/lazyWithRetry";
 // import SuccessMessageSendModal from "./components/Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 // import ContactsPage from "./pages/ContactsPage/ContactsPage";
 // import DocumentsPage from "./pages/DocumentsPage/DocumentsPage";
@@ -28,11 +28,11 @@ import { useCookies } from "react-cookie";
 //     default: AdminPage,
 //   }))
 // );
-// const Authorization = lazyWithRetry(() =>
-//   import("./pages/Authorization/Authorization").then(
-//     ({ default: Authorization }) => ({ default: Authorization })
-//   )
-// );
+const Authorization = lazyWithRetry(() =>
+  import("./pages/Authorization/Authorization").then(
+    ({ default: Authorization }) => ({ default: Authorization })
+  )
+);
 // const CreatorLk = lazyWithRetry(() =>
 //   import("./pages/CreatorLk/CreatorLk").then(({ default: CreatorLk }) => ({
 //     default: CreatorLk,
@@ -183,7 +183,7 @@ function App() {
               /> */}
               {/* <Route path={"/"} element={<StartPage />} /> */}
               {/* <Route path={"/admin/*"} element={<AdminPage />} /> */}
-              {/* <Route path={"/auth"} element={<Authorization />} /> */}
+              <Route path={"/auth"} element={<Authorization />} />
               {/* <Route path={"/tours/all"} element={<TourListPage />} /> */}
               {/* <Route path={"/tours/tour/:tourId"} element={<TourPage />} /> */}
               {/* <Route path={"/contacts"} element={<ContactsPage />} /> */}
