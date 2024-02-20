@@ -32,7 +32,8 @@ type modalsId =
   | "succsessMoneyOutputModal"
   | "deleteCardErrorModal"
   | "lostPasswordModal"
-  | "changePasswordModal";
+  | "changePasswordModal"
+  | "userAgreementModal";
 
 enum actionTypes {
   SET_MODAL_ACTIVE = "SET_MODAL_ACTIVE",

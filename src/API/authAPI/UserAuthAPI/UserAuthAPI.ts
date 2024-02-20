@@ -30,7 +30,7 @@ export const confirmUserRegistration = async (
 
 export const loginUser = async (
   data: IUserLogin,
-  successCallback?: (prop: IAuthResponse) => void,
+  successCallback: (prop: IAuthResponse) => void,
   errorCallback?: (prop: any) => void,
   useDefault?: boolean
 ) => {

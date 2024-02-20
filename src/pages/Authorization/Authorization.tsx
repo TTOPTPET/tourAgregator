@@ -9,6 +9,7 @@ import {
   Autocomplete,
   useMediaQuery,
   CircularProgress,
+  Checkbox,
 } from "@mui/material";
 import { AuthComponent } from "../../components/AuthorizationModules/AuthFabric/AuthFabic";
 import { IUserLogin } from "../../models/authModels/IUserLogin";
@@ -22,10 +23,7 @@ import { loginUser, registerUser } from "../../API/authAPI";
 import { lightTurquoiseColor, redColor } from "../../config/MUI/color/color";
 // import EnterMobileCodeModal from "../../components/Modals/EnterMobileCodeModal/EnterMobileCodeModal";
 import { useDispatch } from "react-redux";
-import {
-  setModalActive,
-  setModalInactive,
-} from "../../redux/Modal/ModalReducer";
+import { setModalActive } from "../../redux/Modal/ModalReducer";
 import { UserType } from "../../models/userModels/IUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +36,7 @@ import {
 import { useCookies } from "react-cookie";
 import InputMask from "react-input-mask";
 import { cloneDeep } from "lodash";
+import UserAgreementModal from "../../components/Modals/UserAgreementModal/UserAgreementModal";
 // import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 
 const registerTypes = [
@@ -91,6 +90,7 @@ function Authorization() {
     registerErrorsDefault
   );
   const [loading, setLoading] = useState(false);
+  const [userAgreement, setUserAgreement] = useState(false);
 
   const refBtn = useRef<HTMLButtonElement | null>(null);
 
@@ -346,15 +346,40 @@ function Authorization() {
                 )
               )}
           {!regState && (
-            <Autocomplete
-              id="rolePicker"
-              onChange={(e, value) => autocompleteChanged(value?.id)}
-              options={registerTypes}
-              getOptionLabel={(option) => option.name}
-              renderInput={(params) => (
-                <TextField {...params} label="Выбор роли" color="secondary" />
-              )}
-            />
+            <>
+              <Autocomplete
+                id="rolePicker"
+                onChange={(e, value) => autocompleteChanged(value?.id)}
+                options={registerTypes}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => (
+                  <TextField {...params} label="Выбор роли" color="secondary" />
+                )}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "10px",
+                }}
+              >
+                <Checkbox
+                  onChange={() => setUserAgreement((prevState) => !prevState)}
+                />
+                <Typography variant="caption">
+                  Я согласен с условиями
+                  <Button
+                    variant="weakTextButton"
+                    onClick={() => {
+                      dispatch(setModalActive("userAgreementModal"));
+                      console.log("object");
+                    }}
+                    sx={{ textDecoration: "underline", paddingLeft: "0px" }}
+                  >
+                    Пользовательского соглашения
+                  </Button>
+                </Typography>
+              </Box>
+            </>
           )}
         </Stack>
         {(passwordErrorStatus || errAuth || errReg) && (
@@ -389,9 +414,16 @@ function Authorization() {
           <Button
             ref={refBtn}
             onClick={() => handlerRegisterClick()}
-            disabled={Object.values(registerInputError).some(
-              (value) => value !== false
-            )}
+            disabled={
+              Object.values(registerInputError).some(
+                (value) => value !== false
+              ) ||
+              Object.values(userRegisterData).some(
+                (value) => value === undefined || value === ""
+              ) ||
+              userRegisterData.phone === "+7 (   )    -  -  " ||
+              !userAgreement
+            }
             style={{ width: media ? "100%" : "" }}
           >
             Регистрация
@@ -433,7 +465,7 @@ function Authorization() {
           Забыли пароль?
         </Button>
       </Paper>
-      {/* <LostPasswordModal /> */}
+      <UserAgreementModal />
     </Stack>
   );
 }
