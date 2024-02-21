@@ -1,7 +1,3 @@
-import {
-  loginUser,
-  registerUser,
-  confirmUserRegistration,
-} from "./UserAuthAPI/UserAuthAPI";
+import { loginUser, registerUser } from "./UserAuthAPI/UserAuthAPI";
 
-export { loginUser, registerUser, confirmUserRegistration };
+export { loginUser, registerUser };

@@ -5,28 +5,9 @@ import { IUserRegister } from "../../../models/authModels/IUserRegister";
 import { IAuthResponse } from "../../../models/authModels/IAuthResponse";
 import { cloneDeep } from "lodash";
 
-const userAuthDefault: IAuthResponse = {
-  accessToken: "TOKEN",
-  refreshToken: "REFRESH",
-};
-
-export const confirmUserRegistration = async (
-  data: { confirmationCode: number },
-  successCallback?: (prop: any) => void,
-  errorCallback?: () => void
-) => {
-  try {
-    let response = await axios.post<IAuthResponse>(
-      urlUser + "/confirmRegistration",
-      data
-    );
-
-    successCallback && successCallback(response.data);
-  } catch (e) {
-    console.error(e);
-    errorCallback && errorCallback();
-  }
-};
+// const userAuthDefault: IAuthResponse = {
+//   sessionToken: "SESSION",
+// };
 
 export const loginUser = async (
   data: IUserLogin,
@@ -34,12 +15,11 @@ export const loginUser = async (
   errorCallback?: (prop: any) => void,
   useDefault?: boolean
 ) => {
-  if (useDefault) {
-    successCallback(userAuthDefault);
-    return;
-  }
   try {
-    let response = await axios.post<IAuthResponse>(urlUser + "/login", data);
+    let response = await axios.post<IAuthResponse>(urlUser + "/login", data, {
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      withCredentials: true,
+    });
 
     successCallback && successCallback(response.data);
   } catch (e) {

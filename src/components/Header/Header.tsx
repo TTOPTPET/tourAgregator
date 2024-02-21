@@ -21,12 +21,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import {
-  BAN_STATUS,
-  REFRESH_TOKEN,
-  TOKEN,
-  USER_ROLE,
-} from "../../config/types";
+import { BAN_STATUS, SESSION, USER_ROLE } from "../../config/types";
 import { useCookies } from "react-cookie";
 import accIcon from "../../media/accountLinkIcon.svg";
 import adminIcon from "../../media/Icons/headerIcons/adminPanel.svg";
@@ -45,7 +40,7 @@ const Header = () => {
 
   const [searchParamFromUrl] = useSearchParams();
 
-  const [cookies] = useCookies([TOKEN, USER_ROLE, REFRESH_TOKEN, BAN_STATUS]);
+  const [cookies] = useCookies([SESSION, USER_ROLE, BAN_STATUS]);
 
   const [searchParam, setSearchParam] = useState<string>(
     searchParamFromUrl.get("title") || ""
@@ -158,7 +153,7 @@ const Header = () => {
               }}
             />
           </Box>
-          {cookies.TOKEN ? (
+          {cookies.SESSION ? (
             <>
               <Box
                 className="header__btns"

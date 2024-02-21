@@ -27,12 +27,7 @@ import { setModalActive } from "../../redux/Modal/ModalReducer";
 import { UserType } from "../../models/userModels/IUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  BAN_STATUS,
-  REFRESH_TOKEN,
-  TOKEN,
-  USER_ROLE,
-} from "../../config/types";
+import { BAN_STATUS, SESSION, USER_ROLE } from "../../config/types";
 import { useCookies } from "react-cookie";
 import InputMask from "react-input-mask";
 import { cloneDeep } from "lodash";
@@ -72,12 +67,7 @@ const registerErrorsDefault: RegisterErrors = {
 };
 
 function Authorization() {
-  const [cookies, setCookies] = useCookies([
-    TOKEN,
-    REFRESH_TOKEN,
-    BAN_STATUS,
-    USER_ROLE,
-  ]);
+  const [cookies, setCookies] = useCookies([SESSION, BAN_STATUS, USER_ROLE]);
 
   const [userLoginData, setUserLoginData] = useState<IUserLogin>(loginDefault);
   const [userRegisterData, setUserRegisterData] =
@@ -179,10 +169,6 @@ function Authorization() {
     loginUser(
       userLoginData,
       (resp) => {
-        setCookies(TOKEN, resp.accessToken, { path: "/" });
-        setCookies(REFRESH_TOKEN, resp.refreshToken, { path: "/" });
-        setCookies(USER_ROLE, resp.role, { path: "/" });
-        setCookies(BAN_STATUS, resp.status, { path: "/" });
         setErrAuth(false);
         setErrorMessage("");
         setLoading(false);
@@ -190,7 +176,7 @@ function Authorization() {
       },
       (e) => {
         setLoading(false);
-        if (e.response.status >= 400 && e.response.status <= 500) {
+        if (e?.response?.status >= 400 && e?.response?.status <= 500) {
           setErrAuth(true);
           setErrorMessage("Неверный логин или пароль!");
         } else {

@@ -1,6 +1,5 @@
+import { AxiosResponseHeaders } from "axios";
+
 export interface IAuthResponse {
-  accessToken?: string;
-  refreshToken?: string;
-  status?: boolean;
-  role?: string;
+  headers: AxiosResponseHeaders;
 }

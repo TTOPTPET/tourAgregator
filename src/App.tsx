@@ -14,7 +14,7 @@ import { useEffect, Suspense } from "react";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
 // import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import NavTool from "./components/NavTool/NavTool";
-import { BAN_STATUS, REFRESH_TOKEN, TOKEN, USER_ROLE } from "./config/types";
+import { BAN_STATUS, SESSION, USER_ROLE } from "./config/types";
 import { useCookies } from "react-cookie";
 // import HelpButton from "./components/HelpButton/HelpButton";
 // import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
@@ -96,7 +96,7 @@ const VerifyUserEmail = lazyWithRetry(() =>
 // );
 
 function App() {
-  const [cookies] = useCookies([TOKEN, REFRESH_TOKEN, BAN_STATUS, USER_ROLE]);
+  const [cookies] = useCookies([SESSION, BAN_STATUS, USER_ROLE]);
 
   dayjs.locale("ru");
   const dispatch = useDispatch();
