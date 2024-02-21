@@ -67,6 +67,23 @@ export const registerUser = async (
   }
 };
 
+export const requestVerifyToken = async (
+  successCallback: (prop: number) => void,
+  email?: string,
+  errorCallback?: (prop: any) => void
+) => {
+  try {
+    let response = await axios.post(urlUser + "/request-verify-token", {
+      email,
+    });
+
+    successCallback(response?.status);
+  } catch (e) {
+    console.error(e);
+    errorCallback && errorCallback(e);
+  }
+};
+
 export const refreshToken = async (
   refreshToken: string,
   successCallback: (resp: IAuthResponse) => void

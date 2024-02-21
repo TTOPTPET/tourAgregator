@@ -37,6 +37,8 @@ import { useCookies } from "react-cookie";
 import InputMask from "react-input-mask";
 import { cloneDeep } from "lodash";
 import UserAgreementModal from "../../components/Modals/UserAgreementModal/UserAgreementModal";
+import ConfirmEmailModal from "../../components/Modals/ConfirmEmailModal/ConfirmEmailModal";
+import { requestVerifyToken } from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
 // import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 
 const registerTypes = [
@@ -155,7 +157,9 @@ function Authorization() {
     registerDataCopy.phone = "8" + registerDataCopy?.phone?.substring(1);
     registerUser(
       () => {
-        dispatch(setModalActive("enterMobileCodeModal"));
+        requestVerifyToken(() => {
+          dispatch(setModalActive("сonfirmEmailModal"));
+        }, userRegisterData.email);
       },
       registerDataCopy,
       (e) => {
@@ -440,6 +444,7 @@ function Authorization() {
             navigate("/tours/all");
           }}
         /> */}
+        <ConfirmEmailModal />
         <Stack
           direction={media ? "column" : "row"}
           sx={{ display: "flex", alignItems: "center", mt: "10px" }}
