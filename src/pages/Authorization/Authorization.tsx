@@ -53,6 +53,7 @@ const registerDefault: IUserRegister = {
   phone: undefined,
   role_id: undefined,
   passwordSecond: undefined,
+  inn: "",
 };
 
 type RegisterErrors = {
@@ -75,6 +76,8 @@ function Authorization() {
   const [regState, setRegState] = useState<boolean>(true);
   const [errAuth, setErrAuth] = useState(false);
   const [errReg, setErrReg] = useState(false);
+  const [errINN, setErrINN] = useState(false);
+  const [errINNMsg, setErrINNMsg] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [passwordErrorStatus, setPasswordErrorStatus] =
     useState<boolean>(false);
@@ -93,7 +96,10 @@ function Authorization() {
   const media = useMediaQuery("(max-width: 600px)");
 
   const autocompleteChanged = (value: UserType | undefined) => {
-    setUserRegisterData({ ...userRegisterData, role_id: value });
+    setUserRegisterData({
+      ...userRegisterData,
+      role_id: value,
+    });
   };
   const handlerUpdateLoginField = (
     key: keyof IUserLogin,
@@ -128,6 +134,46 @@ function Authorization() {
     }
   };
 
+  console.log(userRegisterData);
+
+  function validateInn(inn: string) {
+    var result = false;
+    if (!inn.length) {
+      setErrINN(true);
+      setErrINNMsg("ИНН пуст");
+    } else if (/[^0-9]/.test(inn)) {
+      setErrINN(true);
+      setErrINNMsg("ИНН может состоять только из цифр");
+    } else if ([12].indexOf(inn.length) === -1) {
+      setErrINN(true);
+      setErrINNMsg("ИНН может состоять только из 12 цифр");
+    } else {
+      var checkDigit = function (inn: string, coefficients: any) {
+        var n = 0;
+        for (var i in coefficients) {
+          n += coefficients[i] * inn[i];
+        }
+        return parseInt((n % 11) % 10);
+      };
+
+      var n11 = checkDigit(inn, [7, 2, 4, 10, 3, 5, 9, 4, 6, 8]);
+      var n12 = checkDigit(inn, [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8]);
+      if (n11 === parseInt(inn[10]) && n12 === parseInt(inn[11])) {
+        result = true;
+      }
+
+      if (!result) {
+        setErrINN(true);
+        setErrINNMsg("Неправильное контрольное число");
+      }
+
+      if (result) {
+        setErrINN(false);
+      }
+    }
+    return result;
+  }
+
   const handlerRegisterErrorChange = (
     key: keyof RegisterErrors,
     error: boolean
@@ -153,7 +199,6 @@ function Authorization() {
       },
       registerDataCopy,
       (e) => {
-        console.log(e);
         setErrReg(true);
         setErrorMessage(
           e?.response?.data?.typeError === "UserError"
@@ -346,6 +391,39 @@ function Authorization() {
                   <TextField {...params} label="Выбор роли" color="secondary" />
                 )}
               />
+              {userRegisterData?.role_id === 2 && (
+                <TextField
+                  key={"INNreg"}
+                  name={"INNreg"}
+                  color="secondary"
+                  label={"ИНН"}
+                  type={"number"}
+                  required={true}
+                  inputProps={{
+                    pattern: "^[d+]{12}$",
+                  }}
+                  value={userRegisterData.inn}
+                  onChange={(e) => {
+                    if (e.target.value.toString().length <= 12) {
+                      setUserRegisterData({
+                        ...userRegisterData,
+                        inn: e.target.value,
+                      });
+                      validateInn(e.target.value);
+                    }
+                  }}
+                  error={errINN}
+                />
+              )}
+              {errINN && (
+                <Typography
+                  variant="caption"
+                  className="author__error"
+                  sx={{ color: redColor, mb: "15px" }}
+                >
+                  {errINNMsg}
+                </Typography>
+              )}
               <Box
                 sx={{
                   display: "flex",
@@ -361,7 +439,6 @@ function Authorization() {
                     variant="weakTextButton"
                     onClick={() => {
                       dispatch(setModalActive("userAgreementModal"));
-                      console.log("object");
                     }}
                     sx={{ textDecoration: "underline", paddingLeft: "0px" }}
                   >
@@ -408,11 +485,15 @@ function Authorization() {
               Object.values(registerInputError).some(
                 (value) => value !== false
               ) ||
-              Object.values(userRegisterData).some(
-                (value) => value === undefined || value === ""
-              ) ||
+              Object.values(
+                Object.fromEntries(
+                  Object.entries(userRegisterData).filter((e) => e[0] != "inn")
+                )
+              ).some((value) => value === undefined || value === "") ||
               userRegisterData.phone === "+7 (   )    -  -  " ||
-              !userAgreement
+              !userAgreement ||
+              errINN ||
+              (userRegisterData.role_id === 2 && userRegisterData.inn === "")
             }
             style={{ width: media ? "100%" : "" }}
           >

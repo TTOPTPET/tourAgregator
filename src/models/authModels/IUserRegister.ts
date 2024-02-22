@@ -6,5 +6,6 @@ export interface IUserRegister {
   phone?: string;
   password?: string;
   passwordSecond?: string;
+  inn?: string;
   role_id?: UserType | null;
 }

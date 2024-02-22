@@ -36,7 +36,6 @@ export const registerUser = async (
 ) => {
   let copyData = cloneDeep(data);
   delete copyData.passwordSecond;
-
   try {
     let response = await axios.post(urlUser + "/register", copyData);
 

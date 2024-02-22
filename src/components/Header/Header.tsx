@@ -63,10 +63,6 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  // const handleWindowResize = useCallback((event) => {
-  //   setWindowSize(window.innerWidth);
-  // }, []);
-
   const handlerClickMenu = (event: React.MouseEvent<HTMLElement>) => {
     if (open) {
       setAnchorEl(null);
@@ -77,13 +73,6 @@ const Header = () => {
   const handlerCloseMenu = () => {
     setAnchorEl(null);
   };
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleWindowResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleWindowResize);
-  //   };
-  // }, [handleWindowResize]);
 
   useEffect(() => {
     if (menuRef.current) {
