@@ -9,6 +9,7 @@ import {
 enum actionTypes {
   SET_USER_INFO = "SET_USER_INFO",
   CLEAR_FIELDS_CREATOR = "CLEAR_FIELDS_CREATOR",
+  USER_LOGINED = "USER_LOGINED",
 }
 
 interface IActionProps {
@@ -22,10 +23,12 @@ interface IAction {
 
 interface IDefaultState {
   userInfo: ICreatorInfo | ITouristInfo;
+  islogined: boolean;
 }
 
 const defaultState: IDefaultState = {
   userInfo: { dataUser: {} },
+  islogined: false,
 };
 
 const UserInfoReducer = (state = defaultState, action: IAction) => {
@@ -46,6 +49,11 @@ const UserInfoReducer = (state = defaultState, action: IAction) => {
         };
       }
       break;
+    case actionTypes.USER_LOGINED:
+      return {
+        ...state,
+        islogined: action.payload,
+      };
     default:
       return state;
   }
@@ -62,5 +70,11 @@ export const setUserInfo = (props: ICreatorInfo | ITouristInfo) => {
 export const clearFieldsCreator = () => {
   return {
     type: actionTypes.CLEAR_FIELDS_CREATOR,
+  };
+};
+export const setLogined = (props: boolean) => {
+  return {
+    type: actionTypes.USER_LOGINED,
+    payload: props,
   };
 };

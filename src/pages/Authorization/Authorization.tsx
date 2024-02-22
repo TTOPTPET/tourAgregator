@@ -34,6 +34,8 @@ import { cloneDeep } from "lodash";
 import UserAgreementModal from "../../components/Modals/UserAgreementModal/UserAgreementModal";
 import ConfirmEmailModal from "../../components/Modals/ConfirmEmailModal/ConfirmEmailModal";
 import { requestVerifyToken } from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
+import { getUserInfo } from "../../API/commonAPI";
+import { setLogined, setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 // import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 
 const registerTypes = [
@@ -134,8 +136,6 @@ function Authorization() {
     }
   };
 
-  console.log(userRegisterData);
-
   function validateInn(inn: string) {
     var result = false;
     if (!inn.length) {
@@ -151,9 +151,9 @@ function Authorization() {
       var checkDigit = function (inn: string, coefficients: any) {
         var n = 0;
         for (var i in coefficients) {
-          n += coefficients[i] * inn[i];
+          n += coefficients[i] * Number(inn[Number(i)]);
         }
-        return parseInt((n % 11) % 10);
+        return parseInt(((n % 11) % 10).toString());
       };
 
       var n11 = checkDigit(inn, [7, 2, 4, 10, 3, 5, 9, 4, 6, 8]);
@@ -214,6 +214,10 @@ function Authorization() {
     loginUser(
       userLoginData,
       (resp) => {
+        getUserInfo((value) => {
+          dispatch(setUserInfo(value));
+        });
+        dispatch(setLogined(true));
         setErrAuth(false);
         setErrorMessage("");
         setLoading(false);

@@ -7,15 +7,12 @@ import { mainThemes } from "./config/MUI/themes/mainTheme/mainTheme";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
-import { useDispatch } from "react-redux";
 // import TourPage from "./pages/TourPage/TourPage";
-import { useEffect, Suspense } from "react";
+import { Suspense } from "react";
 // import { getUserInfo } from "./API/commonAPI";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
 // import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import NavTool from "./components/NavTool/NavTool";
-import { BAN_STATUS, SESSION, USER_ROLE } from "./config/types";
-import { useCookies } from "react-cookie";
 // import HelpButton from "./components/HelpButton/HelpButton";
 // import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
 import { lazyWithRetry } from "./tools/lazyWithRetry";
@@ -96,17 +93,7 @@ const VerifyUserEmail = lazyWithRetry(() =>
 // );
 
 function App() {
-  const [cookies] = useCookies([SESSION, BAN_STATUS, USER_ROLE]);
-
   dayjs.locale("ru");
-  const dispatch = useDispatch();
-  useEffect(() => {
-    // cookies.TOKEN &&
-    //   getUserInfo((value) => {
-    //     dispatch(setUserInfo(value));
-    //     // setLoadingStatus(false);
-    //   });
-  }, [cookies]);
 
   return (
     <BrowserRouter>

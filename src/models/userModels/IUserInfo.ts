@@ -49,16 +49,17 @@ interface IUserInfo {
   name?: string;
   phone?: string;
   email?: string;
-  banStatus?: boolean;
   id?: string;
-  createAt?: string;
+  is_active?: boolean; //Бан статус
+  is_superuser?: boolean;
+  is_verified?: boolean;
 }
 export interface ICreatorInfo extends IUserInfo {
-  typeUser?: UserType.creator;
+  role_id?: UserType.creator;
   dataUser?: ICreatorData;
 }
 
 export interface ITouristInfo extends IUserInfo {
-  typeUser?: UserType.tourist;
+  role_id?: UserType.tourist;
   dataUser?: ITouristData;
 }

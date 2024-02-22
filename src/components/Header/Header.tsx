@@ -38,6 +38,10 @@ const Header = () => {
     (state: RootState) => state?.userInfo?.userInfo as ICreatorInfo
   );
 
+  const islogined: boolean = useSelector(
+    (state: RootState) => state?.userInfo?.islogined as boolean
+  );
+
   const [searchParamFromUrl] = useSearchParams();
 
   const [cookies] = useCookies([SESSION, USER_ROLE, BAN_STATUS]);
@@ -142,7 +146,7 @@ const Header = () => {
               }}
             />
           </Box>
-          {cookies.SESSION ? (
+          {islogined ? (
             <>
               <Box
                 className="header__btns"
@@ -154,7 +158,7 @@ const Header = () => {
                   height: "70px",
                 }}
               >
-                {userInfo?.typeUser === UserType.tourist ? (
+                {userInfo?.role_id === 1 ? (
                   <Box component={Link} to="/tourist/lk">
                     <Box sx={{ height: { sm: "30px", xs: "20px" } }}>
                       <img
@@ -173,7 +177,7 @@ const Header = () => {
                       height: "70px",
                     }}
                   >
-                    {userInfo?.typeUser === UserType.creator ? (
+                    {userInfo?.role_id === 2 ? (
                       <>
                         <Box
                           sx={{
