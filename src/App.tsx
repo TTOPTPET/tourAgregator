@@ -36,6 +36,12 @@ const VerifyUserEmail = lazyWithRetry(() =>
     ({ default: VerifyUserEmail }) => ({ default: VerifyUserEmail })
   )
 );
+
+const ResetPassword = lazyWithRetry(() =>
+  import("./pages/ResetPassword/ResetPassword").then(
+    ({ default: ResetPassword }) => ({ default: ResetPassword })
+  )
+);
 // const CreatorLk = lazyWithRetry(() =>
 //   import("./pages/CreatorLk/CreatorLk").then(({ default: CreatorLk }) => ({
 //     default: CreatorLk,
@@ -178,6 +184,10 @@ function App() {
               {/* <Route path={"/admin/*"} element={<AdminPage />} /> */}
               <Route path={"/auth"} element={<Authorization />} />
               <Route path={"/verify/:token"} element={<VerifyUserEmail />} />
+              <Route
+                path={"/reset-password/:token"}
+                element={<ResetPassword />}
+              />
               {/* <Route path={"/tours/all"} element={<TourListPage />} /> */}
               {/* <Route path={"/tours/tour/:tourId"} element={<TourPage />} /> */}
               {/* <Route path={"/contacts"} element={<ContactsPage />} /> */}

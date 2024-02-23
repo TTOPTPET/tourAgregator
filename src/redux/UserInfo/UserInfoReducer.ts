@@ -39,7 +39,7 @@ const UserInfoReducer = (state = defaultState, action: IAction) => {
         userInfo: { ...state.userInfo, ...action.payload },
       };
     case actionTypes.CLEAR_FIELDS_CREATOR:
-      if (state.userInfo.typeUser === UserType.creator) {
+      if (state.userInfo.role_id === UserType.creator) {
         return {
           ...state,
           userInfo: {

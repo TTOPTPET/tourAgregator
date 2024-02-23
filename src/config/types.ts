@@ -1,6 +1,3 @@
-export const SESSION = "SESSION";
-export const USER_ROLE = "USER_ROLE";
-export const BAN_STATUS = "BAN_STATUS";
 export const VISITED = "VISITED";
 
 export const fromModelsToFieldsName = new Map<string, string>([

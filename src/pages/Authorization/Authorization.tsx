@@ -21,14 +21,11 @@ import {
 } from "../../components/AuthorizationModules/AuthFabric/AuthTypes/AuthTypes";
 import { loginUser, registerUser } from "../../API/authAPI";
 import { lightTurquoiseColor, redColor } from "../../config/MUI/color/color";
-// import EnterMobileCodeModal from "../../components/Modals/EnterMobileCodeModal/EnterMobileCodeModal";
 import { useDispatch } from "react-redux";
 import { setModalActive } from "../../redux/Modal/ModalReducer";
 import { UserType } from "../../models/userModels/IUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BAN_STATUS, SESSION, USER_ROLE } from "../../config/types";
-import { useCookies } from "react-cookie";
 import InputMask from "react-input-mask";
 import { cloneDeep } from "lodash";
 import UserAgreementModal from "../../components/Modals/UserAgreementModal/UserAgreementModal";
@@ -36,7 +33,7 @@ import ConfirmEmailModal from "../../components/Modals/ConfirmEmailModal/Confirm
 import { requestVerifyToken } from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
 import { getUserInfo } from "../../API/commonAPI";
 import { setLogined, setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
-// import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
+import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 
 const registerTypes = [
   { id: UserType.creator, name: "туросоздатель" },
@@ -70,8 +67,6 @@ const registerErrorsDefault: RegisterErrors = {
 };
 
 function Authorization() {
-  const [cookies, setCookies] = useCookies([SESSION, BAN_STATUS, USER_ROLE]);
-
   const [userLoginData, setUserLoginData] = useState<IUserLogin>(loginDefault);
   const [userRegisterData, setUserRegisterData] =
     useState<IUserRegister>(registerDefault);
@@ -504,17 +499,7 @@ function Authorization() {
             Регистрация
           </Button>
         )}
-        {/* <EnterMobileCodeModal
-          userRegisterData={userRegisterData}
-          successCallback={(resp) => {
-            setCookies(TOKEN, resp.accessToken, { path: "/" });
-            setCookies(REFRESH_TOKEN, resp.refreshToken, { path: "/" });
-            setCookies(USER_ROLE, resp.role, { path: "/" });
-            setCookies(BAN_STATUS, resp.status, { path: "/" });
-            dispatch(setModalInactive("enterMobileCodeModal"));
-            navigate("/tours/all");
-          }}
-        /> */}
+
         <ConfirmEmailModal />
         <Stack
           direction={media ? "column" : "row"}
@@ -531,17 +516,20 @@ function Authorization() {
             {regState ? "Зарегистрироваться" : "Войти"}
           </Button>
         </Stack>
-        <Button
-          variant="weakTextButton"
-          onClick={() => {
-            dispatch(setModalActive("lostPasswordModal"));
-          }}
-          sx={{ textDecoration: "underline" }}
-        >
-          Забыли пароль?
-        </Button>
+        {regState && (
+          <Button
+            variant="weakTextButton"
+            onClick={() => {
+              dispatch(setModalActive("lostPasswordModal"));
+            }}
+            sx={{ textDecoration: "underline" }}
+          >
+            Забыли пароль?
+          </Button>
+        )}
       </Paper>
       <UserAgreementModal />
+      <LostPasswordModal />
     </Stack>
   );
 }

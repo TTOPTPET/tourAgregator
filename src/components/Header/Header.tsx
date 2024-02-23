@@ -21,12 +21,10 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { BAN_STATUS, SESSION, USER_ROLE } from "../../config/types";
-import { useCookies } from "react-cookie";
 import accIcon from "../../media/accountLinkIcon.svg";
 import adminIcon from "../../media/Icons/headerIcons/adminPanel.svg";
 import calendarIcon from "../../media/calendarIcon.svg";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MenuIcon from "../../media/menu-icon.svg";
 import StatIcon from "../../media/chart-box.svg";
 import CashIcon from "../../media/cash-icon.svg";
@@ -43,8 +41,6 @@ const Header = () => {
   );
 
   const [searchParamFromUrl] = useSearchParams();
-
-  const [cookies] = useCookies([SESSION, USER_ROLE, BAN_STATUS]);
 
   const [searchParam, setSearchParam] = useState<string>(
     searchParamFromUrl.get("title") || ""
