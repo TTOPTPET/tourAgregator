@@ -30,10 +30,14 @@ import InputMask from "react-input-mask";
 import { cloneDeep } from "lodash";
 import UserAgreementModal from "../../components/Modals/UserAgreementModal/UserAgreementModal";
 import ConfirmEmailModal from "../../components/Modals/ConfirmEmailModal/ConfirmEmailModal";
-import { requestVerifyToken } from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
+import {
+  checkINN,
+  requestVerifyToken,
+} from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
 import { getUserInfo } from "../../API/commonAPI";
 import { setLogined, setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
+import { ICheckINNResponse } from "../../models/authModels/ICheckINNResponse";
 
 const registerTypes = [
   { id: UserType.creator, name: "туросоздатель" },
@@ -84,6 +88,10 @@ function Authorization() {
   const [loading, setLoading] = useState(false);
   const [userAgreement, setUserAgreement] = useState(false);
 
+  const [innCheckLoading, setInnCheckLoading] = useState(false);
+  const [INNCheckErr, setINNCheckErr] = useState(false);
+  const [isINNChecked, setIsINNChecked] = useState(false);
+
   const refBtn = useRef<HTMLButtonElement | null>(null);
 
   const dispatch = useDispatch();
@@ -98,6 +106,23 @@ function Authorization() {
       role_id: value,
     });
   };
+
+  useEffect(() => {
+    if (userRegisterData.role_id !== 2) {
+      setErrINN(false);
+      setUserRegisterData({ ...userRegisterData, inn: "" });
+      setIsINNChecked(false);
+      setErrINNMsg("");
+      setINNCheckErr(false);
+    }
+  }, [userRegisterData.role_id]);
+
+  useEffect(() => {
+    if (isINNChecked) {
+      setIsINNChecked(false);
+    }
+  }, [userRegisterData.inn]);
+
   const handlerUpdateLoginField = (
     key: keyof IUserLogin,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -227,6 +252,34 @@ function Authorization() {
           setErrAuth(true);
           setErrorMessage("Ошибка сервера, попробуйте позже!");
         }
+      },
+      false
+    );
+  };
+
+  const handlerINNCheck = () => {
+    setInnCheckLoading(true);
+    checkINN(
+      (resp) => {
+        if (resp?.status === true) {
+          setIsINNChecked(true);
+          setErrINN(false);
+          setErrINNMsg("");
+          setINNCheckErr(false);
+        } else {
+          setIsINNChecked(false);
+          setErrINN(true);
+          setErrINNMsg("Вы не самозанятый");
+          setINNCheckErr(true);
+        }
+        setInnCheckLoading(false);
+      },
+      userRegisterData.inn,
+      () => {
+        setInnCheckLoading(false);
+        setINNCheckErr(true);
+        setErrINN(true);
+        setErrINNMsg("Что-то пошло не так, попробуйте позже");
       },
       false
     );
@@ -391,28 +444,49 @@ function Authorization() {
                 )}
               />
               {userRegisterData?.role_id === 2 && (
-                <TextField
-                  key={"INNreg"}
-                  name={"INNreg"}
-                  color="secondary"
-                  label={"ИНН"}
-                  type={"number"}
-                  required={true}
-                  inputProps={{
-                    pattern: "^[d+]{12}$",
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    transition: "all .3s",
                   }}
-                  value={userRegisterData.inn}
-                  onChange={(e) => {
-                    if (e.target.value.toString().length <= 12) {
-                      setUserRegisterData({
-                        ...userRegisterData,
-                        inn: e.target.value,
-                      });
-                      validateInn(e.target.value);
-                    }
-                  }}
-                  error={errINN}
-                />
+                >
+                  <TextField
+                    key={"INNreg"}
+                    name={"INNreg"}
+                    color="secondary"
+                    label={"ИНН"}
+                    type={"number"}
+                    required={true}
+                    inputProps={{
+                      pattern: "^[d+]{12}$",
+                    }}
+                    value={userRegisterData.inn}
+                    onChange={(e) => {
+                      if (e.target.value.toString().length <= 12) {
+                        setUserRegisterData({
+                          ...userRegisterData,
+                          inn: e.target.value,
+                        });
+                        validateInn(e.target.value);
+                      }
+                    }}
+                    error={errINN}
+                    sx={{ width: isINNChecked ? "100%" : "350px" }}
+                  />
+                  {innCheckLoading ? (
+                    <Box sx={{ margin: "0 auto" }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    !isINNChecked && (
+                      <Button variant="high" onClick={() => handlerINNCheck()}>
+                        Проверить
+                      </Button>
+                    )
+                  )}
+                </Box>
               )}
               {errINN && (
                 <Typography
@@ -492,7 +566,9 @@ function Authorization() {
               userRegisterData.phone === "+7 (   )    -  -  " ||
               !userAgreement ||
               errINN ||
-              (userRegisterData.role_id === 2 && userRegisterData.inn === "")
+              (userRegisterData.role_id === 2 && userRegisterData.inn === "") ||
+              INNCheckErr ||
+              !isINNChecked
             }
             style={{ width: media ? "100%" : "" }}
           >

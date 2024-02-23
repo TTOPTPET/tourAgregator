@@ -4,10 +4,15 @@ import { IUserLogin } from "../../../models/authModels/IUserLogin";
 import { IUserRegister } from "../../../models/authModels/IUserRegister";
 import { IAuthResponse } from "../../../models/authModels/IAuthResponse";
 import { cloneDeep } from "lodash";
+import { ICheckINNResponse } from "../../../models/authModels/ICheckINNResponse";
 
 // const userAuthDefault: IAuthResponse = {
 //   sessionToken: "SESSION",
 // };
+
+const checkINNDefault = {
+  status: true,
+};
 
 export const loginUser = async (
   data: IUserLogin,
@@ -80,16 +85,22 @@ export const verify = async (
   }
 };
 
-export const refreshToken = async (
-  refreshToken: string,
-  successCallback: (resp: IAuthResponse) => void
+export const checkINN = async (
+  successCallback: (prop: ICheckINNResponse) => void,
+  inn?: string,
+  errorCallback?: (prop: any) => void,
+  useDefault?: boolean
 ) => {
+  if (useDefault) {
+    successCallback(checkINNDefault);
+    return;
+  }
   try {
-    let response = await axios.get<IAuthResponse>(urlUser + "/refresh", {
-      headers: { Authorization: `Bearer ${refreshToken}` },
-    });
-    successCallback(response.data);
+    let response = await axios.post(urlUser + `/${inn}`);
+
+    successCallback && successCallback(response?.data);
   } catch (e) {
     console.error(e);
+    errorCallback && errorCallback(e);
   }
 };
