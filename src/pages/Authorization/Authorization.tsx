@@ -281,7 +281,7 @@ function Authorization() {
         setErrINN(true);
         setErrINNMsg("Что-то пошло не так, попробуйте позже");
       },
-      false
+      true
     );
   };
 
@@ -568,7 +568,7 @@ function Authorization() {
               errINN ||
               (userRegisterData.role_id === 2 && userRegisterData.inn === "") ||
               INNCheckErr ||
-              !isINNChecked
+              (userRegisterData.role_id === 2 && !isINNChecked)
             }
             style={{ width: media ? "100%" : "" }}
           >
