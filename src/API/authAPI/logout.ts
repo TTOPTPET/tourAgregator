@@ -1,10 +1,20 @@
 import axios from "axios";
 import { urlUser } from "../../config/config";
 
-export const logout = async () => {
+export const logout = async (
+  successCallback: (prop: number) => void,
+  errorCallback?: (prop: any) => void
+) => {
   try {
-    await axios.delete(urlUser + "/logout");
+    let response = await axios.post(
+      urlUser + "/logout",
+      {},
+      { withCredentials: true }
+    );
+
+    successCallback(response?.status);
   } catch (e) {
     console.error(e);
+    errorCallback && errorCallback(e);
   }
 };

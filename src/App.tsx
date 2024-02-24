@@ -11,7 +11,7 @@ import Footer from "./components/Footer/Footer";
 import { Suspense } from "react";
 // import { getUserInfo } from "./API/commonAPI";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
-// import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import NavTool from "./components/NavTool/NavTool";
 // import HelpButton from "./components/HelpButton/HelpButton";
 // import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
@@ -42,11 +42,11 @@ const ResetPassword = lazyWithRetry(() =>
     ({ default: ResetPassword }) => ({ default: ResetPassword })
   )
 );
-// const CreatorLk = lazyWithRetry(() =>
-//   import("./pages/CreatorLk/CreatorLk").then(({ default: CreatorLk }) => ({
-//     default: CreatorLk,
-//   }))
-// );
+const CreatorLk = lazyWithRetry(() =>
+  import("./pages/CreatorLk/CreatorLk").then(({ default: CreatorLk }) => ({
+    default: CreatorLk,
+  }))
+);
 // const NotificationsPage = lazyWithRetry(() =>
 //   import("./pages/NotificationsPage/NotificationsPage").then(
 //     ({ default: NotificationsPage }) => ({ default: NotificationsPage })
@@ -108,14 +108,14 @@ function App() {
         <Suspense>
           <Container sx={{ p: "35px 0 70px 0", minHeight: "79vh" }}>
             <Routes>
-              {/* <Route
+              <Route
                 path={"/creator/lk"}
                 element={
-                  <ProtectedRoute>
-                    <CreatorLk />
-                  </ProtectedRoute>
+                  // <ProtectedRoute>
+                  <CreatorLk />
+                  // </ProtectedRoute>
                 }
-              /> */}
+              />
               {/* <Route
                 path={"/creator/lk/editInfo"}
                 element={

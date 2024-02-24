@@ -291,7 +291,7 @@ const Header = () => {
                               />
                               Статистика
                             </MenuItem>
-                            {!CreatorInfo?.dataUser?.fieldsCreator ? (
+                            {/* {!CreatorInfo?.dataUser?.fieldsCreator ? (
                               <DarkStyledTooltip
                                 title="Заполните финансовую информацию для доступа на эту страницу"
                                 arrow
@@ -315,22 +315,22 @@ const Header = () => {
                                   </MenuItem>
                                 </span>
                               </DarkStyledTooltip>
-                            ) : (
-                              <MenuItem
-                                style={{ gap: "10px" }}
-                                onClick={() => {
-                                  navigate("/creator/payment");
-                                  handlerCloseMenu();
-                                }}
-                              >
-                                <img
-                                  src={CashIcon}
-                                  alt={"profile"}
-                                  style={{ width: "26px" }}
-                                />
-                                Финансовые настройки
-                              </MenuItem>
-                            )}
+                            ) : ( */}
+                            <MenuItem
+                              style={{ gap: "10px" }}
+                              onClick={() => {
+                                navigate("/creator/payment");
+                                handlerCloseMenu();
+                              }}
+                            >
+                              <img
+                                src={CashIcon}
+                                alt={"profile"}
+                                style={{ width: "26px" }}
+                              />
+                              Финансовые настройки
+                            </MenuItem>
+                            {/* )} */}
 
                             <MenuItem
                               style={{ gap: "10px" }}

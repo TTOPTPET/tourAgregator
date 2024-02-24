@@ -21,9 +21,13 @@ import {
 } from "../../components/AuthorizationModules/AuthFabric/AuthTypes/AuthTypes";
 import { loginUser, registerUser } from "../../API/authAPI";
 import { lightTurquoiseColor, redColor } from "../../config/MUI/color/color";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModalActive } from "../../redux/Modal/ModalReducer";
-import { UserType } from "../../models/userModels/IUserInfo";
+import {
+  ICreatorInfo,
+  ITouristInfo,
+  UserType,
+} from "../../models/userModels/IUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
@@ -38,6 +42,7 @@ import { getUserInfo } from "../../API/commonAPI";
 import { setLogined, setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 import { ICheckINNResponse } from "../../models/authModels/ICheckINNResponse";
+import { RootState } from "../../redux/store";
 
 const registerTypes = [
   { id: UserType.creator, name: "туросоздатель" },
@@ -91,6 +96,10 @@ function Authorization() {
   const [innCheckLoading, setInnCheckLoading] = useState(false);
   const [INNCheckErr, setINNCheckErr] = useState(false);
   const [isINNChecked, setIsINNChecked] = useState(false);
+
+  // const UserInfo: ICreatorInfo | ITouristInfo = useSelector(
+  //   (state: RootState) => state?.userInfo?.userInfo
+  // );
 
   const refBtn = useRef<HTMLButtonElement | null>(null);
 
@@ -230,18 +239,22 @@ function Authorization() {
     );
   };
 
+  // console.log(UserInfo);
+
   const handlerLoginClick = () => {
     loginUser(
       userLoginData,
       (resp) => {
         getUserInfo((value) => {
           dispatch(setUserInfo(value));
+          dispatch(setLogined(true));
+          setErrAuth(false);
+          setErrorMessage("");
+          setLoading(false);
+          value?.role_id === 1
+            ? navigate("/tours/all")
+            : navigate("/creator/lk");
         });
-        dispatch(setLogined(true));
-        setErrAuth(false);
-        setErrorMessage("");
-        setLoading(false);
-        navigate("/tours/all");
       },
       (e) => {
         setLoading(false);
