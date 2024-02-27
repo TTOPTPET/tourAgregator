@@ -3,8 +3,6 @@ import {
   ITouristInfo,
   UserType,
   //   CreatorType,
-  StatusVerify,
-  Sex,
 } from "../../models/userModels/IUserInfo";
 enum actionTypes {
   SET_USER_INFO = "SET_USER_INFO",
@@ -23,12 +21,10 @@ interface IAction {
 
 interface IDefaultState {
   userInfo: ICreatorInfo | ITouristInfo;
-  islogined: boolean;
 }
 
 const defaultState: IDefaultState = {
-  userInfo: { dataUser: {} },
-  islogined: false,
+  userInfo: {},
 };
 
 const UserInfoReducer = (state = defaultState, action: IAction) => {
@@ -38,22 +34,17 @@ const UserInfoReducer = (state = defaultState, action: IAction) => {
         ...state,
         userInfo: { ...state.userInfo, ...action.payload },
       };
-    case actionTypes.CLEAR_FIELDS_CREATOR:
-      if (state.userInfo.role_id === UserType.creator) {
-        return {
-          ...state,
-          userInfo: {
-            ...state.userInfo,
-            dataUser: { ...state.userInfo.dataUser, fieldsCreator: {} },
-          },
-        };
-      }
-      break;
-    case actionTypes.USER_LOGINED:
-      return {
-        ...state,
-        islogined: action.payload,
-      };
+    // case actionTypes.CLEAR_FIELDS_CREATOR:
+    //   if (state.userInfo.role_id === UserType.creator) {
+    //     return {
+    //       ...state,
+    //       userInfo: {
+    //         ...state.userInfo,
+    //         dataUser: { ...state.userInfo.dataUser, fieldsCreator: {} },
+    //       },
+    //     };
+    //   }
+    //   break;
     default:
       return state;
   }
@@ -70,11 +61,5 @@ export const setUserInfo = (props: ICreatorInfo | ITouristInfo) => {
 export const clearFieldsCreator = () => {
   return {
     type: actionTypes.CLEAR_FIELDS_CREATOR,
-  };
-};
-export const setLogined = (props: boolean) => {
-  return {
-    type: actionTypes.USER_LOGINED,
-    payload: props,
   };
 };

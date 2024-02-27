@@ -39,10 +39,12 @@ import {
   requestVerifyToken,
 } from "../../API/authAPI/UserAuthAPI/UserAuthAPI";
 import { getUserInfo } from "../../API/commonAPI";
-import { setLogined, setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
+import { setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
 import { ICheckINNResponse } from "../../models/authModels/ICheckINNResponse";
 import { RootState } from "../../redux/store";
+import { useCookies } from "react-cookie";
+import { LOGGINED } from "../../config/types";
 
 const registerTypes = [
   { id: UserType.creator, name: "туросоздатель" },
@@ -76,6 +78,8 @@ const registerErrorsDefault: RegisterErrors = {
 };
 
 function Authorization() {
+  const [cookies, setCookies] = useCookies([LOGGINED]);
+
   const [userLoginData, setUserLoginData] = useState<IUserLogin>(loginDefault);
   const [userRegisterData, setUserRegisterData] =
     useState<IUserRegister>(registerDefault);
@@ -247,7 +251,7 @@ function Authorization() {
       (resp) => {
         getUserInfo((value) => {
           dispatch(setUserInfo(value));
-          dispatch(setLogined(true));
+          setCookies(LOGGINED, true, { path: "/" });
           setErrAuth(false);
           setErrorMessage("");
           setLoading(false);

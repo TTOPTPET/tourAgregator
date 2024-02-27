@@ -22,7 +22,8 @@ import {
 import { logout } from "../../../API/authAPI/logout";
 import { whiteColor } from "../../../config/MUI/color/color";
 import { useDispatch } from "react-redux";
-import { setLogined } from "../../../redux/UserInfo/UserInfoReducer";
+import { useCookies } from "react-cookie";
+import { LOGGINED } from "../../../config/types";
 
 type UserInfoHeaderProps = {
   submitFuntion?: () => void;
@@ -32,6 +33,7 @@ type UserInfoHeaderProps = {
 };
 
 function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
+  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED]);
   const theme = useTheme();
 
   const dispatch = useDispatch();
@@ -146,9 +148,8 @@ function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
           onClick={() => {
             logout(
               () => {
-                // document.cookie = "SESSION; expires=-1";
                 navigate("/auth");
-                dispatch(setLogined(false));
+                removeCookies(LOGGINED, { path: "/" });
               },
               () => {}
             );

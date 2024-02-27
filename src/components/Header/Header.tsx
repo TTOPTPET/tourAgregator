@@ -30,15 +30,15 @@ import StatIcon from "../../media/chart-box.svg";
 import CashIcon from "../../media/cash-icon.svg";
 import NotificationIcon from "../../media/notification.svg";
 import { DarkStyledTooltip } from "../../config/MUI/styledComponents/StyledTooltip";
+import { useCookies } from "react-cookie";
+import { LOGGINED } from "../../config/types";
 
 const Header = () => {
   const CreatorInfo: ICreatorInfo = useSelector(
     (state: RootState) => state?.userInfo?.userInfo as ICreatorInfo
   );
 
-  const islogined: boolean = useSelector(
-    (state: RootState) => state?.userInfo?.islogined as boolean
-  );
+  const [cookies] = useCookies([LOGGINED]);
 
   const [searchParamFromUrl] = useSearchParams();
 
@@ -142,7 +142,7 @@ const Header = () => {
               }}
             />
           </Box>
-          {islogined ? (
+          {cookies.LOGGINED ? (
             <>
               <Box
                 className="header__btns"
