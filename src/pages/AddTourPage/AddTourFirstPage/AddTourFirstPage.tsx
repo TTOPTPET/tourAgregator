@@ -47,7 +47,7 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
     (state: RootState) => state?.catalogs?.category as ICatalog[]
   );
 
-  const [regionText, setRegionText] = useState("");
+  console.log(images);
 
   const media = useMediaQuery("(max-width: 1200px)", { noSsr: true });
 

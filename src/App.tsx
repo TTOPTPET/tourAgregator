@@ -20,6 +20,8 @@ import { getCatalog } from "./API/tourListAPI/filterAPI/filterAPI";
 import { Catalog } from "./models/tourListModels/ICatalog";
 import { useDispatch } from "react-redux";
 import { setCatalog } from "./redux/CatalogsReducer/CatalogsReducer";
+import { LOGGINED, ROLE } from "./config/types";
+import { useCookies } from "react-cookie";
 // import SuccessMessageSendModal from "./components/Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 // import ContactsPage from "./pages/ContactsPage/ContactsPage";
 // import DocumentsPage from "./pages/DocumentsPage/DocumentsPage";
@@ -107,6 +109,8 @@ const AddTourPage = lazyWithRetry(() =>
 function App() {
   const dispatch = useDispatch();
 
+  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
+
   useEffect(() => {
     getCatalog(
       Catalog.country,
@@ -172,14 +176,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route
+              <Route
                 path={"/creator/editTour/:tourId"}
                 element={
                   <ProtectedRoute>
                     <AddTourPage isEditing />
                   </ProtectedRoute>
                 }
-              /> */}
+              />
               {/* <Route
                 path={"/creator/notifications"}
                 element={

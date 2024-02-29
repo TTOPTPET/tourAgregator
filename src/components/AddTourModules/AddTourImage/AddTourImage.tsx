@@ -39,6 +39,8 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
 }) => {
   const [reader] = useState(new FileReader());
 
+  console.log(images);
+
   const fileHandler = async (e: any) => {
     const file = e.target.files[0];
     const resizedFile: File = await imageCompression(file, resizeOptions);
@@ -62,14 +64,18 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
     if (isEditing) {
       if (tourInfo?.photos?.includes(images[index])) {
       }
-      deleteToutPhoto(images[index], tourInfo?.id as string, () => {
-        setImage([
-          ...images.filter((item, i) => i !== index),
-          {
-            src: "",
-            loading: true,
-          },
-        ]);
+      setImage([
+        ...images.filter((item, i) => i !== index),
+        {
+          src: "",
+          loading: true,
+        },
+      ]);
+      setTourInfo({
+        ...tourInfo,
+        photos: tourInfo?.photos && [
+          ...tourInfo?.photos.filter((item, i) => i !== index),
+        ],
       });
     } else {
       setImage([
@@ -125,14 +131,9 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
                 >
                   <DeleteIcon width={20} height={20} />
                 </IconButton>
+                {console.log(image)}
                 <img
-                  src={
-                    isEditing
-                      ? image.includes("data:image/")
-                        ? image
-                        : baseUrl + "/" + image
-                      : image
-                  }
+                  src={image}
                   alt={`tour`}
                   style={{
                     marginTop: -37,

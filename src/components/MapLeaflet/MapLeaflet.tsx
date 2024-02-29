@@ -44,7 +44,6 @@ export default function MapLeaflet({
           }}
           onClick={(e) => {
             if (positions.length) {
-              console.log("pos", positions, positions.length);
               setPositions(positions.slice(0, positions.length - 1));
             } else {
               setPositions(positions);

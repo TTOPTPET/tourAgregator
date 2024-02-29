@@ -23,7 +23,7 @@ import { logout } from "../../../API/authAPI/logout";
 import { whiteColor } from "../../../config/MUI/color/color";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import { LOGGINED } from "../../../config/types";
+import { LOGGINED, ROLE } from "../../../config/types";
 
 type UserInfoHeaderProps = {
   submitFuntion?: () => void;
@@ -33,7 +33,7 @@ type UserInfoHeaderProps = {
 };
 
 function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
-  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED]);
+  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
   const theme = useTheme();
 
   const dispatch = useDispatch();
@@ -141,23 +141,7 @@ function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
           top: lessThenMid ? "45px" : null,
           right: lessThenMid ? "0px" : null,
         }}
-      >
-        <Button
-          variant="errorButton"
-          sx={{ mt: { lg: "10px", md: "5px", sm: "5px", xs: "5px" } }}
-          onClick={() => {
-            logout(
-              () => {
-                navigate("/auth");
-                removeCookies(LOGGINED, { path: "/" });
-              },
-              () => {}
-            );
-          }}
-        >
-          Выйти
-        </Button>
-      </Box>
+      ></Box>
     </Box>
   );
 }

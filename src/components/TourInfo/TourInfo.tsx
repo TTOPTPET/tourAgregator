@@ -243,7 +243,7 @@ export const TourInfo: FC<ITourInfoProps> = ({
                   <img
                     src={
                       typeof image === "string"
-                        ? baseUrl + "/" + image
+                        ? image
                         : URL.createObjectURL(image)
                     }
                     alt={`tour`}

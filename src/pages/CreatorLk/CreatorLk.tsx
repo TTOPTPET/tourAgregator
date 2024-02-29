@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-// import { getMyTours } from "../../API/creatorAPI/getMyTours";
+import { getMyTours } from "../../API/creatorAPI/getMyTours";
 import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
 import AddTourButton from "../../components/AddTourModules/AddTourButton/AddTourButton";
-// import TourCard from "../../components/TourCard/TourCard";
+import TourCard from "../../components/TourCard/TourCard";
 import { ITour } from "../../models/tourCardModel/ITour";
 
 import CreatorInfo from "../../components/UserInfo/CreatorInfo/CreatorInfo";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-// import DeleteTourModal from "../../components/Modals/DeleteTourModal/DeleteTourModal";
-// import SuccessDeleteTourModal from "../../components/Modals/SuccessDeleteTourModal/SuccessDeleteTourModal";
+import DeleteTourModal from "../../components/Modals/DeleteTourModal/DeleteTourModal";
+import SuccessDeleteTourModal from "../../components/Modals/SuccessDeleteTourModal/SuccessDeleteTourModal";
 
 function CreatorLk() {
   const [myTours, setMyTours] = useState<ITour[]>([]);
@@ -19,30 +19,32 @@ function CreatorLk() {
 
   const moreThenMid = useMediaQuery(theme.breakpoints.up("md"));
 
-  //   useEffect(() => {
-  //     setLoading(true);
-  //     getMyTours(
-  //       (value) => {
-  //         setMyTours(value);
-  //         setLoading(false);
-  //       },
-  //       undefined,
-  //       false
-  //     );
-  //   }, []);
+  useEffect(() => {
+    setLoading(true);
+    getMyTours(
+      (value) => {
+        setMyTours(value);
+        setLoading(false);
+      },
+      () => {
+        setMyTours([]);
+        setLoading(false);
+      }
+    );
+  }, []);
 
   const elements =
     myTours &&
     myTours?.map((tour, i) => {
       return (
         <Grid key={i} item lg={3} md={3} sm={4}>
-          {/* <TourCard
+          <TourCard
             tour={tour}
             key={tour.tourId}
             tourCardType={"myTours"}
             myTours={myTours}
             setMyTours={setMyTours}
-          /> */}
+          />
         </Grid>
       );
     });
@@ -120,8 +122,8 @@ function CreatorLk() {
           </Typography>
         )}
       </Grid>
-      {/* <DeleteTourModal myTours={myTours} setMyTours={setMyTours} />
-      <SuccessDeleteTourModal /> */}
+      <DeleteTourModal myTours={myTours} setMyTours={setMyTours} />
+      <SuccessDeleteTourModal />
     </>
   );
 }

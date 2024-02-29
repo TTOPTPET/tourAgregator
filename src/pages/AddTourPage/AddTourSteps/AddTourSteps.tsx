@@ -44,6 +44,8 @@ function AddTourSteps({
       : new Array<typeof loadImages>(8).fill(loadImages)
   );
 
+  console.log(images);
+
   switch (page) {
     case addTourStepsMap.first:
       return (

@@ -44,7 +44,7 @@ import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPas
 import { ICheckINNResponse } from "../../models/authModels/ICheckINNResponse";
 import { RootState } from "../../redux/store";
 import { useCookies } from "react-cookie";
-import { LOGGINED } from "../../config/types";
+import { LOGGINED, ROLE } from "../../config/types";
 
 const registerTypes = [
   { id: UserType.creator, name: "туросоздатель" },
@@ -78,7 +78,7 @@ const registerErrorsDefault: RegisterErrors = {
 };
 
 function Authorization() {
-  const [cookies, setCookies] = useCookies([LOGGINED]);
+  const [cookies, setCookies] = useCookies([LOGGINED, ROLE]);
 
   const [userLoginData, setUserLoginData] = useState<IUserLogin>(loginDefault);
   const [userRegisterData, setUserRegisterData] =
@@ -250,6 +250,7 @@ function Authorization() {
         getUserInfo((value) => {
           dispatch(setUserInfo(value));
           setCookies(LOGGINED, true, { path: "/" });
+          setCookies(ROLE, value.role_id, { path: "/" });
           setErrAuth(false);
           setErrorMessage("");
           setLoading(false);

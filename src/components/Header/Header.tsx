@@ -29,16 +29,19 @@ import MenuIcon from "../../media/menu-icon.svg";
 import StatIcon from "../../media/chart-box.svg";
 import CashIcon from "../../media/cash-icon.svg";
 import NotificationIcon from "../../media/notification.svg";
+import exitIcon from "../../media/exitIcon.svg";
 import { DarkStyledTooltip } from "../../config/MUI/styledComponents/StyledTooltip";
 import { useCookies } from "react-cookie";
-import { LOGGINED } from "../../config/types";
+import { LOGGINED, ROLE } from "../../config/types";
+import { redColor } from "../../config/MUI/color/color";
+import { logout } from "../../API/authAPI/logout";
 
 const Header = () => {
   const CreatorInfo: ICreatorInfo = useSelector(
     (state: RootState) => state?.userInfo?.userInfo as ICreatorInfo
   );
 
-  const [cookies] = useCookies([LOGGINED]);
+  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
 
   const [searchParamFromUrl] = useSearchParams();
 
@@ -154,7 +157,7 @@ const Header = () => {
                   height: "70px",
                 }}
               >
-                {userInfo?.role_id === 1 ? (
+                {cookies.ROLE === 1 ? (
                   <Box component={Link} to="/tourist/lk">
                     <Box sx={{ height: { sm: "30px", xs: "20px" } }}>
                       <img
@@ -173,7 +176,7 @@ const Header = () => {
                       height: "70px",
                     }}
                   >
-                    {userInfo?.role_id === 2 ? (
+                    {cookies.ROLE === 2 ? (
                       <>
                         <Box
                           sx={{
@@ -345,6 +348,26 @@ const Header = () => {
                                 style={{ width: "26px" }}
                               />
                               Уведомления
+                            </MenuItem>
+                            <MenuItem
+                              style={{ gap: "10px", color: redColor }}
+                              onClick={() => {
+                                logout(
+                                  () => {
+                                    navigate("/auth");
+                                    removeCookies(LOGGINED, { path: "/" });
+                                    removeCookies(ROLE, { path: "/" });
+                                  },
+                                  () => {}
+                                );
+                              }}
+                            >
+                              <img
+                                src={exitIcon}
+                                alt={"notification"}
+                                style={{ width: "26px" }}
+                              />
+                              Выйти
                             </MenuItem>
                           </MenuList>
                         </Paper>
