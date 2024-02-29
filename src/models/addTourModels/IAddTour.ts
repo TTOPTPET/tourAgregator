@@ -1,25 +1,13 @@
-export interface ITourInfo {
-  photos?: string[];
+export interface IAddTour {
   tourName?: string;
   tourDescription?: string;
   category?: string;
   complexity?: string;
   region?: string;
-  id?: string;
-  creatorId?: string;
-  nearestDate?: {
-    from: string;
-    to: string;
-  };
-  // price?: number;
-  // prices?: {
-  //   from: number;
-  //   to: number;
-  // };
+  photos?: (string | File)[];
   recommendedAgeFrom?: number;
   recommendedAgeTo?: number;
   mapPoints?: [number, number][];
   freeServices?: string[];
   additionalServices?: string[];
-  creatorName?: string;
 }

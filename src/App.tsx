@@ -8,7 +8,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
 // import TourPage from "./pages/TourPage/TourPage";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 // import { getUserInfo } from "./API/commonAPI";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -16,6 +16,10 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import HelpButton from "./components/HelpButton/HelpButton";
 // import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
 import { lazyWithRetry } from "./tools/lazyWithRetry";
+import { getCatalog } from "./API/tourListAPI/filterAPI/filterAPI";
+import { Catalog } from "./models/tourListModels/ICatalog";
+import { useDispatch } from "react-redux";
+import { setCatalog } from "./redux/CatalogsReducer/CatalogsReducer";
 // import SuccessMessageSendModal from "./components/Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 // import ContactsPage from "./pages/ContactsPage/ContactsPage";
 // import DocumentsPage from "./pages/DocumentsPage/DocumentsPage";
@@ -47,6 +51,12 @@ const CreatorLk = lazyWithRetry(() =>
     default: CreatorLk,
   }))
 );
+
+const AddTourPage = lazyWithRetry(() =>
+  import("./pages/AddTourPage/AddTourPage").then(
+    ({ default: AddTourPage }) => ({ default: AddTourPage })
+  )
+);
 // const NotificationsPage = lazyWithRetry(() =>
 //   import("./pages/NotificationsPage/NotificationsPage").then(
 //     ({ default: NotificationsPage }) => ({ default: NotificationsPage })
@@ -77,11 +87,7 @@ const CreatorLk = lazyWithRetry(() =>
 //     ({ default: TourListPage }) => ({ default: TourListPage })
 //   )
 // );
-// const AddTourPage = lazyWithRetry(() =>
-//   import("./pages/AddTourPage/AddTourPage").then(
-//     ({ default: AddTourPage }) => ({ default: AddTourPage })
-//   )
-// );
+
 // const StartPage = lazyWithRetry(() =>
 //   import("./pages/StartPage/StartPage").then(({ default: StartPage }) => ({
 //     default: StartPage,
@@ -99,6 +105,32 @@ const CreatorLk = lazyWithRetry(() =>
 // );
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getCatalog(
+      Catalog.country,
+      (value) => {
+        dispatch(setCatalog(value, Catalog.country));
+      },
+      () => {}
+    );
+    getCatalog(
+      Catalog.complexity,
+      (value) => {
+        dispatch(setCatalog(value, Catalog.complexity));
+      },
+      () => {}
+    );
+    getCatalog(
+      Catalog.category,
+      (value) => {
+        dispatch(setCatalog(value, Catalog.category));
+      },
+      () => {}
+    );
+  }, []);
+
   dayjs.locale("ru");
 
   return (
@@ -111,9 +143,9 @@ function App() {
               <Route
                 path={"/creator/lk"}
                 element={
-                  // <ProtectedRoute>
-                  <CreatorLk />
-                  // </ProtectedRoute>
+                  <ProtectedRoute>
+                    <CreatorLk />
+                  </ProtectedRoute>
                 }
               />
               {/* <Route
@@ -132,14 +164,14 @@ function App() {
                   </ProtectedRoute>
                 }
               /> */}
-              {/* <Route
+              <Route
                 path={"/creator/addTour"}
                 element={
                   <ProtectedRoute>
                     <AddTourPage isEditing={false} />
                   </ProtectedRoute>
                 }
-              /> */}
+              />
               {/* <Route
                 path={"/creator/editTour/:tourId"}
                 element={

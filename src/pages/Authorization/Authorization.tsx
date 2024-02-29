@@ -243,8 +243,6 @@ function Authorization() {
     );
   };
 
-  // console.log(UserInfo);
-
   const handlerLoginClick = () => {
     loginUser(
       userLoginData,

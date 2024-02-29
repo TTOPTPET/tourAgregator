@@ -27,7 +27,6 @@ const TourInfoReducer = (state = defaultState, action: IAction) => {
         ...state,
         tourInfo: { ...state.tourInfo, ...action.payload },
       };
-
     default:
       return state;
   }
