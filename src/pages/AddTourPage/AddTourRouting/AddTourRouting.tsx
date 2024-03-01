@@ -76,7 +76,21 @@ export default function AddTourRouting({
           {"< "} Назад
         </Button>
         {page === addTourStepsMap.third ? (
-          <Button variant="contained" onClick={handlerSendTourClick}>
+          <Button
+            variant="contained"
+            onClick={handlerSendTourClick}
+            disabled={
+              !tourInfo.category ||
+              !tourInfo.complexity ||
+              !tourInfo.mapPoints ||
+              !tourInfo.photos ||
+              !tourInfo.recommendedAgeFrom ||
+              !tourInfo.recommendedAgeTo ||
+              !tourInfo.region ||
+              !tourInfo.tourDescription ||
+              !tourInfo.tourName
+            }
+          >
             {isEditing ? "Редактировать тур" : "Добавить тур"}
           </Button>
         ) : (

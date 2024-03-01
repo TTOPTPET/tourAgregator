@@ -56,14 +56,14 @@ const Footer = () => {
             Контакты
           </Typography>
         </Stack>
-        <a
+        {/* <a
           href="https://vk.com/way_to_mountains"
           rel={"noreferrer"}
           target={"_blank"}
           style={{ float: "right" }}
         >
           <img src={vkIcon} alt="vk icon" style={{ width: "20px" }} />
-        </a>
+        </a> */}
       </Stack>
     </Container>
   );
