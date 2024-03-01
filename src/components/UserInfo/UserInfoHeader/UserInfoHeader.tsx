@@ -33,7 +33,6 @@ type UserInfoHeaderProps = {
 };
 
 function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
-  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
   const theme = useTheme();
 
   const dispatch = useDispatch();

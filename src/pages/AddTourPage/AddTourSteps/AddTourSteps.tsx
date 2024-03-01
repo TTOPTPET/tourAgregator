@@ -12,6 +12,9 @@ interface addTourStepsProps {
   isEditing: boolean;
   addError: boolean;
   setAddError: Dispatch<SetStateAction<boolean>>;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
+  setAgeErrorStatus: Dispatch<SetStateAction<boolean>>;
+  ageErrorStatus: boolean;
 }
 
 const loadImages = {
@@ -34,6 +37,9 @@ function AddTourSteps({
   setTourInfo,
   addError,
   setAddError,
+  setErrorMessage,
+  setAgeErrorStatus,
+  ageErrorStatus,
 }: addTourStepsProps) {
   const [images, setImage] = useState<any[]>(
     tourInfo?.photos && tourInfo?.photos.length !== 0
@@ -43,8 +49,6 @@ function AddTourSteps({
         )
       : new Array<typeof loadImages>(8).fill(loadImages)
   );
-
-  console.log(images);
 
   switch (page) {
     case addTourStepsMap.first:
@@ -56,6 +60,8 @@ function AddTourSteps({
           setTourInfo={setTourInfo}
           isEditing={isEditing}
           addError={addError}
+          setAgeErrorStatus={setAgeErrorStatus}
+          ageErrorStatus={ageErrorStatus}
         />
       );
     case addTourStepsMap.second:
@@ -73,6 +79,8 @@ function AddTourSteps({
           setImage={setImage}
           tourInfo={tourInfo}
           isEditing={isEditing}
+          setAddError={setAddError}
+          ageErrorStatus={ageErrorStatus}
         />
       );
     default:

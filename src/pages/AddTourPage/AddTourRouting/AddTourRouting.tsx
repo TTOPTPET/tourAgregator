@@ -17,6 +17,7 @@ interface addTourRoutingProps {
   setAddError: Dispatch<SetStateAction<boolean>>;
   snackbar: AddErrorSnackbarType;
   setSnackbar: Dispatch<SetStateAction<AddErrorSnackbarType>>;
+  addError: boolean;
 }
 
 export default function AddTourRouting({
@@ -29,6 +30,7 @@ export default function AddTourRouting({
   setAddError,
   snackbar,
   setSnackbar,
+  addError,
 }: addTourRoutingProps) {
   const navigate = useNavigate();
 
@@ -76,23 +78,22 @@ export default function AddTourRouting({
           {"< "} Назад
         </Button>
         {page === addTourStepsMap.third ? (
-          <Button
-            variant="contained"
-            onClick={handlerSendTourClick}
-            disabled={
-              !tourInfo.category ||
-              !tourInfo.complexity ||
-              !tourInfo.mapPoints ||
-              !tourInfo.photos ||
-              !tourInfo.recommendedAgeFrom ||
-              !tourInfo.recommendedAgeTo ||
-              !tourInfo.region ||
-              !tourInfo.tourDescription ||
-              !tourInfo.tourName
-            }
-          >
-            {isEditing ? "Редактировать тур" : "Добавить тур"}
-          </Button>
+          <>
+            <Button
+              variant="contained"
+              onClick={handlerSendTourClick}
+              disabled={addError}
+            >
+              {isEditing ? "Редактировать тур" : "Добавить тур"}
+            </Button>
+            {/* <Typography
+              variant="caption"
+              className="author__error"
+              sx={{ color: redColor, mb: "15px" }}
+            >
+              {errMsg}
+            </Typography> */}
+          </>
         ) : (
           <Button
             variant="textButton"

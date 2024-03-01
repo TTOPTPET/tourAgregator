@@ -36,7 +36,8 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
     Transition: Fade,
   });
 
-  console.log(tourInfo);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [ageErrorStatus, setAgeErrorStatus] = useState<boolean>(false);
 
   useEffect(() => {
     if (isEditing) {
@@ -71,6 +72,7 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         setAddError={setAddError}
         snackbar={snackbar}
         setSnackbar={setSnackbar}
+        addError={addError}
       />
       <AddTourSteps
         page={page}
@@ -79,6 +81,9 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         isEditing={isEditing}
         addError={addError}
         setAddError={setAddError}
+        setErrorMessage={setErrorMessage}
+        setAgeErrorStatus={setAgeErrorStatus}
+        ageErrorStatus={ageErrorStatus}
       />
       <Snackbar
         open={snackbar.open}

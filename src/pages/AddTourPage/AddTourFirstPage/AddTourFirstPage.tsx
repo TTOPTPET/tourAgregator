@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { AddTourImage } from "../../../components/AddTourModules/AddTourImage/AddTourImage";
-import { Dispatch, SetStateAction, FC, useState } from "react";
+import { Dispatch, SetStateAction, FC, useState, useEffect } from "react";
 import { Attention } from "../../../components/Attention/Attention";
 import { StyledTextAreaAutosize } from "../../../config/MUI/styledComponents/StyledTextAreaAutosize";
 import { lightTurquoiseColor, redColor } from "../../../config/MUI/color/color";
@@ -29,6 +29,8 @@ interface IAddTourFirstPageProps {
   setTourInfo: Dispatch<SetStateAction<IAddTour>>;
   isEditing: boolean;
   addError: boolean;
+  setAgeErrorStatus: Dispatch<SetStateAction<boolean>>;
+  ageErrorStatus: boolean;
 }
 
 export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
@@ -38,6 +40,8 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
   setTourInfo,
   isEditing,
   addError,
+  setAgeErrorStatus,
+  ageErrorStatus,
 }) => {
   const country: ICatalog[] = useSelector(
     (state: RootState) => state?.catalogs?.country as ICatalog[]
@@ -47,9 +51,23 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
     (state: RootState) => state?.catalogs?.category as ICatalog[]
   );
 
-  console.log(images);
+  const [ageErrorMessage, setAgeErrorMessage] = useState("");
 
   const media = useMediaQuery("(max-width: 1200px)", { noSsr: true });
+
+  useEffect(() => {
+    if (
+      tourInfo.recommendedAgeFrom &&
+      tourInfo.recommendedAgeTo &&
+      tourInfo.recommendedAgeFrom > tourInfo.recommendedAgeTo
+    ) {
+      setAgeErrorStatus(true);
+      setAgeErrorMessage("Возраст 'от' больше возраста 'до'!");
+    } else {
+      setAgeErrorStatus(false);
+      setAgeErrorMessage("");
+    }
+  }, [tourInfo.recommendedAgeFrom, tourInfo.recommendedAgeTo]);
 
   return (
     <Grid container justifyContent={media ? "center" : "space-between"}>
@@ -63,9 +81,9 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
             tourInfo?.tourName === ""
           }
           sx={{ marginBottom: "15px" }}
-          onChange={(e) =>
-            setTourInfo({ ...tourInfo, tourName: e.target.value })
-          }
+          onChange={(e) => {
+            setTourInfo({ ...tourInfo, tourName: e.target.value });
+          }}
         />
         <AddTourImage
           images={images}
@@ -92,9 +110,9 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                 : "",
           }}
           value={tourInfo?.tourDescription || ""}
-          onChange={(e) =>
-            setTourInfo({ ...tourInfo, tourDescription: e.target.value })
-          }
+          onChange={(e) => {
+            setTourInfo({ ...tourInfo, tourDescription: e.target.value });
+          }}
         />
       </Grid>
       <Grid
@@ -123,10 +141,17 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                 </InputLabel>
                 <Select
                   value={tourInfo?.region || ""}
-                  onChange={(e) =>
-                    setTourInfo({ ...tourInfo, region: String(e.target.value) })
-                  }
+                  onChange={(e) => {
+                    setTourInfo({
+                      ...tourInfo,
+                      region: String(e.target.value),
+                    });
+                  }}
                   label="Регион"
+                  error={
+                    (addError && tourInfo?.region === undefined) ||
+                    tourInfo?.tourName === ""
+                  }
                 >
                   <MenuItem value="">
                     <em>-</em>
@@ -176,43 +201,58 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container md={6}>
-          <Typography variant={"h6"}>Рекомендуемый возраст</Typography>
-          <Stack direction={"row"} gap={2} width={"100%"}>
-            <TextField
-              InputProps={{ inputProps: { min: 0 } }}
-              type={"number"}
-              label={"От"}
-              value={tourInfo?.recommendedAgeFrom || ""}
-              required
-              error={
-                (addError && tourInfo?.recommendedAgeFrom === undefined) ||
-                tourInfo?.recommendedAgeFrom === 0
-              }
-              onChange={(e) =>
-                setTourInfo({
-                  ...tourInfo,
-                  recommendedAgeFrom: +e.target.value,
-                })
-              }
-            />
-            <TextField
-              InputProps={{ inputProps: { min: 0 } }}
-              type={"number"}
-              label={"До"}
-              value={tourInfo?.recommendedAgeTo || ""}
-              required
-              error={
-                (addError && tourInfo?.recommendedAgeTo === undefined) ||
-                tourInfo?.recommendedAgeTo === 0
-              }
-              onChange={(e) =>
-                setTourInfo({
-                  ...tourInfo,
-                  recommendedAgeTo: +e.target.value,
-                })
-              }
-            />
+        <Grid item container md={7}>
+          <Stack>
+            <Typography variant={"h6"} sx={{ mb: "15px" }}>
+              Рекомендуемый возраст
+            </Typography>
+            <Stack direction={"row"} gap={2} width={"100%"} sx={{ mb: "15px" }}>
+              <TextField
+                InputProps={{ inputProps: { min: 0 } }}
+                type={"number"}
+                label={"От"}
+                value={tourInfo?.recommendedAgeFrom || ""}
+                required
+                error={
+                  (addError && tourInfo?.recommendedAgeFrom === undefined) ||
+                  tourInfo?.recommendedAgeFrom === 0 ||
+                  ageErrorStatus
+                }
+                onChange={(e) =>
+                  setTourInfo({
+                    ...tourInfo,
+                    recommendedAgeFrom: +e.target.value,
+                  })
+                }
+              />
+              <TextField
+                InputProps={{ inputProps: { min: 0 } }}
+                type={"number"}
+                label={"До"}
+                value={tourInfo?.recommendedAgeTo || ""}
+                required
+                error={
+                  (addError && tourInfo?.recommendedAgeTo === undefined) ||
+                  tourInfo?.recommendedAgeTo === 0 ||
+                  ageErrorStatus
+                }
+                onChange={(e) =>
+                  setTourInfo({
+                    ...tourInfo,
+                    recommendedAgeTo: +e.target.value,
+                  })
+                }
+              />
+            </Stack>
+            {ageErrorStatus && (
+              <Typography
+                variant="caption"
+                className="author__error"
+                sx={{ color: redColor, margin: "0 auto" }}
+              >
+                {ageErrorMessage}
+              </Typography>
+            )}
           </Stack>
         </Grid>
       </Grid>
