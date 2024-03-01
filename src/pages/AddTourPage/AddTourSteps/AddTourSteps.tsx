@@ -81,6 +81,7 @@ function AddTourSteps({
           isEditing={isEditing}
           setAddError={setAddError}
           ageErrorStatus={ageErrorStatus}
+          setErrorMessage={setErrorMessage}
         />
       );
     default:

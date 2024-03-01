@@ -5,24 +5,12 @@ import AddTourRouting from "./AddTourRouting/AddTourRouting";
 import AddTourSteps from "./AddTourSteps/AddTourSteps";
 import { getMyTourById } from "../../API/creatorAPI/getMyTourById";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
-import { Fade, Snackbar } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
-import { darkTurquoiseColor } from "../../config/MUI/color/color";
 
 export enum addTourStepsMap {
   first,
   second,
   third,
 }
-
-export type AddErrorSnackbarType = {
-  open: boolean;
-  Transition: React.ComponentType<
-    TransitionProps & {
-      children: React.ReactElement<any, any>;
-    }
-  >;
-};
 
 function AddTourPage({ isEditing }: { isEditing: boolean }) {
   const { tourId } = useParams();
@@ -31,10 +19,6 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
   const [tourInfo, setTourInfo] = useState<IAddTour>({});
   const [isLoading, setLoading] = useState(true);
   const [addError, setAddError] = useState<boolean>(false);
-  const [snackbar, setSnackbar] = useState<AddErrorSnackbarType>({
-    open: false,
-    Transition: Fade,
-  });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [ageErrorStatus, setAgeErrorStatus] = useState<boolean>(false);
@@ -50,13 +34,6 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
     }
   }, []);
 
-  const handlerSnackOnClose = () => {
-    setSnackbar({
-      ...snackbar,
-      open: !snackbar.open,
-    });
-  };
-
   if (isLoading) {
     return <AddTourSkeleton />;
   }
@@ -66,13 +43,12 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         page={page}
         setPage={setPage}
         tourInfo={tourInfo}
-        setTourInfo={setTourInfo}
         isEditing={isEditing}
         tourId={tourId as string}
         setAddError={setAddError}
-        snackbar={snackbar}
-        setSnackbar={setSnackbar}
         addError={addError}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
       />
       <AddTourSteps
         page={page}
@@ -84,18 +60,6 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         setErrorMessage={setErrorMessage}
         setAgeErrorStatus={setAgeErrorStatus}
         ageErrorStatus={ageErrorStatus}
-      />
-      <Snackbar
-        open={snackbar.open}
-        onClose={handlerSnackOnClose}
-        message={"Заполните недостающие поля"}
-        key={snackbar.Transition.name}
-        TransitionComponent={snackbar.Transition}
-        ContentProps={{
-          sx: {
-            background: darkTurquoiseColor,
-          },
-        }}
       />
     </>
   );

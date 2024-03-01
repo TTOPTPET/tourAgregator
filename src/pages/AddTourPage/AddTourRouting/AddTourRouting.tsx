@@ -1,36 +1,35 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { addTour } from "../../../API/addTourAPI/addTourAPI";
 import { editTourAPI } from "../../../API/creatorAPI/editTourAPI.ts";
-import { AddErrorSnackbarType, addTourStepsMap } from "../AddTourPage";
+import { addTourStepsMap } from "../AddTourPage";
 import { Dispatch, SetStateAction } from "react";
 import { IAddTour } from "../../../models/addTourModels/IAddTour";
+import { redColor } from "../../../config/MUI/color/color.ts";
 
 interface addTourRoutingProps {
   page: addTourStepsMap;
   setPage: (prop: any) => void;
   tourInfo: IAddTour;
-  setTourInfo: Dispatch<SetStateAction<IAddTour>>;
   isEditing: boolean;
   tourId: string;
   setAddError: Dispatch<SetStateAction<boolean>>;
-  snackbar: AddErrorSnackbarType;
-  setSnackbar: Dispatch<SetStateAction<AddErrorSnackbarType>>;
   addError: boolean;
+  errorMessage: string;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
 }
 
 export default function AddTourRouting({
   page,
   tourInfo,
-  setTourInfo,
   setPage,
   isEditing,
   tourId,
   setAddError,
-  snackbar,
-  setSnackbar,
   addError,
+  errorMessage,
+  setErrorMessage,
 }: addTourRoutingProps) {
   const navigate = useNavigate();
 
@@ -49,10 +48,7 @@ export default function AddTourRouting({
         tourInfo,
         () => {
           setAddError(true);
-          setSnackbar({
-            ...snackbar,
-            open: !snackbar.open,
-          });
+          setErrorMessage("Что-то пошло не так!");
         },
         false
       );
@@ -60,7 +56,7 @@ export default function AddTourRouting({
   };
 
   return (
-    <Box sx={{ mb: "20px" }}>
+    <Box sx={{ mb: "20px", position: "relative" }}>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Button
           variant="textButton"
@@ -86,13 +82,21 @@ export default function AddTourRouting({
             >
               {isEditing ? "Редактировать тур" : "Добавить тур"}
             </Button>
-            {/* <Typography
-              variant="caption"
-              className="author__error"
-              sx={{ color: redColor, mb: "15px" }}
-            >
-              {errMsg}
-            </Typography> */}
+            {addError && (
+              <Typography
+                variant="caption"
+                className="author__error"
+                sx={{
+                  color: redColor,
+                  mb: "15px",
+                  position: "absolute",
+                  right: "5px",
+                  top: "40px",
+                }}
+              >
+                {errorMessage}
+              </Typography>
+            )}
           </>
         ) : (
           <Button

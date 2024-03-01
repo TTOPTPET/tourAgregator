@@ -10,6 +10,7 @@ interface IAddTourThirdPageProps {
   isEditing: boolean;
   setAddError: Dispatch<SetStateAction<boolean>>;
   ageErrorStatus: boolean;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
 }
 
 export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
@@ -19,6 +20,7 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
   isEditing,
   setAddError,
   ageErrorStatus,
+  setErrorMessage,
 }) => {
   useEffect(() => {
     if (
@@ -34,8 +36,10 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
       ageErrorStatus
     ) {
       setAddError(true);
+      setErrorMessage("Проверьте правильность заполнения полей");
     } else {
       setAddError(false);
+      setErrorMessage("");
     }
   }, []);
   return (
