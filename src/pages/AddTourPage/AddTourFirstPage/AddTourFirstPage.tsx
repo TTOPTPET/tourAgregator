@@ -69,6 +69,24 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
     }
   }, [tourInfo.recommendedAgeFrom, tourInfo.recommendedAgeTo]);
 
+  const handleAgeChange = (num: any, type: string) => {
+    console.log(num);
+    const onlyNums = num.replace(/[^0-9]/g, "");
+    if (num === "" || onlyNums.length < 4) {
+      if (type === "recomendedAgeFrom") {
+        setTourInfo({
+          ...tourInfo,
+          recommendedAgeFrom: Number(num),
+        });
+      } else {
+        setTourInfo({
+          ...tourInfo,
+          recommendedAgeTo: Number(num),
+        });
+      }
+    }
+  };
+
   return (
     <Grid container justifyContent={media ? "center" : "space-between"}>
       <Grid item xs={5.2} minWidth={500}>
@@ -210,7 +228,6 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
             <Stack direction={"row"} gap={2} width={"100%"} sx={{ mb: "15px" }}>
               <TextField
                 InputProps={{ inputProps: { min: 0 } }}
-                type={"number"}
                 label={"От"}
                 value={tourInfo?.recommendedAgeFrom || ""}
                 required
@@ -219,16 +236,14 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                   tourInfo?.recommendedAgeFrom === 0 ||
                   ageErrorStatus
                 }
-                onChange={(e) =>
-                  setTourInfo({
-                    ...tourInfo,
-                    recommendedAgeFrom: +e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  Number.isInteger(+e.target.value)
+                    ? handleAgeChange(e.target.value, "recomendedAgeFrom")
+                    : null;
+                }}
               />
               <TextField
                 InputProps={{ inputProps: { min: 0 } }}
-                type={"number"}
                 label={"До"}
                 value={tourInfo?.recommendedAgeTo || ""}
                 required
@@ -237,12 +252,11 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                   tourInfo?.recommendedAgeTo === 0 ||
                   ageErrorStatus
                 }
-                onChange={(e) =>
-                  setTourInfo({
-                    ...tourInfo,
-                    recommendedAgeTo: +e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  Number.isInteger(+e.target.value)
+                    ? handleAgeChange(e.target.value, "recomendedAgeTo")
+                    : null;
+                }}
               />
             </Stack>
             {ageErrorStatus && (

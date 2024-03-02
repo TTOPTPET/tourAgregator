@@ -39,8 +39,6 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
 }) => {
   const [reader] = useState(new FileReader());
 
-  console.log(images);
-
   const fileHandler = async (e: any) => {
     const file = e.target.files[0];
     const resizedFile: File = await imageCompression(file, resizeOptions);
