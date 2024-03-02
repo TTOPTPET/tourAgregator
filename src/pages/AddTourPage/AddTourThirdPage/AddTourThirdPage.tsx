@@ -28,6 +28,7 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
       !tourInfo.complexity ||
       !tourInfo.mapPoints ||
       !tourInfo.photos ||
+      tourInfo.photos.length === 0 ||
       !tourInfo.recommendedAgeFrom ||
       !tourInfo.recommendedAgeTo ||
       !tourInfo.region ||
@@ -42,6 +43,7 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
       setErrorMessage("");
     }
   }, []);
+
   return (
     <Stack gap={1}>
       <Typography variant={"h3"}>

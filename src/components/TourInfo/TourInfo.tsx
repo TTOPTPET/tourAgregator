@@ -221,7 +221,7 @@ export const TourInfo: FC<ITourInfoProps> = ({
               </Box>
             }
           >
-            {tourInfo?.photos ? (
+            {tourInfo?.photos && tourInfo?.photos.length > 0 ? (
               tourInfo?.photos.map((image, index) => (
                 <Box
                   key={index}

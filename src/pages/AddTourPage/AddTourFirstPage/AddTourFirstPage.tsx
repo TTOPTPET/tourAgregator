@@ -150,7 +150,7 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                   label="Регион"
                   error={
                     (addError && tourInfo?.region === undefined) ||
-                    tourInfo?.tourName === ""
+                    tourInfo?.region === ""
                   }
                 >
                   <MenuItem value="">
