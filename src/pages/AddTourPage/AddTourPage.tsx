@@ -5,6 +5,7 @@ import AddTourRouting from "./AddTourRouting/AddTourRouting";
 import AddTourSteps from "./AddTourSteps/AddTourSteps";
 import { getMyTourById } from "../../API/creatorAPI/getMyTourById";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
+import ConfirmAddTourExit from "../../components/Modals/ConfirmAddTourExit/confirmAddTourExit";
 
 export enum addTourStepsMap {
   first,
@@ -61,6 +62,7 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         setAgeErrorStatus={setAgeErrorStatus}
         ageErrorStatus={ageErrorStatus}
       />
+      <ConfirmAddTourExit />
     </>
   );
 }
