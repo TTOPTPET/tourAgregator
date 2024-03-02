@@ -9,6 +9,7 @@ import { IAddTour } from "../../../models/addTourModels/IAddTour";
 import { redColor } from "../../../config/MUI/color/color.ts";
 import { setModalActive } from "../../../redux/Modal/ModalReducer.ts";
 import { useDispatch } from "react-redux";
+import { isEqual } from "lodash";
 
 interface addTourRoutingProps {
   page: addTourStepsMap;
@@ -20,6 +21,7 @@ interface addTourRoutingProps {
   addError: boolean;
   errorMessage: string;
   setErrorMessage: Dispatch<SetStateAction<string>>;
+  tourInfoClone: IAddTour;
 }
 
 export default function AddTourRouting({
@@ -32,6 +34,7 @@ export default function AddTourRouting({
   addError,
   errorMessage,
   setErrorMessage,
+  tourInfoClone,
 }: addTourRoutingProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,8 +61,6 @@ export default function AddTourRouting({
     }
   };
 
-  console.log(Object.keys(tourInfo).length > 0);
-  console.log(page);
   return (
     <Box sx={{ mb: "30px", position: "relative" }}>
       <Stack direction={"row"} justifyContent={"space-between"}>
@@ -70,7 +71,10 @@ export default function AddTourRouting({
               if (page > 0) {
                 return page - 1;
               } else {
-                if (Object.keys(tourInfo).length > 0) {
+                if (
+                  Object.keys(tourInfo).length > 0 &&
+                  !isEqual(tourInfoClone, tourInfo)
+                ) {
                   dispatch(setModalActive("confirmAddTourExit"));
                   return page;
                 } else {

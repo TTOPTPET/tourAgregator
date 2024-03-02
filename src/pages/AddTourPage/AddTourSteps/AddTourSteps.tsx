@@ -15,6 +15,7 @@ interface addTourStepsProps {
   setErrorMessage: Dispatch<SetStateAction<string>>;
   setAgeErrorStatus: Dispatch<SetStateAction<boolean>>;
   ageErrorStatus: boolean;
+  tourInfoClone: IAddTour;
 }
 
 const loadImages = {
@@ -40,6 +41,7 @@ function AddTourSteps({
   setErrorMessage,
   setAgeErrorStatus,
   ageErrorStatus,
+  tourInfoClone,
 }: addTourStepsProps) {
   const [images, setImage] = useState<any[]>(
     tourInfo?.photos && tourInfo?.photos.length !== 0
@@ -82,6 +84,7 @@ function AddTourSteps({
           setAddError={setAddError}
           ageErrorStatus={ageErrorStatus}
           setErrorMessage={setErrorMessage}
+          tourInfoClone={tourInfoClone}
         />
       );
     default:

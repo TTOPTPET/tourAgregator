@@ -6,6 +6,7 @@ import AddTourSteps from "./AddTourSteps/AddTourSteps";
 import { getMyTourById } from "../../API/creatorAPI/getMyTourById";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
 import ConfirmAddTourExit from "../../components/Modals/ConfirmAddTourExit/ConfirmAddTourExit";
+import { cloneDeep } from "lodash";
 
 export enum addTourStepsMap {
   first,
@@ -21,6 +22,8 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
   const [isLoading, setLoading] = useState(true);
   const [addError, setAddError] = useState<boolean>(false);
 
+  const [tourInfoClone, setTourInfoClone] = useState({});
+
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [ageErrorStatus, setAgeErrorStatus] = useState<boolean>(false);
 
@@ -28,6 +31,7 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
     if (isEditing) {
       getMyTourById((value) => {
         setTourInfo(value);
+        setTourInfoClone(value);
         setLoading(false);
       }, tourId as string);
     } else {
@@ -38,6 +42,10 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
   if (isLoading) {
     return <AddTourSkeleton />;
   }
+
+  console.log(tourInfoClone);
+  console.log(tourInfo);
+
   return (
     <>
       <AddTourRouting
@@ -50,6 +58,7 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         addError={addError}
         errorMessage={errorMessage}
         setErrorMessage={setErrorMessage}
+        tourInfoClone={tourInfoClone}
       />
       <AddTourSteps
         page={page}
@@ -61,6 +70,7 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
         setErrorMessage={setErrorMessage}
         setAgeErrorStatus={setAgeErrorStatus}
         ageErrorStatus={ageErrorStatus}
+        tourInfoClone={tourInfoClone}
       />
       <ConfirmAddTourExit />
     </>

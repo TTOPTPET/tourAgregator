@@ -4,6 +4,7 @@ import {
   DialogContent,
   Typography,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -39,22 +40,26 @@ function DeleteTourModal({ myTours, setMyTours }: IDeleteTourModalProps) {
   const dispatch = useDispatch();
 
   const [postedTours, setPostedTours] = useState<ITour[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handlerBackClick = () => {
     dispatch(setModalInactive("deleteTourModal"));
   };
 
   const handlerConfirmClick = () => {
+    setLoading(true);
     deleteTour(
       tourId as string,
       (value) => {
         dispatch(setModalInactive("deleteTourModal"));
         setMyTours([...myTours.filter((tour) => tour.tourId !== tourId)]);
         dispatch(setModalActive("successDeleteTourModal"));
+        setLoading(false);
       },
       (data) => {
         setPostedTours(data);
         dispatch(setModalActive("сancelPostedToursModal"));
+        setLoading(false);
       }
     );
   };
@@ -76,13 +81,19 @@ function DeleteTourModal({ myTours, setMyTours }: IDeleteTourModalProps) {
 
         <Stack
           direction={"row"}
-          justifyContent={"end"}
+          justifyContent={loading ? "center" : "end"}
           marginTop={"30px"}
           gap={1}
         >
-          <Button onClick={handlerBackClick}>Назад</Button>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Button onClick={handlerBackClick}>Назад</Button>
 
-          <Button onClick={handlerConfirmClick}>Да, удалить</Button>
+              <Button onClick={handlerConfirmClick}>Да, удалить</Button>
+            </>
+          )}
         </Stack>
       </DialogContent>
       {/* <CancelPostedToursModal

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, FC, useEffect } from "react";
 import { Stack, Typography } from "@mui/material";
 import { TourInfo } from "../../../components/TourInfo/TourInfo";
 import { IAddTour } from "../../../models/addTourModels/IAddTour";
+import { isEqual } from "lodash";
 
 interface IAddTourThirdPageProps {
   images: any[];
@@ -11,6 +12,7 @@ interface IAddTourThirdPageProps {
   setAddError: Dispatch<SetStateAction<boolean>>;
   ageErrorStatus: boolean;
   setErrorMessage: Dispatch<SetStateAction<string>>;
+  tourInfoClone: IAddTour;
 }
 
 export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
@@ -21,6 +23,7 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
   setAddError,
   ageErrorStatus,
   setErrorMessage,
+  tourInfoClone,
 }) => {
   useEffect(() => {
     if (
@@ -41,6 +44,13 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
     } else {
       setAddError(false);
       setErrorMessage("");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isEqual(tourInfoClone, tourInfo) && isEditing) {
+      setAddError(true);
+      setErrorMessage("Вы ничего не изменили!");
     }
   }, []);
 
