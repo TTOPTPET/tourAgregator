@@ -13,11 +13,23 @@ export const editTourAPI = async (
     formData.append("tourName", data?.tourName as string);
     formData.append("tourDescription", data?.tourDescription as string);
     formData.append("mapPoints", JSON.stringify(data.mapPoints));
-    formData.append(
-      "additionalServices",
-      JSON.stringify(data.additionalServices)
-    );
-    formData.append("freeServices", JSON.stringify(data.freeServices));
+    if (
+      data.additionalServices &&
+      data.additionalServices.length !== 0 &&
+      data.additionalServices[0] !== ""
+    ) {
+      formData.append(
+        "additionalServices",
+        JSON.stringify(data.additionalServices)
+      );
+    }
+    if (
+      data.freeServices &&
+      data.freeServices.length !== 0 &&
+      data.freeServices[0] !== ""
+    ) {
+      formData.append("freeServices", JSON.stringify(data.freeServices));
+    }
     formData.append(
       "recommendedAgeFrom",
       JSON.stringify(data.recommendedAgeFrom)
