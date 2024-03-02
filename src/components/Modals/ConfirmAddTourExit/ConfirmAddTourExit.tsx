@@ -24,7 +24,9 @@ function ConfirmAddTourExit() {
 
   const dispatch = useDispatch();
 
-  const handlerCloseClick = () => {};
+  const handlerCloseClick = () => {
+    dispatch(setModalInactive("confirmAddTourExit"));
+  };
 
   const handleConfirmClick = () => {
     navigate("/creator/lk");

@@ -5,7 +5,7 @@ import AddTourRouting from "./AddTourRouting/AddTourRouting";
 import AddTourSteps from "./AddTourSteps/AddTourSteps";
 import { getMyTourById } from "../../API/creatorAPI/getMyTourById";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
-import ConfirmAddTourExit from "../../components/Modals/ConfirmAddTourExit/confirmAddTourExit";
+import ConfirmAddTourExit from "../../components/Modals/ConfirmAddTourExit/ConfirmAddTourExit";
 
 export enum addTourStepsMap {
   first,
