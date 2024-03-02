@@ -43,7 +43,7 @@ export default function MapLeaflet({
             cursor: "pointer",
           }}
           onClick={(e) => {
-            if (positions.length) {
+            if (positions && positions.length) {
               setPositions(positions.slice(0, positions.length - 1));
             } else {
               setPositions(positions);
@@ -57,7 +57,7 @@ export default function MapLeaflet({
           />
         </Box>
       )}
-      <MapContainer center={mapCenter} zoom={13} scrollWheelZoom={false}>
+      <MapContainer center={mapCenter} zoom={13} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

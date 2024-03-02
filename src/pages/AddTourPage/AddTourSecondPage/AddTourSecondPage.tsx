@@ -199,6 +199,7 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
         height={"330px"}
         accessType="insert"
         positions={tourInfo?.mapPoints as [number, number][]}
+        mapCenter={tourInfo?.mapPoints ? tourInfo?.mapPoints[0] : undefined}
         setPositions={(positions) => {
           setTourInfo({ ...tourInfo, mapPoints: positions });
         }}
