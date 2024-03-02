@@ -49,6 +49,7 @@ function TourCardContentCreatorLk({
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
+          flex: "1 0 auto",
         }}
       >
         {tour.tourName}
@@ -58,7 +59,7 @@ function TourCardContentCreatorLk({
         flexDirection={"column"}
         flex={"0 0 auto"}
         className="tour-card__button-wrapper"
-        sx={{ marginTop: "70px" }}
+        sx={{ flex: "0 0 auto" }}
       >
         <Box
           display="flex"
