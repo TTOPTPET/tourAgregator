@@ -105,6 +105,7 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
           inputProps={{ maxLength: 50 }}
         />
         <AddTourImage
+          addError={addError}
           images={images}
           setImage={setImage}
           tourInfo={tourInfo}

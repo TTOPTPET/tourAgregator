@@ -19,6 +19,7 @@ declare module "@mui/material/Button" {
     errorButton: true;
     addTourImage: true;
     fullButton: true;
+    addTourImageErrored: true;
   }
 }
 
@@ -499,6 +500,21 @@ export const mainThemes = createTheme(breakpoints, {
             width: "156px",
             height: "156px",
             margin: "0 auto 16px",
+            [breakpoints.breakpoints.down("lg")]: {
+              width: "156px",
+              height: "156px",
+              margin: "0 auto 16px",
+            },
+          },
+        },
+        {
+          props: { variant: "addTourImageErrored" },
+          style: {
+            width: "156px",
+            height: "156px",
+            margin: "0 auto 16px",
+            border: "2px solid",
+            borderColor: redColor,
             [breakpoints.breakpoints.down("lg")]: {
               width: "156px",
               height: "156px",

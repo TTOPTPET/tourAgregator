@@ -22,6 +22,7 @@ interface IAddTourImageProps {
   tourInfo: IAddTour;
   setTourInfo: Dispatch<SetStateAction<IAddTour>>;
   isEditing: boolean;
+  addError: boolean;
 }
 
 const resizeOptions: Options = {
@@ -33,6 +34,7 @@ const resizeOptions: Options = {
 export const AddTourImage: FC<IAddTourImageProps> = ({
   images,
   setImage,
+  addError,
   tourInfo,
   setTourInfo,
   isEditing,
@@ -93,7 +95,15 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
   };
   return (
     <Stack direction={"row"} gap={1} flexWrap={"wrap"} width={500}>
-      <Button variant="addTourImage" component="label">
+      <Button
+        variant={
+          (addError && tourInfo?.photos === undefined) ||
+          tourInfo?.photos?.length === 0
+            ? "addTourImageErrored"
+            : "addTourImage"
+        }
+        component="label"
+      >
         <input
           type={"file"}
           accept={".jpg, .jpeg, .png"}
@@ -104,6 +114,7 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
           <AddImageLogo color="#fff" />
         </SvgIcon>
       </Button>
+
       {images &&
         images.map((image, index) => (
           <Box
@@ -129,7 +140,6 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
                 >
                   <DeleteIcon width={20} height={20} />
                 </IconButton>
-                {console.log(image)}
                 <img
                   src={image}
                   alt={`tour`}
