@@ -84,6 +84,7 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
           onChange={(e) => {
             setTourInfo({ ...tourInfo, tourName: e.target.value });
           }}
+          inputProps={{ maxLength: 50 }}
         />
         <AddTourImage
           images={images}
