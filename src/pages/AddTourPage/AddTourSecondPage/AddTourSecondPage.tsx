@@ -203,6 +203,10 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
         setPositions={(positions) => {
           setTourInfo({ ...tourInfo, mapPoints: positions });
         }}
+        error={
+          (addError && tourInfo?.mapPoints === undefined) ||
+          tourInfo?.mapPoints?.length === 0
+        }
       />
     </Stack>
   );

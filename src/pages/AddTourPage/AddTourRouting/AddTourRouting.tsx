@@ -48,7 +48,7 @@ export default function AddTourRouting({
         tourInfo,
         () => {
           setAddError(true);
-          setErrorMessage("Что-то пошло не так!");
+          setErrorMessage("Что-то пошло не так, попробуйте еще раз позже!");
         },
         false
       );

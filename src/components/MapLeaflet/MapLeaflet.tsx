@@ -3,6 +3,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "./LeafletStyles.css";
 import LocationMarker from "./LocationMarker/LocationMarker";
 import goBack from "../../media/Icons/mapIcons/go-back-arrow.png";
+import { redColor } from "../../config/MUI/color/color";
 
 type Props = {
   width: number | string;
@@ -11,6 +12,7 @@ type Props = {
   positions: [number, number][];
   setPositions?: (positions: [number, number][]) => void;
   mapCenter?: [number, number];
+  error: boolean;
 };
 
 export default function MapLeaflet({
@@ -20,10 +22,18 @@ export default function MapLeaflet({
   positions = [],
   setPositions,
   mapCenter = [55.757997, 37.615901],
+  error,
 }: Props) {
-  console.log({ mapCenter });
   return (
-    <Box width={width} height={height} sx={{ position: "relative" }}>
+    <Box
+      width={width}
+      height={height}
+      sx={{
+        position: "relative",
+        border: error ? `2px solid ${redColor}` : null,
+        borderRadius: error ? "15px" : null,
+      }}
+    >
       {accessType === "insert" && (
         <Box
           sx={{
