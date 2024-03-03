@@ -6,7 +6,6 @@ import AddTourSteps from "./AddTourSteps/AddTourSteps";
 import { getMyTourById } from "../../API/creatorAPI/getMyTourById";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
 import ConfirmAddTourExit from "../../components/Modals/ConfirmAddTourExit/ConfirmAddTourExit";
-import { cloneDeep } from "lodash";
 
 export enum addTourStepsMap {
   first,
@@ -42,9 +41,6 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
   if (isLoading) {
     return <AddTourSkeleton />;
   }
-
-  console.log(tourInfoClone);
-  console.log(tourInfo);
 
   return (
     <>

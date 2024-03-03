@@ -1,15 +1,16 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { addTour } from "../../../API/addTourAPI/addTourAPI";
 import { editTourAPI } from "../../../API/creatorAPI/editTourAPI.ts";
 import { addTourStepsMap } from "../AddTourPage";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IAddTour } from "../../../models/addTourModels/IAddTour";
 import { redColor } from "../../../config/MUI/color/color.ts";
 import { setModalActive } from "../../../redux/Modal/ModalReducer.ts";
 import { useDispatch } from "react-redux";
 import { isEqual } from "lodash";
+import { postNewPhotos } from "../../../API/creatorAPI/postNewPhotos.ts";
 
 interface addTourRoutingProps {
   page: addTourStepsMap;
@@ -38,25 +39,70 @@ export default function AddTourRouting({
 }: addTourRoutingProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const handlerSendTourClick = () => {
+    setLoading(true);
     if (isEditing) {
-      console.log(tourInfo);
-      editTourAPI(tourId, tourInfo, () => {
-        navigate("/creator/lk");
-      });
+      if (
+        tourInfo.photos &&
+        typeof tourInfo?.photos[tourInfo?.photos.length - 1] === "object"
+      ) {
+        postNewPhotos(
+          tourInfo,
+          (photosUrl) => {
+            editTourAPI(
+              tourId,
+              tourInfo,
+              photosUrl,
+              () => {
+                navigate("/creator/lk");
+              },
+              () => {
+                setLoading(false);
+              }
+            );
+          },
+          () => {
+            setLoading(false);
+          }
+        );
+      } else {
+        editTourAPI(
+          tourId,
+          tourInfo,
+          undefined,
+          () => {
+            navigate("/creator/lk");
+            setLoading(false);
+          },
+          () => {
+            setLoading(false);
+          }
+        );
+      }
     } else {
-      console.log(tourInfo);
-      addTour(
-        () => {
-          navigate("/creator/lk");
-        },
+      postNewPhotos(
         tourInfo,
-        () => {
-          setAddError(true);
-          setErrorMessage("Что-то пошло не так, попробуйте еще раз позже!");
+        (photosUrl) => {
+          addTour(
+            () => {
+              navigate("/creator/lk");
+              setLoading(false);
+            },
+            tourInfo,
+            photosUrl,
+            () => {
+              setLoading(false);
+              setAddError(true);
+              setErrorMessage("Что-то пошло не так, попробуйте еще раз позже!");
+            },
+            false
+          );
         },
-        false
+        () => {
+          setLoading(false);
+        }
       );
     }
   };
@@ -87,31 +133,36 @@ export default function AddTourRouting({
         >
           {"< "} Назад
         </Button>
+
         {page === addTourStepsMap.third ? (
-          <>
-            <Button
-              variant="contained"
-              onClick={handlerSendTourClick}
-              disabled={addError}
-            >
-              {isEditing ? "Редактировать тур" : "Добавить тур"}
-            </Button>
-            {addError && (
-              <Typography
-                variant="caption"
-                className="author__error"
-                sx={{
-                  color: redColor,
-                  mb: "15px",
-                  position: "absolute",
-                  right: "5px",
-                  top: "40px",
-                }}
+          loading ? (
+            <CircularProgress sx={{ mr: "90px" }} />
+          ) : (
+            <>
+              <Button
+                variant="contained"
+                onClick={handlerSendTourClick}
+                disabled={addError}
               >
-                {errorMessage}
-              </Typography>
-            )}
-          </>
+                {isEditing ? "Редактировать тур" : "Добавить тур"}
+              </Button>
+              {addError && (
+                <Typography
+                  variant="caption"
+                  className="author__error"
+                  sx={{
+                    color: redColor,
+                    mb: "15px",
+                    position: "absolute",
+                    right: "5px",
+                    top: "40px",
+                  }}
+                >
+                  {errorMessage}
+                </Typography>
+              )}
+            </>
+          )
         ) : (
           <Button
             variant="textButton"

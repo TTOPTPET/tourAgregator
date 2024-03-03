@@ -96,6 +96,7 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
   return (
     <Stack direction={"row"} gap={1} flexWrap={"wrap"} width={500}>
       <Button
+        disabled={tourInfo.photos && tourInfo?.photos.length > 7}
         variant={
           (addError && tourInfo?.photos === undefined) ||
           tourInfo?.photos?.length === 0
@@ -106,7 +107,7 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
       >
         <input
           type={"file"}
-          accept={".jpg, .jpeg, .png"}
+          accept={".jpeg, .png"}
           onChange={fileHandler}
           hidden
         />

@@ -70,7 +70,6 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
   }, [tourInfo.recommendedAgeFrom, tourInfo.recommendedAgeTo]);
 
   const handleAgeChange = (num: any, type: string) => {
-    console.log(num);
     const onlyNums = num.replace(/[^0-9]/g, "");
     if (num === "" || onlyNums.length < 4) {
       if (type === "recomendedAgeFrom") {
