@@ -30,6 +30,7 @@ export const AddTourThirdPage: FC<IAddTourThirdPageProps> = ({
       !tourInfo.category ||
       !tourInfo.complexity ||
       !tourInfo.mapPoints ||
+      tourInfo.mapPoints.length === 0 ||
       !tourInfo.photos ||
       tourInfo.photos.length === 0 ||
       !tourInfo.recommendedAgeFrom ||
