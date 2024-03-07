@@ -65,33 +65,47 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
   };
 
   const handleFreeServices = (e: any) => {
+    const regex = /\S/;
     if (tourInfo?.freeServices) {
       if (
         e.keyCode === 13 &&
         e.target.value &&
-        !tourInfo?.freeServices.includes(e.target.value)
+        !tourInfo?.freeServices.includes(e.target.value) &&
+        regex.test(e.target.value)
       ) {
         setTourInfo({
           ...tourInfo,
-          freeServices: [...(tourInfo?.freeServices || []), e.target.value],
+          freeServices: [
+            ...(tourInfo?.freeServices || []),
+            e.target.value.trim(),
+          ],
         });
         setFreeText("");
       }
-    } else if (e.keyCode === 13 && e.target.value) {
+    } else if (
+      e.keyCode === 13 &&
+      e.target.value &&
+      regex.test(e.target.value)
+    ) {
       setTourInfo({
         ...tourInfo,
-        freeServices: [...(tourInfo?.freeServices || []), e.target.value],
+        freeServices: [
+          ...(tourInfo?.freeServices || []),
+          e.target.value.trim(),
+        ],
       });
       setFreeText("");
     }
   };
 
   const handleAdditionalServices = (e: any) => {
+    const regex = /\S/;
     if (tourInfo?.additionalServices) {
       if (
         e.keyCode === 13 &&
         e.target.value &&
-        !tourInfo?.additionalServices.includes(e.target.value)
+        !tourInfo?.additionalServices.includes(e.target.value) &&
+        regex.test(e.target.value)
       ) {
         setTourInfo({
           ...tourInfo,
@@ -102,7 +116,11 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
         });
         setAdditionalText("");
       }
-    } else if (e.keyCode === 13 && e.target.value) {
+    } else if (
+      e.keyCode === 13 &&
+      e.target.value &&
+      regex.test(e.target.value)
+    ) {
       setTourInfo({
         ...tourInfo,
         additionalServices: [

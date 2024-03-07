@@ -42,8 +42,6 @@ function AddTourPage({ isEditing }: { isEditing: boolean }) {
     return <AddTourSkeleton />;
   }
 
-  console.log(tourInfo);
-
   return (
     <>
       <AddTourRouting
