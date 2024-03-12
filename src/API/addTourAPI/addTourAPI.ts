@@ -1,5 +1,5 @@
 import axios from "axios";
-import { urlTour } from "../../config/config";
+import { urlCreatorTours } from "../../config/config";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
 import { cloneDeep } from "lodash";
 
@@ -30,9 +30,13 @@ export const addTour = async (
 
     const addData = { ...dataWihoutPhotos, tourPhotos };
 
-    let respone = await axios.post(urlTour + "/templates/create", addData, {
-      withCredentials: true,
-    });
+    let respone = await axios.post(
+      urlCreatorTours + "/templates/create",
+      addData,
+      {
+        withCredentials: true,
+      }
+    );
     successCallback(respone?.data);
   } catch (e) {
     console.error(e);

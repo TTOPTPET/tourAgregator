@@ -6,6 +6,7 @@ export const touristUrl = `${baseUrl}/users/tourist`;
 export const urlTour = `${baseUrl}/tours`;
 export const urlCatalog = `${baseUrl}/catalogs`;
 export const urlFiles = `${baseUrl}/files`;
+export const urlCreatorTours = `${baseUrl}/creator/tours`;
 
 export const mobileWidth = `${700}px`;
 export const mobile = 700;

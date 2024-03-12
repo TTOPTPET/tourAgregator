@@ -58,9 +58,9 @@ interface IActionProps {
     paymentUrl?: string;
     creatorTypeRadio?: any;
     errorMessage?: string;
-    tourDate?: {
-      from: string;
-      to: string;
+    date?: {
+      dateFrom: string;
+      dateTo: string;
     };
     record?: {
       tour?: {

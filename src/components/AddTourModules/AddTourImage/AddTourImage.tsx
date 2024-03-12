@@ -107,7 +107,7 @@ export const AddTourImage: FC<IAddTourImageProps> = ({
       >
         <input
           type={"file"}
-          accept={".jpeg, .png"}
+          accept={".jpg, .jpeg, .png"}
           onChange={fileHandler}
           hidden
         />

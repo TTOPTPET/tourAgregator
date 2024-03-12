@@ -1,4 +1,4 @@
-import { urlTour } from "../../config/config";
+import { urlCreatorTours } from "../../config/config";
 import axios from "axios";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
 import { cloneDeep } from "lodash";
@@ -29,7 +29,7 @@ export const editTourAPI = async (
 
     const editData = { ...dataWihoutPhotos, tourPhotos };
 
-    await axios.put(urlTour + `/templates/${tourId}`, editData, {
+    await axios.put(urlCreatorTours + `/templates/${tourId}`, editData, {
       withCredentials: true,
     });
     successCallback && successCallback();

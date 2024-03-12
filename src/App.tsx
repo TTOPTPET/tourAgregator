@@ -74,11 +74,11 @@ const AddTourPage = lazyWithRetry(() =>
 //     ({ default: StatisticPage }) => ({ default: StatisticPage })
 //   )
 // );
-// const TourCalendarPage = lazyWithRetry(() =>
-//   import("./pages/TourCalendarPage/TourCalendarPage").then(
-//     ({ default: TourCalendarPage }) => ({ default: TourCalendarPage })
-//   )
-// );
+const TourCalendarPage = lazyWithRetry(() =>
+  import("./pages/TourCalendarPage/TourCalendarPage").then(
+    ({ default: TourCalendarPage }) => ({ default: TourCalendarPage })
+  )
+);
 // const TouristLk = lazyWithRetry(() =>
 //   import("./pages/TouristLk/TouristLk").then(({ default: TouristLk }) => ({
 //     default: TouristLk,
@@ -200,14 +200,14 @@ function App() {
                   </ProtectedRoute>
                 }
               /> */}
-              {/* <Route
+              <Route
                 path={"/creator/calendar"}
                 element={
                   <ProtectedRoute>
                     <TourCalendarPage />
                   </ProtectedRoute>
                 }
-              /> */}
+              />
               {/* <Route
                 path={"/tourist/lk"}
                 element={

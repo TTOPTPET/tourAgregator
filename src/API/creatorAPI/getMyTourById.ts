@@ -1,5 +1,5 @@
 import axios from "axios";
-import { urlTour } from "../../config/config";
+import { urlCreatorTours } from "../../config/config";
 import { ITour } from "../../models/tourCardModel/ITour";
 
 export const getMyTourById = async (
@@ -8,7 +8,7 @@ export const getMyTourById = async (
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.get(urlTour + `/templates/${id}`, {
+    let response = await axios.get(urlCreatorTours + `/templates/${id}`, {
       withCredentials: true,
     });
     successCallback(response?.data.data);
