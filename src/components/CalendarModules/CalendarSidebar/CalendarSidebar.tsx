@@ -38,18 +38,18 @@ export default function CalendarSidebar({
       overflow={"hidden"}
     >
       <Typography variant={"h5"} sx={{ mb: 3, mt: 1 }} flexGrow={0}>
-        {selectedPublic?.tour?.tourName || "Название тура"}
+        {selectedPublic?.tourName || "Название тура"}
       </Typography>
       <Stack direction={"column"} gap={1} display={"flex"} flexGrow={3}>
         <Typography variant={"caption"}>
-          {selectedPublic?.date?.dateFrom && selectedPublic?.date?.dateTo
-            ? dayjs(selectedPublic?.date?.dateFrom).format("D MMMM YYYY") +
+          {selectedPublic?.dateFrom && selectedPublic?.dateTo
+            ? dayjs(selectedPublic?.dateFrom).format("D MMMM YYYY") +
               " - " +
-              dayjs(selectedPublic?.date?.dateTo).format("D MMMM YYYY")
+              dayjs(selectedPublic?.dateTo).format("D MMMM YYYY")
             : "Дата начала - Дата конца"}
         </Typography>
         <Typography variant={"caption"}>
-          {(selectedPublic?.personNum || 0) + " человек"}
+          {(selectedPublic?.maxPersonNumber || 0) + " человек"}
         </Typography>
         <Stack direction={"column"}>
           <Typography variant={"caption"}>Стоимость:</Typography>
@@ -58,17 +58,6 @@ export default function CalendarSidebar({
           </Typography>
         </Stack>
 
-        <Stack direction={"column"}>
-          <Typography variant={"caption"}>
-            Стоимость c комиссией платформы:
-          </Typography>
-          <Typography variant={"caption"} fontWeight={"700"}>
-            {selectedPublic?.tourAmountWithCommission
-              ? selectedPublic?.tourAmountWithCommission / 100
-              : 0}
-            ₽
-          </Typography>
-        </Stack>
         <Stack
           direction={"column"}
           gap={1}
@@ -100,9 +89,7 @@ export default function CalendarSidebar({
             <Typography variant={"caption"} align={"right"}>
               до{" "}
               {selectedPublic?.updateDeadline
-                ? dayjs(selectedPublic?.updateDeadline)
-                    .add(-3, "day")
-                    .format("D MMMM YYYY")
+                ? dayjs(selectedPublic?.updateDeadline).format("D MMMM YYYY")
                 : "Дата конца ред."}
             </Typography>
           </Stack>
@@ -136,9 +123,7 @@ export default function CalendarSidebar({
             <Typography variant={"caption"} align={"right"}>
               до{" "}
               {selectedPublic?.cancelDeadline
-                ? dayjs(selectedPublic?.cancelDeadline)
-                    .add(-1, "day")
-                    .format("D MMMM YYYY")
+                ? dayjs(selectedPublic?.cancelDeadline).format("D MMMM YYYY")
                 : "Дата конца отмены"}
             </Typography>
           </Stack>
@@ -191,7 +176,6 @@ export default function CalendarSidebar({
           setSelectedPublic={setSelectedPublic}
           publicTourId={selectedPublic?.publicTourId}
         />
-        <SuccessCancelPostedTourModal />
       </Stack>
     </Box>
   );

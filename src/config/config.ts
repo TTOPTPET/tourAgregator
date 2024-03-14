@@ -10,3 +10,5 @@ export const urlCreatorTours = `${baseUrl}/creator/tours`;
 
 export const mobileWidth = `${700}px`;
 export const mobile = 700;
+
+export const commission = 1.05;

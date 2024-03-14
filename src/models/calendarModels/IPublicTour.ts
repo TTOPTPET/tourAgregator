@@ -25,20 +25,14 @@ export interface IPublicTour {
   meetingPoint?: string;
   meetingTime?: string;
   tourAmount?: number;
-  tourAmountWithCommission?: number;
   bookingId?: number;
-  contactInformation?: string;
   maxPersonNumber?: number;
   personNum?: number;
   bookingNumber?: number;
   cancelDeadline?: string;
   updateDeadline?: string;
-  date?: {
-    dateFrom: string;
-    dateTo: string;
-  };
+  dateFrom?: string;
+  dateTo?: string;
   bookingInfo?: IBookingInfo[];
-  tour?: {
-    tourName: string;
-  };
+  tourName?: string;
 }

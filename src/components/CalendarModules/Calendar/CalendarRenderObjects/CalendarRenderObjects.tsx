@@ -38,28 +38,28 @@ export default function CalendarRenderObjects({
       }}
     >
       {publicTours &&
+        publicTours.length > 0 &&
         publicTours.map((tour) => {
-          if (
-            date.isBetween(tour.date?.dateFrom, tour.date?.dateTo, "date", "[]")
-          ) {
+          if (date.isBetween(tour.dateFrom, tour.dateTo, "date", "[]")) {
             return (
               <Box
-                className={tour?.tour?.tourName}
+                className={tour?.tourName}
                 onClick={(e: any) => {
                   e.stopPropagation();
                   setSelectedPublic(tour);
                 }}
+                key={tour.publicTourId}
                 sx={{
-                  borderTopLeftRadius: date.isSame(tour.date?.dateFrom, "D")
+                  borderTopLeftRadius: date.isSame(tour?.dateFrom, "D")
                     ? "10px"
                     : null,
-                  borderBottomLeftRadius: date.isSame(tour.date?.dateFrom, "D")
+                  borderBottomLeftRadius: date.isSame(tour?.dateFrom, "D")
                     ? "10px"
                     : null,
-                  borderTopRightRadius: date.isSame(tour.date?.dateTo, "D")
+                  borderTopRightRadius: date.isSame(tour?.dateTo, "D")
                     ? "10px"
                     : null,
-                  borderBottomRightRadius: date.isSame(tour.date?.dateTo, "D")
+                  borderBottomRightRadius: date.isSame(tour?.dateTo, "D")
                     ? "10px"
                     : null,
                   backgroundColor:
@@ -71,7 +71,7 @@ export default function CalendarRenderObjects({
                   marginBottom: "2px",
                 }}
               >
-                {date.isSame(tour.date?.dateFrom, "D") && (
+                {date.isSame(tour.dateFrom, "D") && (
                   <Typography
                     sx={{
                       position: "absolute",
@@ -84,7 +84,7 @@ export default function CalendarRenderObjects({
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {tour?.tour?.tourName}
+                    {tour?.tourName}
                   </Typography>
                 )}
               </Box>
@@ -92,20 +92,19 @@ export default function CalendarRenderObjects({
           } else if (
             publicTours.some(
               (someTour) =>
-                dayjs(someTour?.date?.dateFrom).isSameOrAfter(
-                  tour?.date?.dateFrom
-                ) &&
-                dayjs(someTour?.date?.dateFrom).isBefore(tour?.date?.dateTo)
+                dayjs(someTour?.dateFrom).isSameOrAfter(tour?.dateFrom) &&
+                dayjs(someTour?.dateFrom).isBefore(tour?.dateTo)
             )
           ) {
             return (
               <Box
-                className={tour?.tour?.tourName}
+                className={tour?.tourName}
                 sx={{
                   width: "100%",
                   height: "17px",
                   marginBottom: "2px",
                 }}
+                key={tour.publicTourId}
               ></Box>
             );
           }

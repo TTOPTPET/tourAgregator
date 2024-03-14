@@ -277,7 +277,7 @@ export const mainThemes = createTheme(breakpoints, {
         },
       },
     },
-    MuiCalendarOrClockPicker: {
+    MuiPickersPopper: {
       styleOverrides: {
         root: {
           "& .MuiPickersToolbar-root": {
@@ -291,7 +291,7 @@ export const mainThemes = createTheme(breakpoints, {
               alignItems: "center",
             },
           },
-          "& .MuiClockPicker-root": {
+          "& .MuiTimeClock-root": {
             "& .MuiClock-root": {
               "& .MuiClock-clock": {
                 "& .MuiClock-pin": {
@@ -312,19 +312,19 @@ export const mainThemes = createTheme(breakpoints, {
               },
             },
           },
-          "& .MuiCalendarPicker-root": {
+          "& .MuiDateCalendar-root": {
+            "& .MuiButtonBase-root": {
+              "&.Mui-selected": {
+                backgroundColor: darkTurquoiseColor,
+              },
+            },
+            "& .MuiPickersCalendarHeader-label": {
+              fontFamily: "Montserrat",
+            },
             "& .MuiPickersFadeTransitionGroup-root": {
-              "& .MuiButtonBase-root": {
-                "&.Mui-selected": {
-                  backgroundColor: darkTurquoiseColor,
-                },
-              },
-              "& .MuiPickersCalendarHeader-label": {
-                fontFamily: "Montserrat",
-              },
-              "& .MuiYearPicker-root": {
-                "& .PrivatePickersYear-root": {
-                  "& .PrivatePickersYear-yearButton": {
+              "& .MuiYearCalendar-root": {
+                "& .MuiPickersYear-root": {
+                  "& .MuiPickersYear-yearButton": {
                     fontFamily: "Montserrat",
                   },
                   "& .Mui-selected": {

@@ -11,6 +11,7 @@ import CalendarDatePicker from "../../components/CalendarModules/CalendarDatePic
 import dayjs, { Dayjs } from "dayjs";
 import BookingInfoModal from "../../components/Modals/BookingInfoModal/BookingInfoModal";
 import CalendarSidebarSkeleton from "../../components/CalendarModules/CalendarSidebar/CalendarSidebarSkeleton/CalendarSidebarSkeleton";
+import SuccessCancelPostedTourModal from "../../components/Modals/SuccessCancelPostedTourModal/SuccessCancelPostedTourModal";
 
 function TourCalendarPage() {
   const [publicTours, setPublicTours] = useState<IPublicTour[] | undefined>([]);
@@ -21,8 +22,6 @@ function TourCalendarPage() {
   const [viewMonth, setViewMonth] = useState<Dayjs>(dayjs());
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log(!selectedPublic ? true : false);
-
   useEffect(() => {
     getMyTours((value) => {
       setMyTours(value);
@@ -30,10 +29,12 @@ function TourCalendarPage() {
   }, []);
 
   useEffect(() => {
-    getPublicTours({ year: viewMonth.toISOString() }, (value) =>
-      setPublicTours(value)
-    );
-  }, [viewMonth]);
+    getPublicTours({ year: viewMonth.year() }, (value) => {
+      setPublicTours(value);
+    });
+  }, [viewMonth.year()]);
+
+  console.log(publicTours);
 
   return (
     <Box>
@@ -81,6 +82,7 @@ function TourCalendarPage() {
       {selectedPublic?.bookingInfo && (
         <BookingInfoModal selectedBooking={selectedPublic} />
       )}
+      <SuccessCancelPostedTourModal />
     </Box>
   );
 }

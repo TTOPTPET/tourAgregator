@@ -100,11 +100,11 @@ function ConfirmCancelPostedTourModal({
               publicTours?.filter((tour) => tour.publicTourId !== publicTourId)
             );
           setSelectedPublic && setSelectedPublic(undefined);
-
-          dispatch(setModalInactive("confirmCancelPostedTourModal"));
+          setErrorMessage && setErrorMessage("");
           dispatch(
             setModalActive("successCancelPostedTourModal", { multiply: false })
           );
+          dispatch(setModalInactive("confirmCancelPostedTourModal"));
         },
         () => {
           dispatch(setModalInactive("confirmCancelPostedTourModal"));

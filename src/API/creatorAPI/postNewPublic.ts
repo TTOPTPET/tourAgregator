@@ -4,23 +4,24 @@ import { IPublicTour } from "../../models/calendarModels/IPublicTour";
 
 export const postNewPublic = async (
   data: IPublicTour,
-  //   successCallback?: ({
-  //     publicTourId,
-  //     cancelDeadline,
-  //     updateDeadline,
-  //     tourAmountWithCommission,
-  //   }: {
-  //     publicTourId: string;
-  //     cancelDeadline: string;
-  //     updateDeadline: string;
-  //     tourAmountWithCommission: number;
-  //   }) => void,
-  successCallback?: (prop: any) => void,
+  successCallback?: ({
+    publicTourId,
+    cancelDeadline,
+    updateDeadline,
+    tourName,
+  }: {
+    publicTourId: string;
+    cancelDeadline: string;
+    updateDeadline: string;
+    tourName: string;
+  }) => void,
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.post(urlCreatorTours + "/public/create", data);
-    successCallback && successCallback(response?.data);
+    let response = await axios.post(urlCreatorTours + "/public/create", data, {
+      withCredentials: true,
+    });
+    successCallback && successCallback(response?.data.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();

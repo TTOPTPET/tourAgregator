@@ -58,10 +58,8 @@ interface IActionProps {
     paymentUrl?: string;
     creatorTypeRadio?: any;
     errorMessage?: string;
-    date?: {
-      dateFrom: string;
-      dateTo: string;
-    };
+    dateFrom: string;
+    dateTo: string;
     record?: {
       tour?: {
         tourId?: string;

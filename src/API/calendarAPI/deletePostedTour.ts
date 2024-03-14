@@ -1,4 +1,4 @@
-import { creatorUrl } from "../../config/config";
+import { urlCreatorTours } from "../../config/config";
 import axios from "axios";
 
 export const deletePostedTour = async (
@@ -7,7 +7,9 @@ export const deletePostedTour = async (
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.delete(creatorUrl + `/public/${id}`);
+    let response = await axios.delete(urlCreatorTours + `/public/${id}`, {
+      withCredentials: true,
+    });
     successCallback && successCallback(response?.status);
   } catch (e) {
     console.error(e);

@@ -1,19 +1,20 @@
-import { creatorUrl } from "../../config/config";
+import { urlCreatorTours } from "../../config/config";
 import axios from "axios";
 import { IPublicTour } from "../../models/calendarModels/IPublicTour";
 
 export const getPublicTours = async (
   params: {
-    year: string;
+    year: number;
   },
-  successCallback: (params: IPublicTour[]) => void,
+  successCallback: (prop: IPublicTour[]) => void,
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.get<IPublicTour[]>(creatorUrl + "/public", {
+    let response = await axios.get(urlCreatorTours + "/public", {
       params,
+      withCredentials: true,
     });
-    successCallback(response?.data);
+    successCallback(response?.data.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();

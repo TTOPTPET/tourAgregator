@@ -38,6 +38,7 @@ import { IPublicTour } from "../../../models/calendarModels/IPublicTour";
 import { editPublicTour } from "../../../API/creatorAPI/editPublicTour";
 import { redColor } from "../../../config/MUI/color/color";
 import { NumericFormat } from "react-number-format";
+import { commission } from "../../../config/config";
 
 type NewPublicModalProps = {
   myTours: ITour[];
@@ -102,22 +103,21 @@ export default function NewPublicModal({
       case "tourAmount":
         return value && Number(value) >= 1 ? false : true;
       case "meetingTime":
-        return value &&
-          dayjs(value).isBefore(dayjs(editedPublic?.date?.dateFrom))
+        return value && dayjs(value).isBefore(dayjs(editedPublic?.dateFrom))
           ? false
           : true;
 
       case "tourDateFrom":
         return value &&
           dayjs(value).isAfter(dayjs()) &&
-          dayjs(editedPublic?.date?.dateTo).isAfter(dayjs(value))
+          dayjs(editedPublic?.dateTo).isAfter(dayjs(value))
           ? false
           : true;
 
       case "tourDateTo":
         return value &&
           dayjs(value).isAfter(dayjs()) &&
-          dayjs(value).isAfter(dayjs(editedPublic?.date?.dateFrom))
+          dayjs(value).isAfter(dayjs(editedPublic?.dateFrom))
           ? false
           : true;
 
@@ -152,7 +152,8 @@ export default function NewPublicModal({
       if (modal?.props?.newPublic) {
         setEditedPublic((editedPublic) => ({
           ...editedPublic,
-          date: modal?.props?.date,
+          dateFrom: modal?.props?.dateFrom,
+          dateTo: modal?.props?.dateTo,
         }));
       } else {
         setEditedPublic(selectedPublic);
@@ -163,17 +164,11 @@ export default function NewPublicModal({
   useEffect(() => {
     handlerNewPublicErrorChange(
       "tourDateFrom",
-      newPublicInputValidation(
-        "tourDateFrom",
-        editedPublic?.date?.dateFrom as string
-      )
+      newPublicInputValidation("tourDateFrom", editedPublic?.dateFrom as string)
     );
     handlerNewPublicErrorChange(
       "tourDateTo",
-      newPublicInputValidation(
-        "tourDateTo",
-        editedPublic?.date?.dateTo as string
-      )
+      newPublicInputValidation("tourDateTo", editedPublic?.dateTo as string)
     );
   }, [editedPublic]);
 
@@ -181,8 +176,6 @@ export default function NewPublicModal({
     okButtonLabel: "Принять",
     cancelButtonLabel: "Отмена",
   };
-
-  console.log(editedPublic);
 
   dayjs.locale("ru");
 
@@ -216,7 +209,6 @@ export default function NewPublicModal({
                     ({
                       ...editedPublic,
                       tourId: newValue?.tourId,
-                      tour: { tourName: newValue?.tourName },
                       tourAmount: newValue?.price,
                     }) as IPublicTour
                 );
@@ -244,21 +236,17 @@ export default function NewPublicModal({
             >
               <DateTimePicker
                 label="Дата и время начала"
-                value={dayjs(editedPublic?.date?.dateFrom) || ""}
+                value={dayjs(editedPublic?.dateFrom) || ""}
                 ampm={false}
                 onChange={(newValue: any) => {
-                  console.log(newValue);
                   setEditedPublic(
                     (editedPublic) =>
                       ({
                         ...editedPublic,
-                        date: {
-                          ...editedPublic?.date,
-                          dateFrom:
-                            newValue && !isNaN(+newValue) && newValue
-                              ? newValue?.toISOString()
-                              : "",
-                        },
+                        dateFrom:
+                          newValue && !isNaN(+newValue) && newValue
+                            ? newValue?.toISOString()
+                            : "",
                       }) as IPublicTour
                   );
                 }}
@@ -278,20 +266,17 @@ export default function NewPublicModal({
               />
               <DateTimePicker
                 label="Дата и время конца"
-                value={dayjs(editedPublic?.date?.dateTo)}
+                value={dayjs(editedPublic?.dateTo)}
                 ampm={false}
                 onChange={(newValue: any) => {
                   setEditedPublic(
                     (editedPublic) =>
                       ({
                         ...editedPublic,
-                        date: {
-                          ...editedPublic?.date,
-                          dateTo:
-                            newValue && !isNaN(+newValue) && newValue
-                              ? newValue?.toISOString()
-                              : "",
-                        },
+                        dateTo:
+                          newValue && !isNaN(+newValue) && newValue
+                            ? newValue?.toISOString()
+                            : "",
                       }) as IPublicTour
                   );
                 }}
@@ -385,29 +370,21 @@ export default function NewPublicModal({
               }}
               label={"Количество человек"}
             />
-            <StyledTextAreaAutosize
-              placeholder="Контактная информация"
-              sx={{ m: "0", minHeight: "50px" }}
-              value={editedPublic?.contactInformation}
-              onChange={(e) => {
-                setEditedPublic({
-                  ...editedPublic,
-                  contactInformation: e.target.value,
-                });
-              }}
-            />
             <Stack direction={"row"} gap="14px" alignItems={"center"}>
               <Box>
                 {/* @ts-ignore */}
                 <NumericFormat
                   value={
-                    editedPublic?.tourAmount && editedPublic?.tourAmount / 100
+                    editedPublic?.tourAmount &&
+                    editedPublic?.tourAmount / commission / 100
                   }
                   decimalScale={2}
                   onValueChange={(values) => {
                     setEditedPublic((editedPublic) => ({
                       ...editedPublic,
-                      tourAmount: values.floatValue && values?.floatValue * 100,
+                      tourAmount:
+                        values.floatValue &&
+                        values?.floatValue * 100 * commission,
                     }));
                     handlerNewPublicErrorChange(
                       "tourAmount",
@@ -427,31 +404,13 @@ export default function NewPublicModal({
                   InputProps={{ inputProps: { min: 0 } }}
                   label="Стоимость"
                 />
-                {/* <TextField
-                    type={"number"}
-                    color="secondary"
-                    error={newPublicInputError.tourAmount}
-                    value={editedPublic?.tourAmount || ""}
-                    InputProps={{ inputProps: { min: 0 } }}
-                    onChange={(e) => {
-                      setEditedPublic((editedPublic) => ({
-                        ...editedPublic,
-                        tourAmount: +e.target.value,
-                      }));
-                      handlerNewPublicErrorChange(
-                        "tourAmount",
-                        newPublicInputValidation("tourAmount", e.target.value)
-                      );
-                    }}
-                    label={"Стоимость"}
-                  /> */}
               </Box>
 
               <Box sx={{ flexGrow: "1" }}>
                 <Typography variant="caption">
                   Стоимость на платформе: <br />
                   {editedPublic?.tourAmount
-                    ? ((editedPublic?.tourAmount / 100) * 1.03)
+                    ? (editedPublic?.tourAmount / 100)
                         .toFixed(2)
                         .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
                     : "-"}
@@ -469,7 +428,7 @@ export default function NewPublicModal({
               </Typography>
             ) : null}
 
-            {editedPublic?.date && (
+            {editedPublic?.dateFrom && editedPublic?.dateTo && (
               <Typography
                 variant="caption"
                 sx={{
@@ -482,7 +441,7 @@ export default function NewPublicModal({
                 }}
               >
                 Вы можете редактировать тур до{" "}
-                {dayjs(editedPublic?.date?.dateFrom)
+                {dayjs(editedPublic?.dateFrom)
                   .add(-1, "day")
                   .format("D MMMM YYYY")}
               </Typography>
@@ -516,11 +475,15 @@ export default function NewPublicModal({
               onClick={() => {
                 if (modal?.props?.newPublic) {
                   postNewPublic(editedPublic as IPublicTour, (resp) => {
+                    console.log(resp);
                     dispatch(setModalInactive("newPublicModal"));
                     setPublicTours((publicTours) =>
                       publicTours?.concat({
                         ...editedPublic,
                         publicTourId: resp?.publicTourId,
+                        tourName: resp?.tourName,
+                        cancelDeadline: resp?.cancelDeadline,
+                        updateDeadline: resp?.updateDeadline,
                       })
                     );
                     setSelectedPublic({
@@ -528,12 +491,12 @@ export default function NewPublicModal({
                       publicTourId: resp?.publicTourId,
                       cancelDeadline: resp?.cancelDeadline,
                       updateDeadline: resp?.updateDeadline,
-                      tourAmountWithCommission: resp?.tourAmountWithCommission,
+                      tourName: resp?.tourName,
                     });
                     setEditedPublic(undefined);
                   });
                 } else {
-                  editPublicTour(editPublicTour as IPublicTour, (resp) => {
+                  editPublicTour(editedPublic as IPublicTour, (resp) => {
                     dispatch(setModalInactive("newPublicModal"));
                     setPublicTours((publicTours: any) => {
                       return publicTours?.map((tour: IPublicTour) => {
@@ -548,7 +511,7 @@ export default function NewPublicModal({
                       publicTourId: resp?.publicTourId,
                       cancelDeadline: resp?.cancelDeadline,
                       updateDeadline: resp?.updateDeadline,
-                      tourAmountWithCommission: resp?.tourAmountWithCommission,
+                      tourName: resp?.tourName,
                     });
                     setEditedPublic(undefined);
                   });

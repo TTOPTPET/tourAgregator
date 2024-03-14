@@ -66,10 +66,8 @@ export const Calendar = ({
                   dispatch(
                     setModalActive("newPublicModal", {
                       newPublic: true,
-                      date: {
-                        dateFrom: thisDay.toISOString(),
-                        dateTo: thisDay.add(7, "day").toISOString(),
-                      },
+                      dateFrom: thisDay.toISOString(),
+                      dateTo: thisDay.add(7, "day").toISOString(),
                     })
                   );
                 }}

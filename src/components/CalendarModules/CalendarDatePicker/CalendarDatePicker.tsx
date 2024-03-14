@@ -2,7 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import { Button, ButtonProps, Stack, Typography } from "@mui/material";
 import LeftArrow from "../../../media/left-arrow-navigation.svg?react";
 import RightArrow from "../../../media/right-arrow-navigation.svg?react";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import "dayjs/locale/ru";
 import styled from "@emotion/styled";
 
 const ArrowButton = styled(({ className, ...props }: ButtonProps) => (
@@ -13,6 +14,8 @@ type Props = {
   viewMonth: Dayjs;
   setViewMonth: Dispatch<SetStateAction<Dayjs>>;
 };
+
+dayjs.locale("ru");
 
 function CalendarDatePicker({ viewMonth, setViewMonth }: Props) {
   return (
