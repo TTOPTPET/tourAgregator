@@ -23,7 +23,7 @@ export const editPublicTour = async (
       data,
       { withCredentials: true }
     );
-    successCallback && successCallback(response?.data);
+    successCallback && successCallback(response?.data.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();

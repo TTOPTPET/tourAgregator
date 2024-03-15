@@ -100,7 +100,9 @@ export default function NewPublicModal({
       case "maxPersonNumber":
         return value ? false : true;
       case "tourAmount":
-        return value && Number(value) >= 1 ? false : true;
+        return value && Number(value) >= 10 && Number(value) <= 200000
+          ? false
+          : true;
       case "meetingTime":
         return value && dayjs(value).isBefore(dayjs(editedPublic?.dateFrom))
           ? false
@@ -197,6 +199,7 @@ export default function NewPublicModal({
           </Typography>
           <Stack direction={"column"} gap={"15px"}>
             <Autocomplete
+              disabled={!modal?.props?.newPublic}
               id="tourID"
               value={
                 myTours.find((tour) => tour?.tourId === editedPublic?.tourId) ||
@@ -398,9 +401,11 @@ export default function NewPublicModal({
                   color="secondary"
                   error={
                     newPublicInputError.tourAmount ||
-                    Number(editedPublic?.tourAmount! / 100) < 10
+                    Number(editedPublic?.tourAmount! / 100) < 10 ||
+                    Number(editedPublic?.tourAmount! / 100 / commission) >
+                      200000
                   }
-                  InputProps={{ inputProps: { min: 0 } }}
+                  InputProps={{ inputProps: { min: 0, max: 20000000 } }}
                   label="Стоимость"
                 />
               </Box>
@@ -417,13 +422,20 @@ export default function NewPublicModal({
               </Box>
             </Stack>
             {editedPublic?.tourAmount &&
-            Number(editedPublic?.tourAmount / 100) < 10 &&
-            editedPublic?.tourAmount ? (
+            Number(editedPublic?.tourAmount / 100) < 10 ? (
               <Typography
                 variant="caption"
                 sx={{ color: redColor, mt: "10px", textAlign: "center" }}
               >
                 Минимальная стоимость - 10 рублей
+              </Typography>
+            ) : editedPublic?.tourAmount &&
+              Number(editedPublic?.tourAmount / 100 / commission) > 200000 ? (
+              <Typography
+                variant="caption"
+                sx={{ color: redColor, mt: "10px", textAlign: "center" }}
+              >
+                Максимальная стоимость - 200 000 рублей
               </Typography>
             ) : null}
 
@@ -485,6 +497,7 @@ export default function NewPublicModal({
                         updateDeadline: resp?.updateDeadline,
                       })
                     );
+                    console.log(resp);
                     setSelectedPublic({
                       ...editedPublic,
                       publicTourId: resp?.publicTourId,

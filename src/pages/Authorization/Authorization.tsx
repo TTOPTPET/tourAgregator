@@ -249,8 +249,8 @@ function Authorization() {
       (resp) => {
         getUserInfo((value) => {
           dispatch(setUserInfo(value));
-          setCookies(LOGGINED, true, { path: "/", maxAge: 3600 });
-          setCookies(ROLE, value.role_id, { path: "/", maxAge: 3600 });
+          setCookies(LOGGINED, true, { path: "/", maxAge: 43200 });
+          setCookies(ROLE, value.role_id, { path: "/", maxAge: 43200 });
           setErrAuth(false);
           setErrorMessage("");
           setLoading(false);

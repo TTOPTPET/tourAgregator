@@ -649,6 +649,33 @@ export const mainThemes = createTheme(breakpoints, {
         },
       },
     },
+    MuiAutocomplete: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          borderRadius: "30px",
+          "&::label": {
+            color: darkBlueColor,
+            opacity: "1",
+            fontSize: "16px",
+            lineHeight: "20px",
+            fontFamily: "Montserrat",
+            fontWeight: "400",
+          },
+        },
+        paper: {
+          padding: "5px",
+          fontSize: "16px",
+          borderRadius: "20px",
+          fontFamily: "Montserrat",
+          fontWeight: "400",
+          [breakpoints.breakpoints.down("lg")]: {
+            fontSize: "10px",
+            padding: "2px",
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
