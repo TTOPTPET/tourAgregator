@@ -84,11 +84,11 @@ const TourCalendarPage = lazyWithRetry(() =>
 //     default: TouristLk,
 //   }))
 // );
-// const TourListPage = lazyWithRetry(() =>
-//   import("./pages/TourListPage/TourListPage").then(
-//     ({ default: TourListPage }) => ({ default: TourListPage })
-//   )
-// );
+const TourListPage = lazyWithRetry(() =>
+  import("./pages/TourListPage/TourListPage").then(
+    ({ default: TourListPage }) => ({ default: TourListPage })
+  )
+);
 
 // const StartPage = lazyWithRetry(() =>
 //   import("./pages/StartPage/StartPage").then(({ default: StartPage }) => ({
@@ -224,7 +224,7 @@ function App() {
                 path={"/reset-password/:token"}
                 element={<ResetPassword />}
               />
-              {/* <Route path={"/tours/all"} element={<TourListPage />} /> */}
+              <Route path={"/tours/all"} element={<TourListPage />} />
               {/* <Route path={"/tours/tour/:tourId"} element={<TourPage />} /> */}
               {/* <Route path={"/contacts"} element={<ContactsPage />} /> */}
               {/* <Route path={"/documents"} element={<DocumentsPage />} /> */}

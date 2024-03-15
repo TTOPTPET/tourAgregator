@@ -31,7 +31,6 @@ import {
 import { RootState } from "../../../redux/store";
 
 import { ITour } from "../../../models/tourCardModel/ITour";
-import { StyledTextAreaAutosize } from "../../../config/MUI/styledComponents/StyledTextAreaAutosize";
 
 import { postNewPublic } from "../../../API/creatorAPI/postNewPublic";
 import { IPublicTour } from "../../../models/calendarModels/IPublicTour";

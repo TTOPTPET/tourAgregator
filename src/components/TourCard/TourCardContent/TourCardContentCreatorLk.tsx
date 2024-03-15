@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-import { ITour } from "../../../models/tourCardModel/ITour";
+import { ITour, ITourResponse } from "../../../models/tourCardModel/ITour";
 
 import { Link } from "react-router-dom";
 import { lightTurquoiseColor } from "../../../config/MUI/color/color";
@@ -11,16 +11,10 @@ import { SetStateAction, Dispatch } from "react";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 
 type TourCardProps = {
-  tour: ITour;
-  myTours: ITour[];
-  setMyTours: Dispatch<SetStateAction<ITour[]>>;
+  tour: ITourResponse;
 };
 
-function TourCardContentCreatorLk({
-  tour,
-  myTours,
-  setMyTours,
-}: TourCardProps) {
+function TourCardContentCreatorLk({ tour }: TourCardProps) {
   const dispatch = useDispatch();
 
   const theme = useTheme();
@@ -77,14 +71,6 @@ function TourCardContentCreatorLk({
           mt="5px"
           columnGap={"5px"}
         >
-          <Button
-            className="tour-card__button-place"
-            disabled={tour.banStatus ? true : false}
-            component={Link}
-            to={`/creator/calendar`}
-          >
-            Разместить
-          </Button>
           <Button
             className="tour-card__button-delete"
             onClick={() =>

@@ -155,6 +155,9 @@ export const mainThemes = createTheme(breakpoints, {
           "&.MuiPickersPopper-paper": {
             padding: 5,
           },
+          "& MuiMenu-paper": {
+            paddingTop: "5px !imoprtant",
+          },
         },
       },
       variants: [
@@ -250,12 +253,13 @@ export const mainThemes = createTheme(breakpoints, {
         },
       ],
     },
-    MuiAutocomplete: {
+    MuiFormControl: {
       styleOverrides: {
         root: {
           width: "100%",
           borderRadius: "30px",
-          "&::label": {
+          // margin: "0 !important",
+          "& .MuiFormLabel-root": {
             color: darkBlueColor,
             opacity: "1",
             fontSize: "16px",
@@ -263,17 +267,12 @@ export const mainThemes = createTheme(breakpoints, {
             fontFamily: "Montserrat",
             fontWeight: "400",
           },
-        },
-        paper: {
-          padding: "5px",
-          fontSize: "16px",
-          borderRadius: "20px",
-          fontFamily: "Montserrat",
-          fontWeight: "400",
-          [breakpoints.breakpoints.down("lg")]: {
-            fontSize: "10px",
-            padding: "2px",
+          "&::before": {
+            borderBottom: null,
           },
+          // "& .MuiInputBase-root": {
+          //   backgroundColor: lightTurquoiseColor,
+          // },
         },
       },
     },
@@ -693,6 +692,29 @@ export const mainThemes = createTheme(breakpoints, {
           color: darkBlueColor,
           "&.Mui-focused": {
             color: darkBlueColor,
+          },
+        },
+      },
+    },
+    // MuiSelect: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: darkBlueColor,
+    //       backgroundColor: lightTurquoiseColor,
+    //     },
+    //   },
+    // },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          // padding: 0,
+          "& .MuiButtonBase-root": {
+            color: darkBlueColor,
+            fontSize: "16px",
+            lineHeight: "20px",
+            fontFamily: "Montserrat",
+            fontWeight: "400",
+            // paddingRight: 0,
           },
         },
       },

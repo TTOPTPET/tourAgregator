@@ -3,21 +3,26 @@ export interface ITour {
   tourName: string;
   category?: string;
   complexity?: string;
-  prices?: {
-    from: number;
-    to?: number;
-  };
   price?: number;
   region?: string;
-  tourDate?: {
-    from?: string;
-    to?: string;
-  };
+  dateFrom?: string;
+  dateTo?: string;
   personsNumber?: number;
   photos?: string[];
   banStatus?: boolean;
-  publicSimilarDatesAmount?: number;
   publicNum?: number;
   cancelDeadline?: string;
   publicTourId?: string;
+}
+
+export interface ITourResponse {
+  tourId?: string;
+  tourName?: string;
+  photos?: string[];
+  category?: string;
+  price?: number;
+  region?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  publicCount?: number;
 }

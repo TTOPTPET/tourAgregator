@@ -7,12 +7,12 @@ import { LightStyledTooltip } from "../../../config/MUI/styledComponents/StyledT
 import cancelIcon from "../../../media/ban-status-icon.svg";
 import noPhoto from "../../../media/noPhoto.png";
 
-import { ITour } from "../../../models/tourCardModel/ITour";
+import { ITour, ITourResponse } from "../../../models/tourCardModel/ITour";
 import { Typography } from "@mui/material";
 
 type CardType = "tourList" | "myTours";
 type TourCardProps = {
-  tour: ITour;
+  tour: ITourResponse;
   tourCardType: CardType;
 };
 
@@ -61,55 +61,13 @@ function TourCardPhoto({ tour, tourCardType }: TourCardProps) {
                 transform: "translate(-50%, -50%)",
               }}
             >
-              {tour.publicNum
-                ? `Размещенных туров: ${tour.publicNum}`
+              {tour.publicCount
+                ? `Размещенных туров: ${tour.publicCount}`
                 : "Нет размещенных туров"}
             </Typography>
           </Box>
         )}
       </Box>
-
-      {tourCardType === "myTours" && (
-        <Box className="tour-card__photo-banStatus">
-          {tour.banStatus && (
-            <>
-              <LightStyledTooltip
-                title="Тур заблокирован"
-                arrow
-                placement="right"
-              >
-                <Box
-                  className="tour-card__photo-banStatus-wrapper"
-                  sx={{
-                    position: "absolute",
-                    top: 15,
-                    left: 15,
-                    width: { lg: "40px", md: "35px", sm: "30px", xs: "30px" },
-                    height: { lg: "40px", md: "35px", sm: "30px", xs: "30px" },
-                    borderRadius: "100%",
-                    bgcolor: lightTurquoiseColor,
-                    zIndex: "5",
-                  }}
-                >
-                  <img
-                    className="tour-card__photo-banStatus-icon"
-                    src={cancelIcon}
-                    alt="cancel icon"
-                    style={{
-                      width: "100%",
-                      zIndex: "10",
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  />
-                </Box>
-              </LightStyledTooltip>
-            </>
-          )}
-        </Box>
-      )}
     </>
   );
 }
