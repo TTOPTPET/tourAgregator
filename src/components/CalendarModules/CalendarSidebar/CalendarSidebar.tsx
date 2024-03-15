@@ -27,9 +27,6 @@ export default function CalendarSidebar({
   setSelectedPublic,
 }: Props) {
   const dispatch = useDispatch();
-
-  console.log(selectedPublic);
-
   return (
     <Box
       height={"100%"}

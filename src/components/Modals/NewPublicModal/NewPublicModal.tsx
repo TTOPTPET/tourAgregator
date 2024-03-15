@@ -148,6 +148,49 @@ export default function NewPublicModal({
     undefined
   );
 
+  const publicTours = modal?.props?.publicTours;
+
+  const [dateError, setDateError] = useState(false);
+
+  useEffect(() => {
+    const errorsArray: boolean[] = [];
+
+    publicTours?.map((item) => {
+      if (
+        dayjs(item.dateFrom).isBetween(
+          dayjs(editedPublic?.dateFrom),
+          dayjs(editedPublic?.dateTo)
+        ) ||
+        dayjs(item.dateTo).isBetween(
+          dayjs(editedPublic?.dateFrom),
+          dayjs(editedPublic?.dateTo)
+        ) ||
+        dayjs(editedPublic?.dateFrom).isBetween(
+          dayjs(item.dateFrom),
+          dayjs(item.dateTo)
+        ) ||
+        dayjs(editedPublic?.dateTo).isBetween(
+          dayjs(item.dateFrom),
+          dayjs(item.dateTo)
+        ) ||
+        dayjs(editedPublic?.dateFrom).isSame(dayjs(item.dateFrom), "day") ||
+        dayjs(editedPublic?.dateFrom).isSame(dayjs(item.dateTo), "day") ||
+        dayjs(editedPublic?.dateTo).isSame(dayjs(item.dateFrom), "day") ||
+        dayjs(editedPublic?.dateTo).isSame(dayjs(item.dateTo), "day")
+      ) {
+        errorsArray.push(true);
+      } else {
+        errorsArray.push(false);
+      }
+      setDateError(
+        errorsArray.some((item) => {
+          return item === true;
+        })
+      );
+    });
+  }, [editedPublic]);
+  console.log(editedPublic);
+
   useEffect(() => {
     if (isModalActive("newPublicModal", activeModals)) {
       if (modal?.props?.newPublic) {
@@ -260,7 +303,7 @@ export default function NewPublicModal({
                 slotProps={{
                   textField: (props: any) => ({
                     color: "secondary",
-                    error: newPublicInputError.tourDateFrom,
+                    error: newPublicInputError.tourDateFrom || dateError,
                     ...props,
                     inputProps: { ...props.inputProps, placeholder: "" },
                   }),
@@ -290,7 +333,7 @@ export default function NewPublicModal({
                 slotProps={{
                   textField: (props: any) => ({
                     color: "secondary",
-                    error: newPublicInputError.tourDateTo,
+                    error: newPublicInputError.tourDateTo || dateError,
                     ...props,
                     inputProps: { ...props.inputProps, placeholder: "" },
                   }),
@@ -439,13 +482,23 @@ export default function NewPublicModal({
               </Typography>
             ) : null}
 
+            {editedPublic?.dateFrom && editedPublic?.dateTo && dateError && (
+              <Typography
+                variant="caption"
+                sx={{ color: redColor, mt: "10px", textAlign: "center" }}
+              >
+                У вас уже есть туры в это время!
+              </Typography>
+            )}
+
             {editedPublic?.dateFrom && editedPublic?.dateTo && (
               <Typography
                 variant="caption"
                 sx={{
                   mt:
-                    Number(editedPublic?.tourAmount) < 1 &&
-                    editedPublic?.tourAmount
+                    (Number(editedPublic?.tourAmount) < 1 &&
+                      editedPublic?.tourAmount) ||
+                    dateError
                       ? "0px"
                       : "30px",
                   textAlign: "center",
@@ -481,12 +534,11 @@ export default function NewPublicModal({
                     )
                   : Object.values(newPublicInputError).some(
                       (value) => value === true
-                    )
+                    ) || dateError
               }
               onClick={() => {
                 if (modal?.props?.newPublic) {
                   postNewPublic(editedPublic as IPublicTour, (resp) => {
-                    console.log(resp);
                     dispatch(setModalInactive("newPublicModal"));
                     setPublicTours((publicTours) =>
                       publicTours?.concat({
@@ -497,7 +549,6 @@ export default function NewPublicModal({
                         updateDeadline: resp?.updateDeadline,
                       })
                     );
-                    console.log(resp);
                     setSelectedPublic({
                       ...editedPublic,
                       publicTourId: resp?.publicTourId,

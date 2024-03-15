@@ -67,8 +67,10 @@ export default function CalendarRenderObjects({
                       ? "#00c7f6"
                       : darkTurquoiseColor,
                   width: "100%",
-                  height: "17px",
+                  height: "30px",
                   marginBottom: "2px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 {date.isSame(tour.dateFrom, "D") && (
@@ -76,36 +78,20 @@ export default function CalendarRenderObjects({
                     sx={{
                       position: "absolute",
                       left: "15px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       lineHeight: "100%",
                       color: "#ffffff",
                       zIndex: 100,
-                      paddingTop: "1px",
+                      width: `${(dayjs(tour.dateTo).diff(dayjs(tour.dateFrom), "day") + 1) * 80}%`,
                       whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
                     }}
                   >
                     {tour?.tourName}
                   </Typography>
                 )}
               </Box>
-            );
-          } else if (
-            publicTours.some(
-              (someTour) =>
-                dayjs(someTour?.dateFrom).isSameOrAfter(tour?.dateFrom) &&
-                dayjs(someTour?.dateFrom).isBefore(tour?.dateTo)
-            )
-          ) {
-            return (
-              <Box
-                className={tour?.tourName}
-                sx={{
-                  width: "100%",
-                  height: "17px",
-                  marginBottom: "2px",
-                }}
-                key={tour.publicTourId}
-              ></Box>
             );
           }
         })}

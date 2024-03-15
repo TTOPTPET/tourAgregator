@@ -88,7 +88,6 @@ function TourListPage() {
     );
     if (chipLabelTypeIndex !== -1) {
       const searchKey = Object.keys(ChipLabelType)[chipLabelTypeIndex];
-      console.log(searchKey);
       clearSearchField(searchKey as keyof ISearchRequest, value);
     } else {
       const searchDataKeys = Object.keys(searchData);

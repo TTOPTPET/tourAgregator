@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { IUserRecord } from "../../models/userModels/IUserRecord";
+import { IPublicTour } from "../../models/calendarModels/IPublicTour";
 
 //HACK: Для того, чтобы задать новый id необходмо вписать его сюда :)
 type modalsId =
@@ -60,6 +61,7 @@ interface IActionProps {
     errorMessage?: string;
     dateFrom: string;
     dateTo: string;
+    publicTours: IPublicTour[] | undefined;
     record?: {
       tour?: {
         tourId?: string;

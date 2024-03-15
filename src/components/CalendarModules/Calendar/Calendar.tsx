@@ -68,6 +68,7 @@ export const Calendar = ({
                       newPublic: true,
                       dateFrom: thisDay.toISOString(),
                       dateTo: thisDay.add(7, "day").toISOString(),
+                      publicTours: publicTours,
                     })
                   );
                 }}

@@ -34,8 +34,6 @@ function TourCalendarPage() {
     });
   }, [viewMonth.year()]);
 
-  console.log(publicTours);
-
   return (
     <Box>
       <Typography variant={"h3"} sx={{ mb: "40px" }}>
