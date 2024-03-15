@@ -30,7 +30,6 @@ export interface IPublicTour {
   personNum?: number;
   bookingNumber?: number;
   cancelDeadline?: string;
-  updateDeadline?: string;
   dateFrom?: string;
   dateTo?: string;
   bookingInfo?: IBookingInfo[];

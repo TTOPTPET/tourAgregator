@@ -9,7 +9,6 @@ import { setModalActive } from "../../../redux/Modal/ModalReducer";
 import { useDispatch } from "react-redux";
 import TouristOrder from "./TouristOrder/TouristOrder";
 import ConfirmCancelPostedTourModal from "../../Modals/ConfirmCancelPostedTourModal/ConfirmCancelPostedTourModal";
-import SuccessCancelPostedTourModal from "../../Modals/SuccessCancelPostedTourModal/SuccessCancelPostedTourModal";
 
 type Props = {
   selectedPublic: IPublicTour;
@@ -62,34 +61,6 @@ export default function CalendarSidebar({
           alignItems={"flex-end"}
           flexShrink={2}
         >
-          <Button
-            disabled={
-              !selectedPublic ||
-              Object.keys(selectedPublic).length === 0 ||
-              dayjs(selectedPublic?.updateDeadline) <= dayjs(new Date())
-            }
-            onClick={() => dispatch(setModalActive("newPublicModal"))}
-          >
-            Редактировать
-          </Button>
-          <Stack direction={"column"}>
-            {selectedPublic &&
-              dayjs(selectedPublic?.updateDeadline) <= dayjs(new Date()) && (
-                <Typography
-                  variant={"caption"}
-                  align={"right"}
-                  sx={{ color: redColor }}
-                >
-                  Время редактирования истекло
-                </Typography>
-              )}
-            <Typography variant={"caption"} align={"right"}>
-              до{" "}
-              {selectedPublic?.updateDeadline
-                ? dayjs(selectedPublic?.updateDeadline).format("D MMMM YYYY")
-                : "Дата конца ред."}
-            </Typography>
-          </Stack>
           <Button
             disabled={
               !selectedPublic ||

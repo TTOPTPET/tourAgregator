@@ -7,12 +7,10 @@ export const postNewPublic = async (
   successCallback?: ({
     publicTourId,
     cancelDeadline,
-    updateDeadline,
     tourName,
   }: {
     publicTourId: string;
     cancelDeadline: string;
-    updateDeadline: string;
     tourName: string;
   }) => void,
   errorCallback?: () => void

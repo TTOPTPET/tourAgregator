@@ -52,16 +52,15 @@ interface IActionProps {
     multiply?: boolean;
     index?: number;
     tour?: boolean;
-    newPublic?: boolean;
     records?: IUserRecord[];
     setRecords?: Dispatch<SetStateAction<IUserRecord[]>>;
     paymentDeadline?: string;
     paymentUrl?: string;
     creatorTypeRadio?: any;
     errorMessage?: string;
-    dateFrom: string;
-    dateTo: string;
-    publicTours: IPublicTour[] | undefined;
+    dateFrom?: string;
+    dateTo?: string;
+    publicTours?: IPublicTour[] | undefined;
     record?: {
       tour?: {
         tourId?: string;

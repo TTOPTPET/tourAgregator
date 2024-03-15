@@ -34,7 +34,6 @@ import { ITour } from "../../../models/tourCardModel/ITour";
 
 import { postNewPublic } from "../../../API/creatorAPI/postNewPublic";
 import { IPublicTour } from "../../../models/calendarModels/IPublicTour";
-import { editPublicTour } from "../../../API/creatorAPI/editPublicTour";
 import { redColor } from "../../../config/MUI/color/color";
 import { NumericFormat } from "react-number-format";
 import { commission } from "../../../config/config";
@@ -81,7 +80,6 @@ const newPublicErrorsDefault: NewPublicErrors = {
 
 export default function NewPublicModal({
   myTours,
-  selectedPublic,
   setSelectedPublic,
   setPublicTours,
 }: NewPublicModalProps) {
@@ -154,7 +152,6 @@ export default function NewPublicModal({
 
   useEffect(() => {
     const errorsArray: boolean[] = [];
-
     publicTours?.map((item) => {
       if (
         dayjs(item.dateFrom).isBetween(
@@ -189,19 +186,14 @@ export default function NewPublicModal({
       );
     });
   }, [editedPublic]);
-  console.log(editedPublic);
 
   useEffect(() => {
     if (isModalActive("newPublicModal", activeModals)) {
-      if (modal?.props?.newPublic) {
-        setEditedPublic((editedPublic) => ({
-          ...editedPublic,
-          dateFrom: modal?.props?.dateFrom,
-          dateTo: modal?.props?.dateTo,
-        }));
-      } else {
-        setEditedPublic(selectedPublic);
-      }
+      setEditedPublic((editedPublic) => ({
+        ...editedPublic,
+        dateFrom: modal?.props?.dateFrom,
+        dateTo: modal?.props?.dateTo,
+      }));
     }
   }, [activeModals]);
 
@@ -238,11 +230,10 @@ export default function NewPublicModal({
       <DialogContent sx={{ p: "20px" }}>
         <Box>
           <Typography variant={"h4"} sx={{ mb: "30px", textAlign: "center" }}>
-            {modal?.props?.newPublic ? "Разместить тур" : "Редактировать тур"}
+            Разместить тур
           </Typography>
           <Stack direction={"column"} gap={"15px"}>
             <Autocomplete
-              disabled={!modal?.props?.newPublic}
               id="tourID"
               value={
                 myTours.find((tour) => tour?.tourId === editedPublic?.tourId) ||
@@ -504,9 +495,9 @@ export default function NewPublicModal({
                   textAlign: "center",
                 }}
               >
-                Вы можете редактировать тур до{" "}
+                Вы можете отменить тур до{" "}
                 {dayjs(editedPublic?.dateFrom)
-                  .add(-1, "day")
+                  .add(-3, "day")
                   .format("D MMMM YYYY")}
               </Typography>
             )}
@@ -528,62 +519,32 @@ export default function NewPublicModal({
             </Button>
             <Button
               disabled={
-                modal?.props?.newPublic
-                  ? Object.values(newPublicInputError).some(
-                      (value) => value !== false
-                    )
-                  : Object.values(newPublicInputError).some(
-                      (value) => value === true
-                    ) || dateError
+                Object.values(newPublicInputError).some(
+                  (value) => value !== false
+                ) || dateError
               }
               onClick={() => {
-                if (modal?.props?.newPublic) {
-                  postNewPublic(editedPublic as IPublicTour, (resp) => {
-                    dispatch(setModalInactive("newPublicModal"));
-                    setPublicTours((publicTours) =>
-                      publicTours?.concat({
-                        ...editedPublic,
-                        publicTourId: resp?.publicTourId,
-                        tourName: resp?.tourName,
-                        cancelDeadline: resp?.cancelDeadline,
-                        updateDeadline: resp?.updateDeadline,
-                      })
-                    );
-                    setSelectedPublic({
+                postNewPublic(editedPublic as IPublicTour, (resp) => {
+                  dispatch(setModalInactive("newPublicModal"));
+                  setPublicTours((publicTours) =>
+                    publicTours?.concat({
                       ...editedPublic,
                       publicTourId: resp?.publicTourId,
-                      cancelDeadline: resp?.cancelDeadline,
-                      updateDeadline: resp?.updateDeadline,
                       tourName: resp?.tourName,
-                    });
-                    setEditedPublic(undefined);
-                  });
-                } else {
-                  editPublicTour(editedPublic as IPublicTour, (resp) => {
-                    dispatch(setModalInactive("newPublicModal"));
-                    setPublicTours((publicTours: any) => {
-                      return publicTours?.map((tour: IPublicTour) => {
-                        if (tour.publicTourId === editedPublic?.publicTourId) {
-                          return editedPublic;
-                        }
-                        return tour;
-                      });
-                    });
-                    setSelectedPublic({
-                      ...editedPublic,
-                      publicTourId: resp?.publicTourId,
                       cancelDeadline: resp?.cancelDeadline,
-                      updateDeadline: resp?.updateDeadline,
-                      tourName: resp?.tourName,
-                    });
-                    setEditedPublic(undefined);
+                    })
+                  );
+                  setSelectedPublic({
+                    ...editedPublic,
+                    publicTourId: resp?.publicTourId,
+                    cancelDeadline: resp?.cancelDeadline,
+                    tourName: resp?.tourName,
                   });
-                }
+                  setEditedPublic(undefined);
+                });
               }}
             >
-              {modal?.props?.newPublic
-                ? "Разместить тур"
-                : "Сохранить изменения"}
+              Разместить тур
             </Button>
           </Stack>
         </Box>
