@@ -9,6 +9,7 @@ export const getToursSorted = async (
   data: ISearchRequest,
   params: {
     page: number;
+    perPage: number;
   },
   errorCallback?: () => void
 ) => {

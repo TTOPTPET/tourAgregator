@@ -241,15 +241,12 @@ export const ComplexFilter = ({
               max={120}
               marks={age}
               value={
-                searchData?.recommendedAge
-                  ? [
-                      searchData?.recommendedAge?.min,
-                      searchData?.recommendedAge?.max,
-                    ]
+                searchData?.age
+                  ? [searchData?.age?.min, searchData?.age?.max]
                   : [0, 120]
               }
               onChange={(_, value) =>
-                handleChangeField("recommendedAge", value as number[])
+                handleChangeField("age", value as number[])
               }
               valueLabelDisplay="auto"
               sx={{ ml: "15px", width: "85%" }}

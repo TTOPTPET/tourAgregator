@@ -26,11 +26,12 @@ import { useCookies } from "react-cookie";
 // import ContactsPage from "./pages/ContactsPage/ContactsPage";
 // import DocumentsPage from "./pages/DocumentsPage/DocumentsPage";
 
-// const AdminPage = lazyWithRetry(() =>
-//   import("./pages/AdminPage/AdminPage").then(({ default: AdminPage }) => ({
-//     default: AdminPage,
-//   }))
-// );
+const AdminPage = lazyWithRetry(() =>
+  import("./pages/AdminPage/AdminPage").then(({ default: AdminPage }) => ({
+    default: AdminPage,
+  }))
+);
+
 const Authorization = lazyWithRetry(() =>
   import("./pages/Authorization/Authorization").then(
     ({ default: Authorization }) => ({ default: Authorization })
@@ -217,7 +218,7 @@ function App() {
                 }
               /> */}
               {/* <Route path={"/"} element={<StartPage />} /> */}
-              {/* <Route path={"/admin/*"} element={<AdminPage />} /> */}
+              <Route path={"/admin/*"} element={<AdminPage />} />
               <Route path={"/auth"} element={<Authorization />} />
               <Route path={"/verify/:token"} element={<VerifyUserEmail />} />
               <Route

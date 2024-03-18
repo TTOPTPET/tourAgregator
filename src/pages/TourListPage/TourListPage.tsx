@@ -42,6 +42,7 @@ function TourListPage() {
   const [filtersLabels, setFiltersLabels] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const perPage = 20;
 
   const dispatch = useDispatch();
 
@@ -90,7 +91,7 @@ function TourListPage() {
         ...searchData,
         [key]: [],
       });
-    } else if (key === "prices" || key === "recommendedAge") {
+    } else if (key === "prices" || key === "age") {
       setSearchData({
         ...searchData,
         [key]: null,
@@ -142,7 +143,7 @@ function TourListPage() {
         setLoading(false);
       },
       searchData,
-      { page },
+      { page, perPage },
       () => {
         setLoading(false);
       }
@@ -158,7 +159,7 @@ function TourListPage() {
     getToursSorted(
       (search) => setTourList(search.data),
       { ...searchData, searchParam: searchParam.get("title") as string },
-      { page },
+      { page, perPage },
       undefined
     );
   }, [searchParam.get("title")]);
