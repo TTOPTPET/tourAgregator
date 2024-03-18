@@ -11,16 +11,8 @@ import {
   Popper,
   MenuList,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import logo from "../../media/logo.svg";
-import { ICreatorInfo, UserType } from "../../models/userModels/IUserInfo";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import accIcon from "../../media/accountLinkIcon.svg";
 import adminIcon from "../../media/Icons/headerIcons/adminPanel.svg";
 import calendarIcon from "../../media/calendarIcon.svg";
@@ -30,24 +22,15 @@ import StatIcon from "../../media/chart-box.svg";
 import CashIcon from "../../media/cash-icon.svg";
 import NotificationIcon from "../../media/notification.svg";
 import exitIcon from "../../media/exitIcon.svg";
-import { DarkStyledTooltip } from "../../config/MUI/styledComponents/StyledTooltip";
 import { useCookies } from "react-cookie";
 import { LOGGINED, ROLE } from "../../config/types";
 import { redColor } from "../../config/MUI/color/color";
 import { logout } from "../../API/authAPI/logout";
 
 const Header = () => {
-  const CreatorInfo: ICreatorInfo = useSelector(
-    (state: RootState) => state?.userInfo?.userInfo as ICreatorInfo
-  );
-
   const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
 
-  const [searchParamFromUrl] = useSearchParams();
-
-  const [searchParam, setSearchParam] = useState<string>(
-    searchParamFromUrl.get("title") || ""
-  );
+  const [searchParam, setSearchParam] = useState<string>("");
   const [menuPosition, setMenuPosition] = useState<number>(0);
   const [windowSize, setWindowSize] = useState<number>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -61,8 +44,6 @@ const Header = () => {
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   let location = useLocation();
-
-  const userInfo = useSelector((state: RootState) => state?.userInfo?.userInfo);
 
   const navigate = useNavigate();
 
@@ -143,6 +124,7 @@ const Header = () => {
                   searchParam.length > 4
                     ? navigate(`/?title=${searchParam}`)
                     : null;
+                  setSearchParam("");
                 }
               }}
             />

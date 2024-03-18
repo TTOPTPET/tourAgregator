@@ -8,6 +8,7 @@ export enum ChipLabelType {
   category = "Категория тура",
   complexity = "Сложность тура",
   region = "Регион проведения",
+  searchParam = "Название",
 }
 
 const getChipLabels = (searchData: ISearchRequest): string[] => {
@@ -59,6 +60,13 @@ const getChipLabels = (searchData: ISearchRequest): string[] => {
           break;
         }
         nonEmptySearchValues.push(ChipLabelType.maxPersonNumber);
+        break;
+      case "searchParam":
+        if (!searchData["searchParam"] || searchData["searchParam"] === "") {
+          break;
+        }
+        nonEmptySearchValues.push(ChipLabelType.searchParam);
+        break;
     }
   });
   return nonEmptySearchValues;

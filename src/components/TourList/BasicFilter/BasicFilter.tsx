@@ -20,6 +20,7 @@ import {
 } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import getChipLabels from "../getChipLabels";
+import { useEffect } from "react";
 
 export const BasicFilter = ({
   filters,
@@ -74,6 +75,10 @@ export const BasicFilter = ({
   const handlerSearchClick = () => {
     setFiltersLabels(getChipLabels(searchData));
   };
+
+  useEffect(() => {
+    setFiltersLabels(getChipLabels(searchData));
+  }, [searchData.searchParam]);
 
   const customRuRULocaleText: Partial<PickersLocaleText<any>> = {
     okButtonLabel: "Принять",
