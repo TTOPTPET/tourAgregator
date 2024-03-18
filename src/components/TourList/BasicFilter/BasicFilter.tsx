@@ -93,9 +93,9 @@ export const BasicFilter = ({
       width={{ sm: "100%", xs: "220px" }}
       margin={"0 auto"}
     >
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Регион</InputLabel>
-        <Select
+      <FormControl fullWidth>
+        <TextField
+          select
           value={searchData?.region || ""}
           onChange={(e) => {
             setSearchData({
@@ -115,7 +115,7 @@ export const BasicFilter = ({
               </MenuItem>
             );
           })}
-        </Select>
+        </TextField>
       </FormControl>
       <LocalizationProvider
         dateAdapter={AdapterDayjs}

@@ -154,11 +154,9 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
               <Typography variant={"h6"} marginBottom={1}>
                 Регион проведения
               </Typography>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Регион
-                </InputLabel>
-                <Select
+              <FormControl fullWidth>
+                <TextField
+                  select
                   value={tourInfo?.region || ""}
                   onChange={(e) => {
                     setTourInfo({
@@ -166,11 +164,11 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                       region: String(e.target.value),
                     });
                   }}
-                  label="Регион"
                   error={
                     (addError && tourInfo?.region === undefined) ||
                     tourInfo?.region === ""
                   }
+                  label="Регион"
                 >
                   <MenuItem value="">
                     <em>-</em>
@@ -182,7 +180,7 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                       </MenuItem>
                     );
                   })}
-                </Select>
+                </TextField>
               </FormControl>
             </Stack>
           </Grid>

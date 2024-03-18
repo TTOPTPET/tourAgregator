@@ -258,7 +258,6 @@ export const mainThemes = createTheme(breakpoints, {
         root: {
           width: "100%",
           borderRadius: "30px",
-          // margin: "0 !important",
           "& .MuiFormLabel-root": {
             color: darkBlueColor,
             opacity: "1",
@@ -270,9 +269,11 @@ export const mainThemes = createTheme(breakpoints, {
           "&::before": {
             borderBottom: null,
           },
-          // "& .MuiInputBase-root": {
-          //   backgroundColor: lightTurquoiseColor,
-          // },
+          "& .MuiInputBase-root": {
+            "&::hover": {
+              borderColor: "red",
+            },
+          },
         },
       },
     },
@@ -723,14 +724,6 @@ export const mainThemes = createTheme(breakpoints, {
         },
       },
     },
-    // MuiSelect: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: darkBlueColor,
-    //       backgroundColor: lightTurquoiseColor,
-    //     },
-    //   },
-    // },
     MuiList: {
       styleOverrides: {
         root: {
@@ -881,6 +874,13 @@ export const mainThemes = createTheme(breakpoints, {
             minHeight: "30px",
             padding: "5px 15px",
           },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          paddingLeft: "5px",
         },
       },
     },
