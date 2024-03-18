@@ -19,8 +19,9 @@ import TourCard from "../../components/TourCard/TourCard";
 import { useSearchParams } from "react-router-dom";
 import { ChipLabelType } from "../../components/TourList/getChipLabels";
 import TourListSkeleton from "./TourListSkeleton/TourListSkeleton";
-import { ICatalog } from "../../models/tourListModels/ICatalog";
+import { Catalog, ICatalog } from "../../models/tourListModels/ICatalog";
 import { RootState } from "../../redux/store";
+import { getCatalog } from "../../API/tourListAPI/filterAPI/filterAPI";
 
 const filterDefault: IFilter = {
   regions: [],
@@ -49,17 +50,38 @@ function TourListPage() {
   const moreThanSmall = useMediaQuery(theme.breakpoints.up("sm"));
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const complexity: ICatalog[] = useSelector(
-    (state: RootState) => state?.catalogs?.complexity as ICatalog[]
-  );
-
-  const country: ICatalog[] = useSelector(
-    (state: RootState) => state?.catalogs?.country as ICatalog[]
-  );
-
-  const category: ICatalog[] = useSelector(
-    (state: RootState) => state?.catalogs?.category as ICatalog[]
-  );
+  useEffect(() => {
+    getCatalog(
+      Catalog.country,
+      (value) => {
+        setFilters((filters) => ({
+          ...filters,
+          regions: value,
+        }));
+      },
+      () => {}
+    );
+    getCatalog(
+      Catalog.complexity,
+      (value) => {
+        setFilters((filters) => ({
+          ...filters,
+          complexity: value,
+        }));
+      },
+      () => {}
+    );
+    getCatalog(
+      Catalog.category,
+      (value) => {
+        setFilters((filters) => ({
+          ...filters,
+          category: value,
+        }));
+      },
+      () => {}
+    );
+  }, []);
 
   const clearSearchField = (key: keyof ISearchRequest, value: string) => {
     const searchValue = searchData[key];
@@ -126,15 +148,6 @@ function TourListPage() {
       }
     );
   }, [filtersLabels]);
-
-  useEffect(() => {
-    setFilters((filters) => ({
-      ...filters,
-      regions: country,
-      complexity: complexity,
-      category: category,
-    }));
-  }, []);
 
   useEffect(() => {
     setPage(1);
