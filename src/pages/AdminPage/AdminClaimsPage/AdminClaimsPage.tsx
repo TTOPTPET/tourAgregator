@@ -1,26 +1,34 @@
 import { useEffect, useState } from "react";
 import { IUserMessage } from "../../../models/adminModels/IUsersMessage";
-// import { getUserMessages } from "../../../API/adminAPI";
-import { Stack } from "@mui/material";
+import { getClaimsList } from "../../../API/adminAPI";
+import { Stack, Typography } from "@mui/material";
 import { AdminComponent } from "../../../components/Admin/AdminFabric/AdminFabric";
+import { redColor } from "../../../config/MUI/color/color";
 
 export const AdminClaimsPage = () => {
-  const [userMessages, setUserMessages] = useState<IUserMessage[]>([]);
+  const [userClaims, setUserClaims] = useState<IUserMessage[]>([]);
+  const [page, setPage] = useState(1);
 
-  //   useEffect(() => {
-  //     getUserMessages((value) => setUserMessages(value), undefined, false);
-  //   }, []);
+  useEffect(() => {
+    getClaimsList((value) => setUserClaims(value), { page }, undefined);
+  }, []);
 
   return (
     <Stack padding={1} gap={1}>
-      {userMessages &&
-        userMessages.map((item, index) => (
+      {userClaims && userClaims.length > 0 ? (
+        userClaims.map((item, index) => (
           <AdminComponent
             key={index}
             props={{ ...item, type: "message" }}
-            arrayProps={userMessages}
+            arrayProps={userClaims}
+            setArrayProps={setUserClaims}
           />
-        ))}
+        ))
+      ) : (
+        <Typography variant="caption" sx={{ mt: "20px", textAlign: "center" }}>
+          Нет обращений
+        </Typography>
+      )}
     </Stack>
   );
 };

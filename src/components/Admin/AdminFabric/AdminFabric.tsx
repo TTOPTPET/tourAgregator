@@ -1,14 +1,28 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import { IAdminComponent } from "./AdminFabricTypes/AdminFabricTypes";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Grid,
+  Stack,
+  SvgIcon,
+  Typography,
+} from "@mui/material";
 import { mobileWidth } from "../../../config/config";
 import { whiteColor } from "../../../config/MUI/color/color";
-// import {
-//   changeMessageStatus,
-//   tourBan,
-//   userBan,
-//   verifyCreator,
-// } from "../../../API/adminAPI";
+import { banUser, unbanUser } from "../../../API/adminAPI";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import NavigateIcon from "../../../media/navigate_before.svg?react";
+import confirmIcon from "../../../media/confirmIcon.svg";
+import rejectIcon from "../../../media/rejectIcon.svg";
+import {
+  confirmAppeals,
+  confirmClaim,
+  rejectClaim,
+} from "../../../API/adminAPI/AdminMessagesAPI/AdminMessagesAPI";
 
 enum MessageStatus {
   notRead = "notRead",
@@ -39,14 +53,23 @@ const messageTypes = [
 type AdminComponentProps = {
   props: IAdminComponent;
   arrayProps: any[];
+  setArrayProps?: Dispatch<SetStateAction<any[]>>;
+  appeals?: boolean;
 };
 
-export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
+export const AdminComponent = ({
+  props,
+  arrayProps,
+  setArrayProps,
+  appeals,
+}: AdminComponentProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [statusVerify, setStatusVerify] = useState<string>(
     VerifyStatus.verified
   );
   const [statusMessage, setStatusMessage] = useState<string>("");
+
+  dayjs.locale("ru");
 
   //   const changeBanStatus = (key: string) => {
   //     const { type, ...propsValue } = props;
@@ -54,25 +77,6 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
   //     //@ts-ignore
   //     arrayProps[index].banStatus = !propsValue.banStatus;
   //     setProps([...arrayProps]);
-  //   };
-
-  //   const handlerUserBanClick = (touristId: string) => {
-  //     userBan(
-  //       () => {
-  //         if (props.type === "tourist") {
-  //           changeBanStatus("touristId");
-  //         }
-  //         if (props.type === "creator") {
-  //           changeBanStatus("creatorId");
-  //         }
-  //         if (props.type === "admin") {
-  //           changeBanStatus("adminId");
-  //         }
-  //       },
-  //       touristId,
-  //       undefined,
-  //       false
-  //     );
   //   };
 
   //   const handlerTourBanClick = (tourId: string) => {
@@ -126,7 +130,9 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
 
   switch (props.type) {
     case "user": {
-      const { name, email, isActive, id, phone } = props;
+      const { name, email, is_active, id, phone } = props;
+
+      const [isActive, setIsActive] = useState(is_active);
 
       return (
         <Grid
@@ -138,10 +144,22 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
           width={mobileWidth}
         >
           <Grid item className="tourist__name">
-            <Typography variant={"h6"}>{name}</Typography>
+            <Typography
+              variant={"h6"}
+              sx={{
+                width: "90px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {name}
+            </Typography>
           </Grid>
           <Grid item className="tourist__contacts">
-            <Typography variant={"h6"}>Контакты:</Typography>
+            <Typography variant={"h6"} sx={{ mb: "5px" }}>
+              Контакты:
+            </Typography>
             <Stack direction={"row"} gap={2}>
               <Stack>
                 <Typography variant={"caption"}>Тел.</Typography>
@@ -149,13 +167,25 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
               </Stack>
               <Stack>
                 <Typography variant={"caption"}>{phone}</Typography>
-                <Typography variant={"caption"}>{email}</Typography>
+                <Typography
+                  variant={"caption"}
+                  sx={{
+                    width: "250px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {email}
+                </Typography>
               </Stack>
             </Stack>
           </Grid>
           <Grid item className="tourist__ban">
-            <Typography variant={"h6"}>Статус блокировки:</Typography>
-            {!isActive ? (
+            <Typography variant={"h6"} sx={{ mb: "5px" }}>
+              Статус блокировки:
+            </Typography>
+            {isActive ? (
               <Typography variant={"caption"}>Разблокирован</Typography>
             ) : (
               <Typography variant={"caption"}>Заблокирован</Typography>
@@ -170,7 +200,23 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
             <Button
               variant="text"
               sx={{ fontSize: "18px" }}
-              //   onClick={() => isActive ? handlerUserBanClick(id) : handlerUserUnbanClick(id)}
+              onClick={() => {
+                isActive
+                  ? banUser(
+                      () => {
+                        setIsActive((prev) => !prev);
+                      },
+                      id as number,
+                      () => {}
+                    )
+                  : unbanUser(
+                      () => {
+                        setIsActive((prev) => !prev);
+                      },
+                      id as number,
+                      () => {}
+                    );
+              }}
             >
               Переключить статус блокировки
             </Button>
@@ -179,51 +225,215 @@ export const AdminComponent = ({ props, arrayProps }: AdminComponentProps) => {
       );
     }
     case "message": {
-      const { description, gidEmail, publicTourId, userEmail } = props;
+      const {
+        description,
+        gidEmail,
+        touristEmail,
+        tourName,
+        claimId,
+        creationDateTime,
+      } = props;
+      console.log(arrayProps);
       return (
-        <Grid container padding={2} gap={4}>
-          <Grid item xs={5} className="user__info">
-            <Stack direction={"row"} gap={2}>
-              <Stack>
-                <Typography variant={"caption"}>Почта</Typography>
-              </Stack>
-              <Stack>
-                <Typography variant={"caption"}>{userEmail}</Typography>
-              </Stack>
-            </Stack>
-          </Grid>
-          <Grid item xs={5} className="user__message">
-            <Stack direction={"column"} gap={2}>
-              <Stack>
-                <Typography variant={"caption"}>Сообщение</Typography>
-              </Stack>
-              <Stack>
-                <Typography variant={"caption"}>{description}</Typography>
-              </Stack>
-            </Stack>
-          </Grid>
-          <Grid
-            item
-            xs={5}
-            sx={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}
-            className="user__ban"
+        <div>
+          <Accordion
+            defaultExpanded
+            className="message__panel"
+            expanded={expanded}
+            square={true}
           >
-            <Button
-              variant="text"
-              sx={{ fontSize: "18px" }}
-              //   onClick={() => handlerUserBanClick(touristId)}
-            >
-              Принять
-            </Button>
-            <Button
-              variant="text"
-              sx={{ fontSize: "18px" }}
-              //   onClick={() => handlerUserBanClick(touristId)}
-            >
-              Отклонить
-            </Button>
-          </Grid>
-        </Grid>
+            <AccordionSummary id="panel4bh-header">
+              <Grid container padding={2} gap={4}>
+                <Grid item xs={20} className="user__info">
+                  <Typography variant={"h6"}>Отправитель:</Typography>
+                  <Stack direction={"row"} gap={2} mt={"5px"}>
+                    <Stack gap="5px">
+                      <Typography variant={"caption"}>Почта:</Typography>
+                      <Typography variant={"caption"}>
+                        Дата создания:
+                      </Typography>
+                    </Stack>
+                    <Stack gap="5px">
+                      <Typography
+                        variant={"caption"}
+                        sx={{
+                          width: "450px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {touristEmail}
+                      </Typography>
+                      <Typography variant={"caption"}>
+                        {dayjs(creationDateTime).format("D MMMM YYYY HH:MM:ss")}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                  {!appeals && (
+                    <>
+                      <Typography variant={"h6"} mt="20px">
+                        Жалоба на:
+                      </Typography>
+                      <Stack direction={"row"} gap={2} mt={"5px"}>
+                        <Stack gap={"5px"}>
+                          <Typography variant={"caption"}>
+                            Название тура:
+                          </Typography>
+                          <Typography variant={"caption"}>
+                            Почта гида:
+                          </Typography>
+                        </Stack>
+                        <Stack gap="5px">
+                          <Typography
+                            variant={"caption"}
+                            sx={{
+                              width: "450px",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {tourName}
+                          </Typography>
+                          <Typography
+                            variant={"caption"}
+                            sx={{
+                              width: "450px",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {gidEmail}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </>
+                  )}
+                </Grid>
+                <Grid item xs={7} className="user__ban">
+                  <Stack
+                    direction={"row"}
+                    justifyContent={"right"}
+                    alignItems={"center"}
+                    sx={{ position: "absolute" }}
+                    bottom={{ lg: 20, sm: 0, xs: -9 }}
+                    right={{ lg: 20, sm: 0, xs: -10 }}
+                    onClick={() => setExpanded(expanded ? false : true)}
+                  >
+                    <Typography variant={"caption"}>
+                      {expanded ? <>Скрыть</> : <>Развернуть</>}
+                    </Typography>
+                    <SvgIcon
+                      viewBox={"0 -8 24 24"}
+                      fontSize="medium"
+                      sx={
+                        expanded
+                          ? {}
+                          : {
+                              transform: "rotate(180deg)",
+                            }
+                      }
+                    >
+                      <NavigateIcon width={24} />
+                    </SvgIcon>
+                  </Stack>
+                </Grid>
+              </Grid>
+              <Stack
+                direction={"row"}
+                justifyContent={"right"}
+                alignItems={"center"}
+                sx={{ position: "absolute" }}
+                top={30}
+                right={20}
+                gap="7px"
+              >
+                <Button
+                  variant="editButton"
+                  onClick={() =>
+                    confirmClaim(
+                      () => {
+                        setArrayProps &&
+                          setArrayProps((prev) =>
+                            prev.filter((item) => item.claimId !== claimId)
+                          );
+                      },
+                      { claimId },
+                      () => {}
+                    )
+                  }
+                >
+                  <img
+                    src={confirmIcon}
+                    alt="plus icon"
+                    style={{
+                      width: "25px",
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }}
+                    className="tour_button_icon"
+                  />
+                </Button>
+
+                {!appeals && (
+                  <Button
+                    className="tour-card__button-delete"
+                    onClick={() =>
+                      appeals
+                        ? confirmAppeals(
+                            () => {
+                              setArrayProps &&
+                                setArrayProps((prev) =>
+                                  prev.filter(
+                                    (item) => item.claimId !== claimId
+                                  )
+                                );
+                            },
+                            { claimId },
+                            () => {}
+                          )
+                        : rejectClaim(
+                            () => {
+                              setArrayProps &&
+                                setArrayProps((prev) =>
+                                  prev.filter(
+                                    (item) => item.claimId !== claimId
+                                  )
+                                );
+                            },
+                            { claimId },
+                            () => {}
+                          )
+                    }
+                    variant="deleteButton"
+                  >
+                    <img
+                      src={rejectIcon}
+                      alt="plus icon"
+                      style={{
+                        width: "25px",
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      className="tour_button_icon"
+                    />
+                  </Button>
+                )}
+              </Stack>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant={"caption"} padding={2} flexWrap={"wrap"}>
+                {description}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       );
     }
 

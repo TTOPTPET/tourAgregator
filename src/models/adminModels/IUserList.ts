@@ -1,9 +1,8 @@
 export interface IUserList {
   role_id?: number;
-  isActive?: boolean;
-  banStatus?: boolean;
+  is_active?: boolean;
   email?: string;
   name?: string;
-  id?: string;
+  id?: number;
   phone?: string;
 }

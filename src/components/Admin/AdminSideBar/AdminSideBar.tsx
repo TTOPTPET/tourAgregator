@@ -25,11 +25,11 @@ const sideBarNavItems: ISideBarNavItems[] = [
   },
   {
     display: "Сообщения от пользователей",
-    to: "claims",
+    to: "appeals",
   },
   {
     display: "Жалобы на туры",
-    to: "appeals",
+    to: "claims",
   },
 ];
 

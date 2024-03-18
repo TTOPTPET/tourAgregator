@@ -14,9 +14,9 @@ import {
 import logo from "../../media/logo.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import accIcon from "../../media/accountLinkIcon.svg";
-import adminIcon from "../../media/Icons/headerIcons/adminPanel.svg";
 import calendarIcon from "../../media/calendarIcon.svg";
 import settingsIcon from "../../media/settingsIcon.svg";
+import adminIcon from "../../media/adminIcon.svg";
 import { useEffect, useRef, useState } from "react";
 import MenuIcon from "../../media/menu-icon.svg";
 import StatIcon from "../../media/chart-box.svg";
@@ -291,7 +291,7 @@ const Header = () => {
                               }}
                             >
                               <img
-                                src={settingsIcon}
+                                src={adminIcon}
                                 alt={"profile"}
                                 style={{ width: "26px" }}
                               />

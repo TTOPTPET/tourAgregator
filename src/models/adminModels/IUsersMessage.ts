@@ -1,6 +1,9 @@
 export interface IUserMessage {
-  description: string;
+  description?: string;
   publicTourId?: string;
   gidEmail?: string;
-  userEmail?: string;
+  touristEmail?: string;
+  claimId: number;
+  creationDateTime?: string;
+  tourName: string;
 }
