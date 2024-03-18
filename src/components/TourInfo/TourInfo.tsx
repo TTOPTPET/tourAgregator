@@ -3,7 +3,6 @@ import {
   Grid,
   Skeleton,
   Stack,
-  SvgIcon,
   Typography,
   useMediaQuery,
   useTheme,
@@ -18,7 +17,6 @@ import { Attention } from "../../components/Attention/Attention";
 import { IAddTour } from "../../models/addTourModels/IAddTour";
 import { ITourInfo } from "../../models/tourModels/ITourInfo";
 import dayjs from "dayjs";
-import { baseUrl } from "../../config/config";
 import MapLeaflet from "../MapLeaflet/MapLeaflet";
 import TourCreatorInfo from "../../pages/TourPage/TourCreatorInfo/TourCreatorInfo";
 import { ICatalog } from "../../models/tourListModels/ICatalog";
@@ -34,8 +32,6 @@ interface ITourInfoProps {
 }
 
 export const TourInfo: FC<ITourInfoProps> = ({
-  images,
-  setImage,
   addTourInfo,
   tourInfo,
   isEditing,
@@ -57,7 +53,6 @@ export const TourInfo: FC<ITourInfoProps> = ({
   const lessThenBig = useMediaQuery(theme.breakpoints.down("lg"));
   const lessThenMid = useMediaQuery(theme.breakpoints.down("md"));
   const upperThenSmall = useMediaQuery(theme.breakpoints.up("sm"));
-  const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const tagsConverter = (key: "free" | "additional") => {
     switch (key) {

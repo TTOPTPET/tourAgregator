@@ -149,17 +149,17 @@ export const ComplexFilter = ({
       onClose={() => dispatch(setModalInactive("filterModal"))}
       open={isModalActive("filterModal", activeModals)}
       fullWidth
-      maxWidth={"lg"}
+      maxWidth={"md"}
     >
       <DialogContent sx={{ p: lessThenSmall ? "0px" : "20px 24px" }}>
         <Grid
           container
           item
           direction={lessThenSmall ? "column" : "row"}
-          width={lessThenSmall ? "80%" : "100%"}
+          width={lessThenSmall ? "60%" : "100%"}
           justifyContent={"space-between"}
         >
-          <Grid item sm={3}>
+          <Grid item sm={4}>
             <Typography variant={"h5"}>Категория тура</Typography>
             <Box
               sx={{
@@ -189,9 +189,7 @@ export const ComplexFilter = ({
                 />
               ))}
             </Box>
-          </Grid>
-          <Grid item sm={4}>
-            <Typography variant={"h5"} marginTop={2}>
+            <Typography variant={"h5"} marginTop={lessThenSmall ? 0 : 5}>
               Стоимость
             </Typography>
             <Slider
@@ -206,7 +204,7 @@ export const ComplexFilter = ({
               sx={{ ml: "15px" }}
             />
           </Grid>
-          <Grid item sm={3}>
+          <Grid item sm={5}>
             <Typography variant={"h5"}>Сложность маршрута</Typography>
             <Box
               sx={{

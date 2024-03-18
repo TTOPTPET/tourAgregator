@@ -8,7 +8,9 @@ import { lightTurquoiseColor } from "../../../config/MUI/color/color";
 import { useDispatch } from "react-redux";
 import { setModalActive } from "../../../redux/Modal/ModalReducer";
 import { SetStateAction, Dispatch } from "react";
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { SvgIcon, Typography, useMediaQuery, useTheme } from "@mui/material";
+import EditIcon from "../../../media/editTourIcon.svg";
+import DeleteIcon from "../../../media/deleteTourIcon.svg";
 
 type TourCardProps = {
   tour: ITourResponse;
@@ -49,41 +51,52 @@ function TourCardContentCreatorLk({ tour }: TourCardProps) {
         {tour.tourName}
       </Typography>
       <Box
-        display={"flex"}
-        flexDirection={"column"}
-        flex={"0 0 auto"}
         className="tour-card__button-wrapper"
-        sx={{ flex: "0 0 auto" }}
+        sx={{ display: "flex", justifyContent: "flex-end", gap: "7px" }}
       >
-        <Box
-          display="flex"
-          justifyContent={"flex-end"}
-          className="tour-card__button-edit"
+        <Button
+          component={Link}
+          to={`/creator/editTour/${tour?.tourId}`}
+          variant="editButton"
         >
-          <Button component={Link} to={`/creator/editTour/${tour?.tourId}`}>
-            Редактировать
-          </Button>
-        </Box>
-        <Box
-          className="tour-card__buttons-wrapper"
-          display="flex"
-          justifyContent={"flex-end"}
-          mt="5px"
-          columnGap={"5px"}
+          <img
+            src={EditIcon}
+            alt="plus icon"
+            style={{
+              width: "25px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+            className="tour_button_icon"
+          />
+        </Button>
+
+        <Button
+          className="tour-card__button-delete"
+          onClick={() =>
+            dispatch(
+              setModalActive("deleteTourModal", {
+                tourId: tour?.tourId,
+              })
+            )
+          }
+          variant="deleteButton"
         >
-          <Button
-            className="tour-card__button-delete"
-            onClick={() =>
-              dispatch(
-                setModalActive("deleteTourModal", {
-                  tourId: tour?.tourId,
-                })
-              )
-            }
-          >
-            Удалить
-          </Button>
-        </Box>
+          <img
+            src={DeleteIcon}
+            alt="plus icon"
+            style={{
+              width: "25px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+            className="tour_button_icon"
+          />
+        </Button>
       </Box>
     </Box>
   );

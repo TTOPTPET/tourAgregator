@@ -20,6 +20,8 @@ declare module "@mui/material/Button" {
     addTourImage: true;
     fullButton: true;
     addTourImageErrored: true;
+    editButton: true;
+    deleteButton: true;
   }
 }
 
@@ -490,6 +492,30 @@ export const mainThemes = createTheme(breakpoints, {
         {
           props: { variant: "errorButton" },
           style: {
+            backgroundColor: redColor,
+            "&:hover": { backgroundColor: redColor },
+          },
+        },
+        {
+          props: { variant: "editButton" },
+          style: {
+            width: "55px",
+            height: "35px",
+            padding: 0,
+            display: "flex",
+            alighItems: "center",
+            justifyContent: "center",
+          },
+        },
+        {
+          props: { variant: "deleteButton" },
+          style: {
+            width: "55px",
+            height: "35px",
+            padding: 0,
+            display: "flex",
+            alighItems: "center",
+            justifyContent: "center",
             backgroundColor: redColor,
             "&:hover": { backgroundColor: redColor },
           },
