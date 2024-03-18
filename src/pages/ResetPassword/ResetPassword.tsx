@@ -180,7 +180,7 @@ function ResetPassword() {
           sx={{ position: "absolute", right: "40px", bottom: "30px" }}
           onClick={() => {
             setData({});
-            navigate("/tours/all");
+            navigate("/");
           }}
         >
           На главную

@@ -112,7 +112,7 @@ const Header = () => {
         >
           <Box
             onClick={() => {
-              navigate("/tours/all");
+              navigate("/");
             }}
             sx={{
               display: "flex",
@@ -134,13 +134,15 @@ const Header = () => {
           </Box>
           <Box sx={{ m: { sm: "0 30px", xs: "0 10px" }, width: "100%" }}>
             <TextField
-              label="Найти тур"
+              label="Найти тур (от 4 символов)"
               color="secondary"
               value={searchParam}
               onChange={(e) => setSearchParam(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  navigate(`/tours/all?title=${searchParam}`);
+                  searchParam.length > 4
+                    ? navigate(`/?title=${searchParam}`)
+                    : null;
                 }
               }}
             />

@@ -174,7 +174,7 @@ function UserInfo({ header, fields, submitFuntion }: UserInfoProps) {
           setCookies(USER_ROLE, resp.role, { path: "/" });
           setCookies(BAN_STATUS, resp.status, { path: "/" });
           dispatch(setModalInactive("enterMobileCodeModal"));
-          navigate("/tours/all");
+          navigate("/");
         }}
       /> */}
     </>

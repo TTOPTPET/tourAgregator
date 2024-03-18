@@ -224,7 +224,7 @@ function App() {
                 path={"/reset-password/:token"}
                 element={<ResetPassword />}
               />
-              <Route path={"/tours/all"} element={<TourListPage />} />
+              <Route path={"/"} element={<TourListPage />} />
               {/* <Route path={"/tours/tour/:tourId"} element={<TourPage />} /> */}
               {/* <Route path={"/contacts"} element={<ContactsPage />} /> */}
               {/* <Route path={"/documents"} element={<DocumentsPage />} /> */}

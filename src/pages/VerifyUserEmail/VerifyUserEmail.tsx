@@ -84,7 +84,7 @@ function VerifyUserEmail() {
       <Button
         sx={{ position: "absolute", right: "40px", bottom: "30px" }}
         onClick={() => {
-          navigate("/tours/all");
+          navigate("/");
         }}
       >
         На главную

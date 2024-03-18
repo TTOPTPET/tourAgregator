@@ -254,9 +254,7 @@ function Authorization() {
           setErrAuth(false);
           setErrorMessage("");
           setLoading(false);
-          value?.role_id === 1
-            ? navigate("/tours/all")
-            : navigate("/creator/lk");
+          value?.role_id === 1 ? navigate("/") : navigate("/creator/lk");
         });
       },
       (e) => {
