@@ -1,9 +1,12 @@
 import axios from "axios";
-import { IUserMessage } from "../../../models/adminModels/IUsersMessage";
+import {
+  IUserMessage,
+  IUserMessageResponse,
+} from "../../../models/adminModels/IUsersMessage";
 import { adminUrl } from "../../../config/config";
 
 export const getClaimsList = async (
-  successCallback: (prop: IUserMessage[]) => void,
+  successCallback: (prop: IUserMessageResponse) => void,
   params: {
     page: number;
   },
@@ -14,7 +17,7 @@ export const getClaimsList = async (
       params,
       withCredentials: true,
     });
-    successCallback(response?.data?.data);
+    successCallback(response?.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();
@@ -60,7 +63,7 @@ export const rejectClaim = async (
 };
 
 export const getAppealsList = async (
-  successCallback: (prop: IUserMessage[]) => void,
+  successCallback: (prop: IUserMessageResponse) => void,
   params: {
     page: number;
   },
@@ -71,7 +74,7 @@ export const getAppealsList = async (
       params,
       withCredentials: true,
     });
-    successCallback(response?.data?.data);
+    successCallback(response?.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();

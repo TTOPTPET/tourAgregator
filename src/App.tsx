@@ -1,7 +1,7 @@
 import "./App.css";
 import dayjs from "dayjs";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Container, ThemeProvider, Box } from "@mui/material";
+import { Container, ThemeProvider } from "@mui/material";
 
 import { mainThemes } from "./config/MUI/themes/mainTheme/mainTheme";
 import Header from "./components/Header/Header";

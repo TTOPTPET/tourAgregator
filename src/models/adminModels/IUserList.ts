@@ -6,3 +6,12 @@ export interface IUserList {
   id?: number;
   phone?: string;
 }
+
+export interface IUserListResponse {
+  details: {
+    page: number;
+    perPage: number;
+    hasMore: boolean;
+  };
+  data: IUserList[];
+}

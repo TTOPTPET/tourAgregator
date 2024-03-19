@@ -24,32 +24,6 @@ import {
   rejectClaim,
 } from "../../../API/adminAPI/AdminMessagesAPI/AdminMessagesAPI";
 
-enum MessageStatus {
-  notRead = "notRead",
-  read = "read",
-  solved = "solved",
-}
-
-enum VerifyStatus {
-  notVerified = "notVerified",
-  verified = "verified",
-  sendVerified = "sendVerified",
-  waitVerified = "waitVerified",
-}
-
-const verifyTypes = [
-  { id: VerifyStatus.notVerified, name: "Не подтверждён" },
-  { id: VerifyStatus.verified, name: "Подтверджён" },
-  { id: VerifyStatus.sendVerified, name: "Отправлен на подтверждение" },
-  { id: VerifyStatus.waitVerified, name: "Ожидает подтверждения" },
-];
-
-const messageTypes = [
-  { id: MessageStatus.notRead, name: "Не прочитано" },
-  { id: MessageStatus.read, name: "Прочитано" },
-  { id: MessageStatus.solved, name: "Решено" },
-];
-
 type AdminComponentProps = {
   props: IAdminComponent;
   arrayProps: any[];
@@ -64,69 +38,8 @@ export const AdminComponent = ({
   appeals,
 }: AdminComponentProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [statusVerify, setStatusVerify] = useState<string>(
-    VerifyStatus.verified
-  );
-  const [statusMessage, setStatusMessage] = useState<string>("");
 
   dayjs.locale("ru");
-
-  //   const changeBanStatus = (key: string) => {
-  //     const { type, ...propsValue } = props;
-  //     const index = arrayProps.findIndex((item) => item[key] === propsValue[key]);
-  //     //@ts-ignore
-  //     arrayProps[index].banStatus = !propsValue.banStatus;
-  //     setProps([...arrayProps]);
-  //   };
-
-  //   const handlerTourBanClick = (tourId: string) => {
-  //     tourBan(
-  //       () => {
-  //         if (props.type === "tour") {
-  //           changeBanStatus("tourId");
-  //         }
-  //       },
-  //       tourId,
-  //       undefined,
-  //       false
-  //     );
-  //   };
-
-  //   const handlerMessageStatusClick = (messageId: string) => {
-  //     changeMessageStatus(
-  //       () => {
-  //         if (props.type === "message") {
-  //           const { type, ...propsValue } = props;
-  //           const index = arrayProps.findIndex(
-  //             (item) => item.messageId === propsValue.messageId
-  //           );
-  //           arrayProps[index].statusMessage = statusMessage;
-  //           setProps([...arrayProps]);
-  //         }
-  //       },
-  //       { messageId: messageId, statusMessage: statusMessage },
-  //       undefined,
-  //       false
-  //     );
-  //   };
-
-  //   const handlerVerifyStatusClick = (creatorId: string) => {
-  //     verifyCreator(
-  //       () => {
-  //         if (props.type === "creator") {
-  //           const { type, ...propsValue } = props;
-  //           const index = arrayProps.findIndex(
-  //             (item) => item.creatorId === propsValue.creatorId
-  //           );
-  //           arrayProps[index].dataUser.statusVerify = statusVerify;
-  //           setProps([...arrayProps]);
-  //         }
-  //       },
-  //       { messageId: creatorId, statusMessage: statusVerify },
-  //       undefined,
-  //       false
-  //     );
-  //   };
 
   switch (props.type) {
     case "user": {
