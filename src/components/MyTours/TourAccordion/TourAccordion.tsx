@@ -15,7 +15,7 @@ import { SetStateAction, useState, Dispatch, FC } from "react";
 import { IUserRecord } from "../../../models/userModels/IUserRecord";
 import NavigateIcon from "../../../media/navigate_before.svg?react";
 import { TourDetails } from "../TourSummary/TourDetails";
-// import SuccessMessageSendModal from "../../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
+import SuccessMessageSendModal from "../../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 import BaseChip from "./Chips/BaseChip/BaseChip";
 import { checkReturnPayment } from "../TourSummary/TourDetails";
 
@@ -33,7 +33,7 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
   setRecords,
 }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  console.log(record);
+
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -67,80 +67,31 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
             <Grid item md={5}>
               <Stack gap="5px">
                 <Typography variant={"h5"}>
-                  {record.tour.tourName + " "}№{record.bookingId}
+                  {record.tour.tourName + " "}
                 </Typography>
                 <Typography variant={"caption"}>
                   {dayjs(record.dateFrom).format("D MMMM YYYY") +
                     " - " +
                     dayjs(record.dateTo).format("D MMMM YYYY")}
                 </Typography>
-                <Typography variant={"caption"}>ООО "Алтай тур"</Typography>
                 {checkReturnPayment(record) && <BaseChip />}
               </Stack>
             </Grid>
-            {/* <Grid item width={"fit-content"} justifyContent={"right"}>
-                <Stack gap="5px">
-                  {record?.bookingStatus?.needPayment ? (
-                    <Stack
-                      direction="row"
-                      gap={2}
-                      alignItems={"center"}
-                      justifyContent={"right"}
-                    >
-                      <Button
-                        onClick={() =>
-                          bookingPay(record?.bookingId, (data) => {
-                            window.location.replace(data.paymentUrl);
-                          })
-                        }
-                        sx={{
-                          position: lessThenSmall ? "absolute" : "relative",
-                          right: "0px",
-                          top: "0px",
-                        }}
-                      >
-                        Оплатить
-                      </Button>
-  
-                      <Typography
-                        variant={"button"}
-                        textAlign={"right"}
-                        sx={{
-                          position: lessThenSmall ? "absolute" : "",
-                          bottom: "20px",
-                          right: "0",
-                        }}
-                      >
-                        {record.tourAmount / 100}₽
-                      </Typography>
-                    </Stack>
-                  ) : (
-                    <Typography
-                      variant={"button"}
-                      textAlign={"right"}
-                      sx={{
-                        position: lessThenSmall ? "absolute" : "",
-                        bottom: "20px",
-                        right: "0",
-                      }}
-                    >
-                      {record.tourAmount / 100}₽
-                    </Typography>
-                  )}
-                  <Typography
-                    variant={"caption"}
-                    textAlign={"right"}
-                    sx={{
-                      mt:
-                        lessThenSmall && !record?.bookingStatus?.needPayment
-                          ? "5px"
-                          : "",
-                    }}
-                  >
-                    {fromModelsToPaymentName.get(record.bookingStatus.payment)}
-                  </Typography>
-                </Stack>
-              </Grid> */}
+            <Grid item width={"fit-content"} justifyContent={"right"}>
+              <Stack gap="5px">
+                <Typography
+                  variant={"button"}
+                  textAlign={"right"}
+                  sx={{
+                    position: lessThenSmall ? "absolute" : "",
+                    bottom: "20px",
+                    right: "0",
+                  }}
+                >
+                  {record.tourAmount / 100}₽
+                </Typography>
+              </Stack>
+            </Grid>
             <Stack
               direction={"row"}
               justifyContent={"right"}
@@ -187,7 +138,7 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
             setRecords={setRecords}
           />
         </AccordionDetails>
-        {/* <SuccessMessageSendModal /> */}
+        <SuccessMessageSendModal />
       </Accordion>
     </>
   );

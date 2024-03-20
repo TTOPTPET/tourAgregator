@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { IUserRecord } from "../../models/userModels/IUserRecord";
-// import { getTouristRecords } from "../../API/touristAPI/getTouristRecords";
+import { getTouristRecords } from "../../API/touristAPI/getTouristRecords";
 import { TourAccordion } from "./TourAccordion/TourAccordion";
 import ErrorBookingModal from "../Modals/ErrorBookingModal/ErrorBookingModal";
 import ConfirmCancelBooking from "../Modals/ConfirmCancelBooking/ConfirmCancelBooking";
@@ -35,9 +35,15 @@ export const MyTours = () => {
     "successReturn",
   ].reverse();
 
-  const sortedByDateRecords = records.sort((a, b) =>
-    a.dateFrom > b.dateFrom ? 1 : -1
+  const [sortedByDateRecords, setSortedByDateRecords] = useState<IUserRecord[]>(
+    []
   );
+  console.log(records);
+  useEffect(() => {
+    const sortedRecords =
+      records && records.sort((a, b) => (a.dateFrom > b.dateFrom ? 1 : -1));
+    setSortedByDateRecords(sortedRecords);
+  }, [records]);
 
   const theme = useTheme();
 
@@ -59,18 +65,18 @@ export const MyTours = () => {
     }
   }, [tabValue]);
 
-  const filterRecords = (past: boolean) => {
+  const filterRecords = (isFinished: boolean) => {
     setLoading(true);
-    // getTouristRecords(
-    //   (value) => {
-    //     setRecords(value.filter((item) => item.bookingStatus.past === past));
-    //     setLoading(false);
-    //   },
-    //   () => {
-    //     setLoading(false);
-    //   },
-    //   false
-    // );
+    getTouristRecords(
+      { isFinished },
+      (value) => {
+        setRecords(value);
+        setLoading(false);
+      },
+      () => {
+        setLoading(false);
+      }
+    );
   };
 
   const handlerTabChange = (e: SyntheticEvent, newValue: tabValues) => {
@@ -124,7 +130,7 @@ export const MyTours = () => {
             mt: "40px",
           }}
         >
-          <CircularProgress size={"80px"} />
+          <CircularProgress size={"60px"} />
         </Box>
       ) : (
         <Stack direction={"column"} gap={{ lg: "20px", xs: "10px" }}>

@@ -2,12 +2,12 @@ import { urlBookings } from "../../config/config";
 import axios from "axios";
 
 export const cancelBooking = async (
-  bookingId: number,
+  bookingId: string,
   successCallback?: (prop: any) => void,
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.post(urlBookings + `/${bookingId}`, {
+    let response = await axios.post(urlBookings + `/${bookingId}`, undefined, {
       withCredentials: true,
     });
     successCallback && successCallback(response?.data);
