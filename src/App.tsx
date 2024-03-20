@@ -80,11 +80,11 @@ const TourCalendarPage = lazyWithRetry(() =>
     ({ default: TourCalendarPage }) => ({ default: TourCalendarPage })
   )
 );
-// const TouristLk = lazyWithRetry(() =>
-//   import("./pages/TouristLk/TouristLk").then(({ default: TouristLk }) => ({
-//     default: TouristLk,
-//   }))
-// );
+const TouristLk = lazyWithRetry(() =>
+  import("./pages/TouristLk/TouristLk").then(({ default: TouristLk }) => ({
+    default: TouristLk,
+  }))
+);
 const TourListPage = lazyWithRetry(() =>
   import("./pages/TourListPage/TourListPage").then(
     ({ default: TourListPage }) => ({ default: TourListPage })
@@ -193,14 +193,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route
+              <Route
                 path={"/tourist/lk"}
                 element={
                   <ProtectedRoute>
                     <TouristLk />
                   </ProtectedRoute>
                 }
-              /> */}
+              />
               {/* <Route path={"/"} element={<StartPage />} /> */}
               <Route path={"/admin/*"} element={<AdminPage />} />
               <Route path={"/auth"} element={<Authorization />} />

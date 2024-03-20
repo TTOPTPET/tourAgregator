@@ -10,7 +10,6 @@ export enum UserType {
 //   tempId?: string;
 // }
 interface IUserInfo {
-  photo?: string | File;
   name?: string;
   phone?: string;
   email?: string;

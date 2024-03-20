@@ -32,10 +32,7 @@ export const TouristBooking: FC<ITouristBookingProps> = ({
   index,
   purchaseError,
 }) => {
-  const handlerFieldChange = (
-    key: keyof IBookingTourist,
-    value: string | Dayjs
-  ) => {
+  const handlerFieldChange = (key: keyof IBookingTourist, value: string) => {
     setBookingData({
       ...bookingData,
       tourists: bookingData?.tourists!.map((item, i) => {
@@ -97,7 +94,7 @@ export const TouristBooking: FC<ITouristBookingProps> = ({
             touristData?.birthDate ? dayjs(touristData?.birthDate ?? "") : null
           }
           onChange={(newValue) =>
-            handlerFieldChange("birthDate", newValue?.toISOString())
+            handlerFieldChange("birthDate", newValue?.toISOString() as string)
           }
           slotProps={{
             textField: (props: any) => ({

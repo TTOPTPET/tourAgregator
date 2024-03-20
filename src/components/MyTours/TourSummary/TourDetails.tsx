@@ -25,10 +25,9 @@ interface ITourDetailsProps {
   setRecords?: Dispatch<SetStateAction<IUserRecord[]>>;
 }
 
-//   export const checkReturnPayment = (booking: IUserRecord) => {
-//       return (booking.bookingStatus.cancellation === "cancelledCreator" ||
-//           booking.bookingStatus.cancellation === "cancelledAdmin")
-//   }
+export const checkReturnPayment = (booking: IUserRecord) => {
+  return booking.statusBooking === "cancelled";
+};
 
 //   const checkPayForTour = (booking: IUserRecord) => {
 //       return booking.bookingStatus.payment === "successPay"

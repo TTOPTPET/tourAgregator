@@ -1,0 +1,5 @@
+.yellow-attention {
+  > path {
+    fill: #f7d683;
+  }
+}
