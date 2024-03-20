@@ -7,6 +7,7 @@ import { LOGGINED, ROLE } from "../../../config/types";
 import { useDispatch } from "react-redux";
 import { setModalActive } from "../../../redux/Modal/ModalReducer";
 import { ITourBookingData } from "../../../models/tourModels/ITourBookingData";
+import { booking } from "../../../API/touristAPI/booking";
 
 interface TourRoutingProps {
   page: tourStepsMap;
@@ -26,6 +27,20 @@ export const TourRouting: FC<TourRoutingProps> = ({
   const dispatch = useDispatch();
 
   console.log(bookingData);
+
+  const handlerPurchaseClick = () => {
+    booking(
+      bookingData,
+      (data) => {
+        // window.location.replace(data?.paymentUrl);
+        dispatch(setModalActive("successPayModal"));
+      },
+      () => {
+        dispatch(setModalActive("errorBookingModal"));
+        // setError(true);
+      }
+    );
+  };
 
   return (
     <>
@@ -69,7 +84,7 @@ export const TourRouting: FC<TourRoutingProps> = ({
           ) : (
             <Stack direction={"row"} gap={2} mt={"8px"}>
               <Button
-                //   onClick={() => handlerPurchaseClick(true)}
+                onClick={() => handlerPurchaseClick()}
                 disabled={bookingData.touristsAmount === 0}
               >
                 Оплатить

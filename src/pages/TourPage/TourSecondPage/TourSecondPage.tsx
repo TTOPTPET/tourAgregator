@@ -3,7 +3,6 @@ import { Box, Stack } from "@mui/system";
 import { Dispatch, SetStateAction, FC, useEffect, useState } from "react";
 import { AddTouristButton } from "../../../components/AddTourModules/AddTouristButton/AddTouristButton";
 import { TourDetails } from "../../../components/MyTours/TourSummary/TourDetails";
-import { TourBooking } from "../../../components/TourInfo/TourBooking/TourBooking";
 import { TouristBooking } from "../../../components/TourInfo/TouristBooking/TouristBooking";
 import {
   lightTurquoiseColor,
@@ -16,30 +15,15 @@ interface ITourSecondPageProps {
   tourInfo: ITourInfo;
   bookingData: ITourBookingData;
   setBookingData: Dispatch<SetStateAction<ITourBookingData>>;
-  setPage: (prop: any) => void;
 }
-let touristInfo: JSX.Element[] | undefined = [];
 
 export const TourSecondPage: FC<ITourSecondPageProps> = ({
   bookingData,
   setBookingData,
-  setPage,
   tourInfo,
 }) => {
   const [purchaseError, setPurchaseError] = useState<boolean>(false);
 
-  touristInfo =
-    bookingData?.tourists &&
-    bookingData?.tourists.map((item, index) => (
-      <TouristBooking
-        key={index}
-        bookingData={bookingData}
-        touristData={item}
-        setBookingData={setBookingData}
-        index={index}
-        purchaseError={purchaseError}
-      />
-    ));
   return (
     <Stack gap={2}>
       <Box

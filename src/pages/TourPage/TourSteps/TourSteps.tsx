@@ -41,7 +41,6 @@ export const TourSteps: FC<TourStepsProps> = ({
         <TourSecondPage
           bookingData={bookingData}
           setBookingData={setBookingData}
-          setPage={setPage}
           tourInfo={tourInfo}
         />
       );

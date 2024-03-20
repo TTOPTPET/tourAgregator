@@ -2,7 +2,6 @@ import { FC, SetStateAction, Dispatch } from "react";
 import { ITourInfo } from "../../../models/tourModels/ITourInfo";
 import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { TourInfo } from "../../../components/TourInfo/TourInfo";
-import { TourBooking } from "../../../components/TourInfo/TourBooking/TourBooking";
 import { tourStepsMap } from "../TourPage";
 
 import TourCreatorInfo from "../TourCreatorInfo/TourCreatorInfo";

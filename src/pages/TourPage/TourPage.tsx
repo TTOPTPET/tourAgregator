@@ -9,6 +9,9 @@ import { TourRouting } from "./TourRouting/TourRouting";
 import { TourSteps } from "./TourSteps/TourSteps";
 import { Box } from "@mui/material";
 import { ITourBookingData } from "../../models/tourModels/ITourBookingData";
+import SuccessPayModal from "../../components/Modals/SuccessPayModal/SuccessPayModal";
+import ErrorBookingModal from "../../components/Modals/ErrorBookingModal/ErrorBookingModal";
+import NoLoginModal from "../../components/Modals/NoLoginModal/NoLoginModal";
 
 export enum tourStepsMap {
   first,
@@ -73,6 +76,9 @@ function TourPage() {
         bookingData={bookingData}
         setBookingData={setBookingData}
       />
+      <SuccessPayModal meetingTime={tourInfo?.meetingDatetime} />
+      <ErrorBookingModal />
+      <NoLoginModal />
     </Box>
   );
 }

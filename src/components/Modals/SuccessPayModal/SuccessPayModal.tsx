@@ -14,11 +14,14 @@ import {
 } from "../../../redux/Modal/ModalReducer";
 import { RootState } from "../../../redux/store";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 function SuccessPayModal({ meetingTime }: { meetingTime: string }) {
   const activeModals = useSelector(
     (state: RootState) => state.modal.activeModals
   );
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -28,7 +31,10 @@ function SuccessPayModal({ meetingTime }: { meetingTime: string }) {
   return (
     <Dialog
       className="successPayModal"
-      onClose={() => dispatch(setModalInactive("successPayModal"))}
+      onClose={() => {
+        dispatch(setModalInactive("successPayModal"));
+        navigate("/");
+      }}
       open={isModalActive("successPayModal", activeModals)}
       fullWidth
       maxWidth={"sm"}
