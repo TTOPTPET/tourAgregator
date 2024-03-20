@@ -14,7 +14,7 @@ export default function TourCreatorInfo({ tourInfo }: TourFirstPageProps) {
     >
       <Typography variant={"button"}>
         {tourInfo?.creatorName
-          ? `"${tourInfo?.creatorName}"`
+          ? `${tourInfo?.creatorName}`
           : "ФИО туросоздателя"}
       </Typography>
     </Stack>

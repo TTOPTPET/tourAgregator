@@ -246,7 +246,7 @@ function Authorization() {
   const handlerLoginClick = () => {
     loginUser(
       userLoginData,
-      (resp) => {
+      () => {
         getUserInfo((value) => {
           dispatch(setUserInfo(value));
           setCookies(LOGGINED, true, { path: "/", maxAge: 43200 });
@@ -334,23 +334,6 @@ function Authorization() {
     }
     setErrAuth(false);
   }, [userRegisterData, userLoginData]);
-
-  useEffect(() => {
-    const listener = (e: any) => {
-      const event = new MouseEvent("click", {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      e.code === "Enter" &&
-        refBtn.current &&
-        refBtn.current.dispatchEvent(event);
-    };
-    document.addEventListener("keydown", listener);
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  }, []);
 
   return (
     <Stack sx={{ gap: "50px" }}>
@@ -554,7 +537,6 @@ function Authorization() {
             </Box>
           ) : (
             <Button
-              ref={refBtn}
               onClick={() => {
                 handlerLoginClick();
                 setLoading(true);
@@ -566,7 +548,6 @@ function Authorization() {
           )
         ) : (
           <Button
-            ref={refBtn}
             onClick={() => handlerRegisterClick()}
             disabled={
               Object.values(registerInputError).some(

@@ -7,7 +7,7 @@ import { mainThemes } from "./config/MUI/themes/mainTheme/mainTheme";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
-// import TourPage from "./pages/TourPage/TourPage";
+import TourPage from "./pages/TourPage/TourPage";
 import { Suspense, useEffect } from "react";
 // import { getUserInfo } from "./API/commonAPI";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
@@ -90,22 +90,6 @@ const TourListPage = lazyWithRetry(() =>
     ({ default: TourListPage }) => ({ default: TourListPage })
   )
 );
-
-// const StartPage = lazyWithRetry(() =>
-//   import("./pages/StartPage/StartPage").then(({ default: StartPage }) => ({
-//     default: StartPage,
-//   }))
-// );
-// const EditCreatorInfoPage = lazyWithRetry(() =>
-//   import("./pages/EditCreatorInfoPage/EditCreatorInfoPage").then(
-//     ({ default: EditCreatorInfoPage }) => ({ default: EditCreatorInfoPage })
-//   )
-// );
-// const EditTouristInfoPage = lazyWithRetry(() =>
-//   import("./pages/EditTouristInfoPage/EditTouristInfoPage").then(
-//     ({ default: EditTouristInfoPage }) => ({ default: EditTouristInfoPage })
-//   )
-// );
 
 function App() {
   const dispatch = useDispatch();
@@ -225,15 +209,8 @@ function App() {
                 path={"/reset-password/:token"}
                 element={<ResetPassword />}
               />
-              <Route
-                path={"/"}
-                element={
-                  <ProtectedRoute>
-                    <TourListPage />
-                  </ProtectedRoute>
-                }
-              />
-              {/* <Route path={"/tours/tour/:tourId"} element={<TourPage />} /> */}
+              <Route path={"/"} element={<TourListPage />} />
+              <Route path={"/tours/tour/:tourId"} element={<TourPage />} />
               {/* <Route path={"/contacts"} element={<ContactsPage />} /> */}
               {/* <Route path={"/documents"} element={<DocumentsPage />} /> */}
             </Routes>

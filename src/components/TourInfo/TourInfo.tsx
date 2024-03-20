@@ -27,7 +27,7 @@ interface ITourInfoProps {
   images: any[];
   setImage: Dispatch<SetStateAction<any[]>>;
   addTourInfo: boolean;
-  tourInfo: IAddTour | ITourInfo;
+  tourInfo: ITourInfo;
   isEditing: boolean;
 }
 
@@ -308,30 +308,24 @@ export const TourInfo: FC<ITourInfoProps> = ({
           ) : (
             <></>
           )}
-          {/* <Typography variant={"h5"} sx={{ mt: lessThenSmall ? "10px" : "" }}>
-              {tourInfo?.price !== undefined
-                ? tourInfo?.price / 100 || 0
-                : tourInfo?.prices?.from === tourInfo?.prices?.to
-                ? tourInfo?.prices?.from / 100
-                : (tourInfo?.prices?.from / 100 || 0) +
-                  " до " +
-                  (tourInfo?.prices?.to / 100 || 10000)}
-              ₽
-            </Typography> */}
+
           {addTourInfo ? (
             <></>
           ) : (
             <>
-              <Typography variant={"h6"}>Дата ближайшего тура</Typography>
-              <Typography variant={"caption"}>
-                {"nearestDate" in tourInfo
-                  ? (dayjs(tourInfo?.nearestDate?.from).format("D MMMM YYYY") ||
-                      "") +
-                    " - " +
-                    (dayjs(tourInfo?.nearestDate?.to).format("D MMMM YYYY") ||
-                      "")
-                  : ""}
+              <Typography variant={"h5"}>
+                {(tourInfo?.price !== undefined && tourInfo?.price / 100) || 0}₽
               </Typography>
+              <Typography variant={"h6"}>Дата тура</Typography>
+              <Typography variant={"caption"}>
+                {tourInfo?.dateFrom && tourInfo?.dateTo
+                  ? (dayjs(tourInfo?.dateFrom).format("D MMMM YYYY") || "") +
+                    " - " +
+                    (dayjs(tourInfo?.dateTo).format("D MMMM YYYY") || "")
+                  : "-"}
+              </Typography>
+              <Typography variant={"h6"}>Свободных мест</Typography>
+              <Typography variant={"caption"}>{tourInfo?.vacancies}</Typography>
             </>
           )}
           <Typography variant={"h6"}>Рекомендуемый возраст</Typography>
@@ -361,9 +355,6 @@ export const TourInfo: FC<ITourInfoProps> = ({
           <Typography variant={"caption"} sx={{ mb: "10px" }}>
             {tourInfo?.tourDescription || "Описание тура"}
           </Typography>
-          {!addTourInfo && !isEditing && (
-            <TourCreatorInfo tourInfo={tourInfo as ITourInfo} />
-          )}
         </Grid>
       </Grid>
       <Typography

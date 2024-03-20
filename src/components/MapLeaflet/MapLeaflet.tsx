@@ -12,7 +12,7 @@ type Props = {
   positions: [number, number][];
   setPositions?: (positions: [number, number][]) => void;
   mapCenter?: [number, number];
-  error: boolean;
+  error?: boolean;
 };
 
 export default function MapLeaflet({
@@ -52,11 +52,12 @@ export default function MapLeaflet({
             border: "2px solid rgba(0,0,0,0.2)",
             cursor: "pointer",
           }}
-          onClick={(e) => {
+          onClick={() => {
             if (positions && positions.length) {
-              setPositions(positions.slice(0, positions.length - 1));
+              setPositions &&
+                setPositions(positions.slice(0, positions.length - 1));
             } else {
-              setPositions(positions);
+              setPositions && setPositions(positions);
             }
           }}
         >
@@ -74,7 +75,7 @@ export default function MapLeaflet({
         />
         <LocationMarker
           positions={positions}
-          setPositions={setPositions}
+          setPositions={setPositions ? setPositions : undefined}
           accessType={accessType}
           center={mapCenter}
         />

@@ -1,35 +1,23 @@
 export interface IUserRecord {
-  publicTourId?: string;
-  bookingId?: number;
-  statusUpdate?: boolean;
-  bookingStatus?: {
-    payment: string;
-    cancellation: "cancelledCreator" | "cancelledAdmin" | "cancelledTourists";
-    past: boolean;
-    needPayment: boolean;
+  statusBooking: string;
+  dateFrom: string;
+  dateTo: string;
+  publicTourId: string;
+  bookingId: string;
+  tourAmount: number;
+  contactInformation: {
+    name: string;
+    email: string;
+    phone: string;
   };
-  tourDate?: {
-    from: string;
-    to: string;
-  };
-  tourAmount?: number;
-  contactInformation?: string;
-  meetingPoint?: string;
-  meetingTime?: string;
-  bookingNumber?: number;
-  tour?: {
-    mapPoints?: [number, number][];
+  meetingPoint: string;
+  meetingTime: string;
+  cancelDeadline: string;
+  tour: {
     tourId: string;
     tourName: string;
-    housingInclude?: {
-      housingName: string;
-      housingAddress: string;
-      housingDescription?: string;
-    };
-    insuranceInclude?: {
-      insuranceNumber: number;
-      insuranceAmount: number;
-    };
-    freeServices?: string[];
+    additionalServices: string[];
+    freeServices: string[];
+    mapPoints: [number, number][];
   };
 }

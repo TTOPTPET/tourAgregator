@@ -7,6 +7,7 @@ export const urlTour = `${baseUrl}/tours`;
 export const urlCatalog = `${baseUrl}/catalogs`;
 export const urlFiles = `${baseUrl}/files`;
 export const urlCreatorTours = `${baseUrl}/creator/tours`;
+export const urlBookings = `${baseUrl}/bookings`;
 
 export const mobileWidth = `${700}px`;
 export const mobile = 700;

@@ -1,25 +1,22 @@
 export interface ITourInfo {
-  photos?: string[];
+  publicTourId?: string;
+  creatorName?: string;
   tourName?: string;
-  tourDescription?: string;
-  category?: string;
-  complexity?: string;
+  price?: number;
   region?: string;
-  id?: string;
-  creatorId?: string;
-  nearestDate?: {
-    from: string;
-    to: string;
-  };
-  // price?: number;
-  // prices?: {
-  //   from: number;
-  //   to: number;
-  // };
-  recommendedAgeFrom?: number;
-  recommendedAgeTo?: number;
+  category?: string;
+  photos?: string[];
+  dateFrom?: string;
+  dateTo?: string;
+  meetingPoint?: string;
+  meetingDatetime: string;
+  maxPersonNumber: number;
+  complexity?: string;
   mapPoints?: [number, number][];
+  tourDescription?: string;
   freeServices?: string[];
   additionalServices?: string[];
-  creatorName?: string;
+  recommendedAgeFrom?: number;
+  recommendedAgeTo?: number;
+  vacancies: number;
 }

@@ -4,7 +4,7 @@ import iconImage from "../../../media/Icons/mapIcons/maps-and-flags.png";
 import { useEffect } from "react";
 type Props = {
   positions: [number, number][];
-  setPositions: (positions: [number, number][]) => void;
+  setPositions?: (positions: [number, number][]) => void;
   accessType?: "insert" | "observe";
   center: [number, number];
 };
@@ -28,10 +28,11 @@ export default function LocationMarker({
   const map = useMapEvents({
     click(e) {
       if (accessType === "insert") {
-        setPositions([
-          ...positions,
-          [+e.latlng.lat.toFixed(5), +e.latlng.lng.toFixed(5)],
-        ]);
+        setPositions &&
+          setPositions([
+            ...positions,
+            [+e.latlng.lat.toFixed(5), +e.latlng.lng.toFixed(5)],
+          ]);
       }
     },
   });
