@@ -28,16 +28,23 @@ export const MyTours = () => {
   const [records, setRecords] = useState<IUserRecord[]>([]);
   const [tabValue, setTabValue] = useState<tabValues>(tabValues.upcomming);
   const [loading, setLoading] = useState(false);
+  const [fullSortedTours, setFullSortedTours] = useState<IUserRecord[]>([]);
 
-  const [sortedByDateRecords, setSortedByDateRecords] = useState<IUserRecord[]>(
-    []
+  const sortedByDateRecords = records.sort((a, b) =>
+    a.dateFrom > b.dateFrom ? 1 : -1
   );
-  console.log(records);
+
+  const sortedRecords =
+    sortedByDateRecords &&
+    sortedByDateRecords.sort((a, b) =>
+      a.statusBooking > b.statusBooking ? -1 : 1
+    );
+
   useEffect(() => {
-    const sortedRecords =
-      records && records.sort((a, b) => (a.dateFrom > b.dateFrom ? 1 : -1));
-    setSortedByDateRecords(sortedRecords);
+    setFullSortedTours(sortedRecords);
   }, [records]);
+
+  console.log(records);
 
   const theme = useTheme();
 
@@ -128,8 +135,8 @@ export const MyTours = () => {
         </Box>
       ) : (
         <Stack direction={"column"} gap={{ lg: "20px", xs: "10px" }}>
-          {sortedByDateRecords && sortedByDateRecords.length > 0 ? (
-            sortedByDateRecords.map((record, index) => (
+          {fullSortedTours && fullSortedTours.length > 0 ? (
+            fullSortedTours.map((record, index) => (
               <TourAccordion
                 key={index}
                 record={record}

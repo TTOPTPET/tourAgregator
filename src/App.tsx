@@ -60,21 +60,16 @@ const AddTourPage = lazyWithRetry(() =>
     ({ default: AddTourPage }) => ({ default: AddTourPage })
   )
 );
-// const NotificationsPage = lazyWithRetry(() =>
-//   import("./pages/NotificationsPage/NotificationsPage").then(
-//     ({ default: NotificationsPage }) => ({ default: NotificationsPage })
-//   )
-// );
 // const PaymentSettingsPage = lazyWithRetry(() =>
 //   import("./pages/PaymentSettingsPage/PaymentSettingsPage").then(
 //     ({ default: PaymentSettingsPage }) => ({ default: PaymentSettingsPage })
 //   )
 // );
-// const StatisticPage = lazyWithRetry(() =>
-//   import("./pages/StatisticPage/StatisticPage").then(
-//     ({ default: StatisticPage }) => ({ default: StatisticPage })
-//   )
-// );
+const StatisticPage = lazyWithRetry(() =>
+  import("./pages/StatisticPage/StatisticPage").then(
+    ({ default: StatisticPage }) => ({ default: StatisticPage })
+  )
+);
 const TourCalendarPage = lazyWithRetry(() =>
   import("./pages/TourCalendarPage/TourCalendarPage").then(
     ({ default: TourCalendarPage }) => ({ default: TourCalendarPage })
@@ -137,22 +132,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route
-                path={"/creator/lk/editInfo"}
-                element={
-                  <ProtectedRoute>
-                    <EditCreatorInfoPage />
-                  </ProtectedRoute>
-                }
-              /> */}
-              {/* <Route
-                path={"/tourist/lk/editInfo"}
-                element={
-                  <ProtectedRoute>
-                    <EditTouristInfoPage />
-                  </ProtectedRoute>
-                }
-              /> */}
               <Route
                 path={"/creator/addTour"}
                 element={
@@ -169,14 +148,6 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* <Route
-                path={"/creator/notifications"}
-                element={
-                  <ProtectedRoute>
-                    <NotificationsPage />
-                  </ProtectedRoute>
-                }
-              /> */}
               {/* <Route
                 path={"/creator/payment"}
                 element={
@@ -198,6 +169,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <TouristLk />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path={"/creator/stats"}
+                element={
+                  <ProtectedRoute>
+                    <StatisticPage />
                   </ProtectedRoute>
                 }
               />

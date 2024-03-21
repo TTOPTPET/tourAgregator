@@ -8,11 +8,9 @@ import {
 } from "@mui/material";
 import imageCompression, { Options } from "browser-image-compression";
 import { Dispatch, SetStateAction, useState, FC } from "react";
-import { baseUrl } from "../../../config/config";
 import AddImageLogo from "../../../media/add-image.svg?react";
 import DeleteIcon from "../../../media/DeleteCreatorDocumentIcon.svg?react";
 import { IAddTour } from "../../../models/addTourModels/IAddTour";
-import { deleteToutPhoto } from "../../../API/addTourAPI/deleteToutPhoto";
 
 const MAXIMUM_UPLOAD = 100 * 1024 * 1024;
 

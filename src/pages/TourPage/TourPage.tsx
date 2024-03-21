@@ -58,7 +58,7 @@ function TourPage() {
       ...bookingData,
       tourAmount:
         bookingData?.touristsAmount! > 0
-          ? bookingData?.touristsAmount! * (tourInfo?.price! / 100)
+          ? bookingData?.touristsAmount! * tourInfo?.price!
           : 0,
     });
   }, [bookingData.touristsAmount]);

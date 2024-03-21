@@ -8,19 +8,14 @@ import {
   SvgIcon,
   useTheme,
   useMediaQuery,
-  Button,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { SetStateAction, useState, Dispatch, FC } from "react";
 import { IUserRecord } from "../../../models/userModels/IUserRecord";
 import NavigateIcon from "../../../media/navigate_before.svg?react";
 import { TourDetails } from "../TourSummary/TourDetails";
-import SuccessMessageSendModal from "../../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 import BaseChip from "./Chips/BaseChip/BaseChip";
 import { checkReturnPayment } from "../TourSummary/TourDetails";
-
-import { redirect, useNavigate } from "react-router-dom";
-
 interface ITourAccordionProps {
   record: IUserRecord;
   records: IUserRecord[];
@@ -35,8 +30,6 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const theme = useTheme();
-  const navigate = useNavigate();
-
   const lessThenBig = useMediaQuery(theme.breakpoints.down("lg"));
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -129,7 +122,6 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
             setRecords={setRecords}
           />
         </AccordionDetails>
-        {/* <SuccessMessageSendModal /> */}
       </Accordion>
     </>
   );

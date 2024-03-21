@@ -32,7 +32,6 @@ export const checkReturnPayment = (booking: IUserRecord) => {
 export const TourDetails: FC<ITourDetailsProps> = ({
   record,
   bookingData,
-  records,
   setRecords,
 }) => {
   const dispatch = useDispatch();
@@ -254,7 +253,7 @@ export const TourDetails: FC<ITourDetailsProps> = ({
             {record?.meetingPoint +
               " " +
               dayjs(record?.meetingDatetime)
-                .format("D MMMM YYYY HH:MM")
+                .format("D MMMM YYYY HH:mm")
                 .toString()}
           </Typography>
           <Typography variant={"h6"}>Включено в стоимость</Typography>

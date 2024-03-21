@@ -40,9 +40,9 @@ export default function TouristOrder({ bookingInfo, index }: Props) {
           <Stack direction={"row"} alignItems={"center"}>
             <Box
               sx={{
-                width: 20,
-                height: 20,
-                borderRadius: 30,
+                width: 40,
+                height: 40,
+                borderRadius: 20,
                 backgroundColor: darkTurquoiseColor,
                 color: "white",
                 display: "flex",
@@ -51,13 +51,11 @@ export default function TouristOrder({ bookingInfo, index }: Props) {
               }}
             >
               <Typography variant={"button"} align={"center"} color={"white"}>
-                {bookingInfo?.touristsInfo.length || 0}
+                {(bookingInfo?.tourists && bookingInfo?.tourists.length) || 0}
               </Typography>
             </Box>
             <Stack direction={"column"} sx={{ ml: "10px" }} gap={"5px"}>
-              <Typography variant={"h6"}>
-                №{bookingInfo?.bookingId || "0"}
-              </Typography>
+              <Typography variant={"h6"}>№{index + 1 || "0"}</Typography>
               <Typography
                 variant={"caption"}
                 sx={{
@@ -66,7 +64,7 @@ export default function TouristOrder({ bookingInfo, index }: Props) {
                   textOverflow: "ellipsis",
                 }}
               >
-                {bookingInfo?.userInfo?.name || "Пользователь не указан"}
+                {bookingInfo?.name || "Пользователь не указан"}
               </Typography>
             </Stack>
           </Stack>

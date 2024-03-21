@@ -1,19 +1,12 @@
 export interface IBookingInfo {
-  userInfo: {
-    phone: string;
-    email: string;
-    name: string;
-  };
+  phone: string;
+  email: string;
+  name: string;
   bookingId: string;
   tourAmount: number;
-  bookingDate: {
-    from: string;
-    to: string;
-  };
-  touristsInfo: {
+  tourists: {
     name: string;
-    age: string;
-    sex: string;
+    birthDate: string;
   }[];
   comment: string;
 }

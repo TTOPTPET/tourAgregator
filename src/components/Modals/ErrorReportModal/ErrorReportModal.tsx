@@ -17,8 +17,7 @@ import {
 } from "../../../redux/Modal/ModalReducer";
 import { RootState } from "../../../redux/store";
 import { postClaim, postAppeal } from "../../../API/commonAPI";
-import { useEffect, useState } from "react";
-import { IErrorMessage } from "../../../models/errorMessageModels/IErrorMessage";
+import { useState } from "react";
 import { redColor } from "../../../config/MUI/color/color";
 
 function ErrorReportModal() {

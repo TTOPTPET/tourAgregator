@@ -47,21 +47,13 @@ function BookingInfoModal({ selectedBooking }: BookingInfoModalProps) {
           gap={"10px"}
         >
           <Typography variant={"h5"}>
-            {selectedBooking
-              ? selectedBooking?.tour?.tourName
-              : "Название тура"}
+            {selectedBooking ? selectedBooking?.tourName : "Название тура"}
           </Typography>
           <Typography variant={"caption"} sx={{ mt: "6px" }}>
-            {selectedBooking.bookingInfo &&
-            selectedBooking?.bookingInfo[index as number]?.bookingDate?.from
-              ? dayjs(
-                  selectedBooking?.bookingInfo[index as number]?.bookingDate
-                    ?.from
-                ).format("D MMMM YYYY") +
+            {selectedBooking && selectedBooking?.dateFrom
+              ? dayjs(selectedBooking?.dateFrom).format("D MMMM YYYY") +
                 " - " +
-                dayjs(
-                  selectedBooking?.bookingInfo[index as number]?.bookingDate?.to
-                ).format("D MMMM YYYY")
+                dayjs(selectedBooking?.dateTo).format("D MMMM YYYY")
               : "Дата начала - Дата конца"}
           </Typography>
         </Stack>
@@ -76,16 +68,16 @@ function BookingInfoModal({ selectedBooking }: BookingInfoModalProps) {
           <Stack direction={"row"} gap={"20px"} alignItems={"center"}>
             <Typography variant={"caption"}>
               {selectedBooking?.bookingInfo &&
-              selectedBooking?.bookingInfo[index as number]?.userInfo?.name
-                ? selectedBooking?.bookingInfo[index as number]?.userInfo?.name
+              selectedBooking?.bookingInfo[index as number]?.name
+                ? selectedBooking?.bookingInfo[index as number]?.name
                 : "Пользователь не указан"}
             </Typography>
           </Stack>
 
           <Typography variant={"caption"}>
             {selectedBooking?.bookingInfo &&
-            selectedBooking?.bookingInfo[index as number]?.userInfo?.phone
-              ? `${selectedBooking?.bookingInfo[index as number]?.userInfo?.phone}`
+            selectedBooking?.bookingInfo[index as number]?.phone
+              ? `${selectedBooking?.bookingInfo[index as number]?.phone}`
               : "Номер телефона"}
           </Typography>
 
@@ -119,8 +111,8 @@ function BookingInfoModal({ selectedBooking }: BookingInfoModalProps) {
           <Typography variant={"h6"}>Информация о туристах</Typography>
           <Stack direction={"column"}>
             {selectedBooking?.bookingInfo &&
-              selectedBooking?.bookingInfo[index as number]?.touristsInfo &&
-              selectedBooking?.bookingInfo[index as number]?.touristsInfo.map(
+              selectedBooking?.bookingInfo[index as number]?.tourists &&
+              selectedBooking?.bookingInfo[index as number]?.tourists.map(
                 (tourist, i) => (
                   <Typography
                     variant={"caption"}
@@ -128,8 +120,8 @@ function BookingInfoModal({ selectedBooking }: BookingInfoModalProps) {
                       wordWrap: "initial",
                     }}
                   >
-                    {i + 1}. {tourist.name}, {checkAge(tourist.age)},{" "}
-                    {tourist.sex}
+                    {i + 1}. {tourist.name},{" "}
+                    {dayjs(tourist.birthDate).format("D MMMM YYYY")}
                   </Typography>
                 )
               )}

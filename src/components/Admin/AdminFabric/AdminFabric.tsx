@@ -179,7 +179,7 @@ export const AdminComponent = ({
                         {touristEmail}
                       </Typography>
                       <Typography variant={"caption"}>
-                        {dayjs(creationDateTime).format("D MMMM YYYY HH:MM:ss")}
+                        {dayjs(creationDateTime).format("D MMMM YYYY HH:mm:ss")}
                       </Typography>
                     </Stack>
                   </Stack>
