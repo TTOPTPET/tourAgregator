@@ -132,7 +132,7 @@ const Header = () => {
                     if (e.key === "Enter") {
                       searchParam.length > 4
                         ? navigate(`/?title=${searchParam}`)
-                        : null;
+                        : navigate(`/`);
                       setSearchParam("");
                     }
                   }}

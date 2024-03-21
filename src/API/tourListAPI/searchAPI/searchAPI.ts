@@ -5,12 +5,11 @@ import { ITour } from "../../../models/tourCardModel/ITour";
 import { ISearchResponse } from "../../../models/tourListModels/ISearchResponse";
 
 export const getToursSorted = async (
-  successCallback: (prop: ISearchResponse) => void,
   data: ISearchRequest,
   params: {
     page: number;
-    perPage: number;
   },
+  successCallback: (prop: ISearchResponse) => void,
   errorCallback?: () => void
 ) => {
   try {
