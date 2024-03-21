@@ -22,6 +22,7 @@ import { RootState } from "../../../redux/store";
 import { IFilterProps } from "../FilterTypes/IFilterProps";
 import { ISearchRequest } from "../../../models/tourListModels/ISearchRequest";
 import getChipLabels from "../getChipLabels";
+import dayjs from "dayjs";
 
 export const ComplexFilter = ({
   filters,
