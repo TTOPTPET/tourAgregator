@@ -6,7 +6,7 @@ export interface ISearchRequest {
     min: number;
     max: number;
   };
-  age?: {
+  recommendedAge?: {
     min: number;
     max: number;
   };

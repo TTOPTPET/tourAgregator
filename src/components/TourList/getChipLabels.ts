@@ -2,7 +2,7 @@ import { ISearchRequest } from "../../models/tourListModels/ISearchRequest";
 
 export enum ChipLabelType {
   prices = "Цена",
-  age = "Рекомендуемый возраст",
+  recommendedAge = "Рекомендуемый возраст",
   tourdate = "Дата",
   maxPersonNumber = "Колличество человек",
   category = "Категория тура",
@@ -31,11 +31,11 @@ const getChipLabels = (searchData: ISearchRequest): string[] => {
         }
         nonEmptySearchValues.push(ChipLabelType.prices);
         break;
-      case "age":
-        if (!searchData["age"]) {
+      case "recommendedAge":
+        if (!searchData["recommendedAge"]) {
           break;
         }
-        nonEmptySearchValues.push(ChipLabelType.age);
+        nonEmptySearchValues.push(ChipLabelType.recommendedAge);
         break;
       case "region":
         if (!searchData["region"] || searchData["region"] === "") {

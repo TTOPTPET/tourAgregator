@@ -95,7 +95,7 @@ function TourListPage() {
         ...searchData,
         [key]: [],
       });
-    } else if (key === "prices" || key === "age") {
+    } else if (key === "prices" || key === "recommendedAge") {
       setSearchData({
         ...searchData,
         [key]: null,

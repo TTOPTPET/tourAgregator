@@ -118,7 +118,7 @@ export const ComplexFilter = ({
     },
   ];
 
-  const age = [
+  const recommendedAge = [
     {
       value: 0,
       label: 0,
@@ -240,14 +240,17 @@ export const ComplexFilter = ({
             </Typography>
             <Slider
               max={120}
-              marks={age}
+              marks={recommendedAge}
               value={
-                searchData?.age
-                  ? [searchData?.age?.min, searchData?.age?.max]
+                searchData?.recommendedAge
+                  ? [
+                      searchData?.recommendedAge?.min,
+                      searchData?.recommendedAge?.max,
+                    ]
                   : [0, 120]
               }
               onChange={(_, value) =>
-                handleChangeField("age", value as number[])
+                handleChangeField("recommendedAge", value as number[])
               }
               valueLabelDisplay="auto"
               sx={{ ml: "15px", width: "85%" }}
