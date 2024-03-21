@@ -143,10 +143,12 @@ export const TourDetails: FC<ITourDetailsProps> = ({
                     record.bookingId,
                     () => {
                       dispatch(setModalActive("succesReturnMoney"));
-                      // setRecords &&
-                      //   setRecords((records) =>
-                      //     records.filter((record) => record.bookingId !== data)
-                      //   );
+                      setRecords &&
+                        setRecords((records) =>
+                          records.filter(
+                            (item) => item.bookingId !== record.bookingId
+                          )
+                        );
                     },
                     () => {
                       dispatch(setModalActive("errorBookingModal"));

@@ -15,6 +15,7 @@ import { TourAccordion } from "./TourAccordion/TourAccordion";
 import ErrorBookingModal from "../Modals/ErrorBookingModal/ErrorBookingModal";
 import ConfirmCancelBooking from "../Modals/ConfirmCancelBooking/ConfirmCancelBooking";
 import SuccessCancelBooking from "../Modals/SuccessCancelBooking/SuccessCancelBooking";
+import SuccesReturnMoney from "../Modals/SuccesReturnMoney/SuccesReturnMoney";
 
 enum tabValues {
   upcomming,
@@ -25,15 +26,6 @@ export const MyTours = () => {
   const [records, setRecords] = useState<IUserRecord[]>([]);
   const [tabValue, setTabValue] = useState<tabValues>(tabValues.upcomming);
   const [loading, setLoading] = useState(false);
-
-  const weights = [
-    "successPay",
-    "waitPay",
-    "failPay",
-    "waitReturn",
-    "failReturn",
-    "successReturn",
-  ].reverse();
 
   const [sortedByDateRecords, setSortedByDateRecords] = useState<IUserRecord[]>(
     []
@@ -153,6 +145,7 @@ export const MyTours = () => {
       <ErrorBookingModal />
       <ConfirmCancelBooking />
       <SuccessCancelBooking />
+      <SuccesReturnMoney />
     </>
   );
 };

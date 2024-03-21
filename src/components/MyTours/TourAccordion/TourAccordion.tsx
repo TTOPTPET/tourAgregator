@@ -40,15 +40,6 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
   const lessThenBig = useMediaQuery(theme.breakpoints.down("lg"));
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const fromModelsToPaymentName = new Map<string, string>([
-    ["successPay", "Оплачено "],
-    ["successReturn", "Средства возвращены"],
-    ["waitPay", "Ожидание оплаты"],
-    ["waitReturn", "Ожидание возврата"],
-    ["failPay", "Ошибка оплаты"],
-    ["failReturn", "Ошибка возврата"],
-  ]);
-
   return (
     <>
       <Accordion
