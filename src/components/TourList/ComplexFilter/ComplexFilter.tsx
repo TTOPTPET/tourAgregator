@@ -256,7 +256,22 @@ export const ComplexFilter = ({
           </Grid>
         </Grid>
         <Stack direction={"row"} justifyContent={"end"} marginTop={4} gap={1}>
-          <Button onClick={handlerConfirmClick}>Применить</Button>
+          <Button
+            onClick={handlerConfirmClick}
+            disabled={
+              (searchData?.tourdate?.dateFrom &&
+                searchData?.tourdate?.dateTo &&
+                dayjs(searchData?.tourdate?.dateFrom).isAfter(
+                  dayjs(searchData?.tourdate?.dateTo)
+                )) ||
+              (!searchData?.tourdate?.dateFrom &&
+                !!searchData?.tourdate?.dateTo) ||
+              (!!searchData?.tourdate?.dateFrom &&
+                !searchData?.tourdate?.dateTo)
+            }
+          >
+            Применить
+          </Button>
           <Button onClick={handlerClearClick}>Сбросить</Button>
         </Stack>
       </DialogContent>
