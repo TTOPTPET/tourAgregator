@@ -95,7 +95,9 @@ export const TourDetails: FC<ITourDetailsProps> = ({
           >
             <Stack gap={1}>
               <Typography variant={"h6"}>Количество человек</Typography>
-              <Typography variant={"caption"}>{0} человека</Typography>
+              <Typography variant={"caption"}>
+                {record.touristsAmount ? checkCount(record.touristsAmount) : 0}
+              </Typography>
 
               <Typography variant={"h6"}>Сбор</Typography>
               <Typography variant={"caption"}>
@@ -300,5 +302,25 @@ export const TourDetails: FC<ITourDetailsProps> = ({
       );
     default:
       return <></>;
+  }
+};
+
+const checkCount = (count: number) => {
+  const stringCount =
+    String(count).length > 2
+      ? Number(String(count).slice(-2))
+      : Number(String(count));
+  const lastSymbol = Number(String(count).slice(-1));
+  if (
+    (count >= 5 && count <= 20) ||
+    (lastSymbol >= 5 && lastSymbol <= 9) ||
+    lastSymbol === 0 ||
+    lastSymbol === 1
+  ) {
+    return `${count} человек`;
+  } else if (lastSymbol >= 2 && lastSymbol <= 4) {
+    return `${count} человека`;
+  } else {
+    return count;
   }
 };

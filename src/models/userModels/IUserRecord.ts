@@ -5,6 +5,7 @@ export interface IUserRecord {
   publicTourId: string;
   bookingId: string;
   tourAmount: number;
+  touristsAmount: number;
   contactInformation: {
     name: string;
     email: string;
