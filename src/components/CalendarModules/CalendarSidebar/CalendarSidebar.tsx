@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { redColor, whiteColor } from "../../../config/MUI/color/color";
 import { IPublicTour } from "../../../models/calendarModels/IPublicTour";
 
@@ -26,15 +26,6 @@ export default function CalendarSidebar({
   setSelectedPublic,
 }: Props) {
   const dispatch = useDispatch();
-
-  const [allPrice, setAllPrice] = useState(0);
-
-  useEffect(() => {
-    selectedPublic?.bookingInfo &&
-      selectedPublic?.bookingInfo.map((booking, index) =>
-        setAllPrice((prev) => (prev += booking.tourAmount))
-      );
-  }, [selectedPublic]);
 
   return (
     <Box
@@ -141,7 +132,7 @@ export default function CalendarSidebar({
             sx={{ backgroundColor: whiteColor, borderRadius: 6, padding: 3 }}
           >
             <Typography variant={"button"} align={"center"}>
-              {allPrice}₽
+              {selectedPublic?.profit! / 100 || 0}₽
             </Typography>
           </Paper>
         </Box>

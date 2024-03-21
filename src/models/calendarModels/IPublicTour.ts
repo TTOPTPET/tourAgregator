@@ -27,4 +27,5 @@ export interface IPublicTour {
   dateTo?: string;
   bookingInfo?: IBookingInfo[];
   tourName?: string;
+  profit?: number;
 }

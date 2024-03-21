@@ -1,9 +1,13 @@
 import { Paper, Stack, SvgIcon, Typography } from "@mui/material";
-import AttentionRed from "../../../../../media/Attention.svg?react";
+import Attention from "../../../../../media/Attention.svg?react";
 import { whiteColor } from "../../../../../config/MUI/color/color";
 import "./BaseChip.css";
 
-const BaseChip = () => {
+interface IBaseChipProps {
+  refund?: boolean;
+}
+
+const BaseChip = ({ refund }: IBaseChipProps) => {
   return (
     <Paper
       color={whiteColor}
@@ -17,9 +21,15 @@ const BaseChip = () => {
         mr={"4px"}
       >
         <SvgIcon viewBox="0 0 24 24" fontSize="small" sx={{ marginTop: "2px" }}>
-          <AttentionRed width={20} height={20} />
+          <Attention
+            width={20}
+            height={20}
+            className={refund ? "yellow-attention" : undefined}
+          />
         </SvgIcon>
-        <Typography variant={"caption"}>Тур был отменен</Typography>
+        <Typography variant={"caption"}>
+          {refund ? "Деньги возвращены" : "Тур был отменен"}
+        </Typography>
       </Stack>
     </Paper>
   );

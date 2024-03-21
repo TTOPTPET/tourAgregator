@@ -29,6 +29,10 @@ export const checkReturnPayment = (booking: IUserRecord) => {
   return booking.statusBooking === "cancelled";
 };
 
+export const checkPayForTour = (booking: IUserRecord) => {
+  return booking.statusBooking === "refund";
+};
+
 export const TourDetails: FC<ITourDetailsProps> = ({
   record,
   bookingData,
