@@ -91,7 +91,7 @@ function TourCardContentCardList({ tour }: TourCardProps) {
             <img
               src={mapMarker}
               alt="map marker"
-              style={{ objectFit: "contain", width: "100%", height: "100%" }}
+              style={{ objectFit: "contain", width: "26px", height: "26px" }}
             />
           </Box>
           <DarkStyledTooltip title="Регион" arrow placement="top">
@@ -186,7 +186,7 @@ function TourCardContentCardList({ tour }: TourCardProps) {
           sx={{ display: "flex", justifyContent: "flex-end" }}
           className="tour-card__button-price"
         >
-          <Button component={Link} to={`/tours/tour/${tour.id}`}>
+          <Button component={Link} to={`/tours/tour/${tour.tourId}`}>
             {tour?.price &&
               `${new Intl.NumberFormat("ru-RU").format(tour?.price / 100)}₽`}
           </Button>

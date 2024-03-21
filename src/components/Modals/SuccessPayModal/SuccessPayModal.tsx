@@ -27,6 +27,7 @@ function SuccessPayModal({ meetingTime }: { meetingTime: string }) {
 
   const handlerCloseClick = () => {
     dispatch(setModalInactive("successPayModal"));
+    navigate("/");
   };
   return (
     <Dialog

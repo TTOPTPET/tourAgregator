@@ -25,4 +25,5 @@ export interface ITourResponse {
   dateFrom?: string;
   dateTo?: string;
   publicCount?: number;
+  complexity?: string;
 }
