@@ -20,17 +20,9 @@ const StatisticItem: FC<IStatisticItemProps> = ({ statistic }) => {
   return (
     <>
       <TableRow>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+        <TableCell></TableCell>
         <TableCell>{statistic?.tourName || "Название тура"}</TableCell>
-        <TableCell>{statistic?.tourAmount / 100 || 0}</TableCell>
+        <TableCell>{statistic?.tourAmount / 100 || 0} ₽</TableCell>
         <TableCell>{statistic?.touristsAmount || 0}</TableCell>
       </TableRow>
     </>

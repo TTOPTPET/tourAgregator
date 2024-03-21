@@ -16,7 +16,6 @@ import ErrorBookingModal from "../Modals/ErrorBookingModal/ErrorBookingModal";
 import ConfirmCancelBooking from "../Modals/ConfirmCancelBooking/ConfirmCancelBooking";
 import SuccessCancelBooking from "../Modals/SuccessCancelBooking/SuccessCancelBooking";
 import SuccesReturnMoney from "../Modals/SuccesReturnMoney/SuccesReturnMoney";
-import ErrorReportModal from "../Modals/ErrorReportModal/ErrorReportModal";
 import SuccessMessageSendModal from "../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 import GidQuestModal from "../Modals/GidQuestModal/GidQuestModal";
 

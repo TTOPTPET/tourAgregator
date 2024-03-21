@@ -246,7 +246,9 @@ export const TourDetails: FC<ITourDetailsProps> = ({
           </Typography>
           <Typography variant={"h6"}>Количество человек</Typography>
           <Typography variant={"caption"}>
-            {bookingData?.touristsAmount} человека
+            {bookingData?.touristsAmount
+              ? checkCount(bookingData?.touristsAmount)
+              : 0 + " человек"}
           </Typography>
           <Typography variant={"h6"}>Сбор</Typography>
           <Typography variant={"caption"}>
@@ -304,10 +306,6 @@ export const TourDetails: FC<ITourDetailsProps> = ({
 };
 
 const checkCount = (count: number) => {
-  const stringCount =
-    String(count).length > 2
-      ? Number(String(count).slice(-2))
-      : Number(String(count));
   const lastSymbol = Number(String(count).slice(-1));
   if (
     (count >= 5 && count <= 20) ||

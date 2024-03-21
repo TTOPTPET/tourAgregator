@@ -29,7 +29,7 @@ const filterDefault: IFilter = {
   regions: [],
   category: [],
   complexity: [],
-  maxPrice: 20000000,
+  maxPrice: 21000000,
 };
 
 function TourListPage() {

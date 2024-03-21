@@ -17,7 +17,7 @@ import {
   setModalInactive,
 } from "../../../redux/Modal/ModalReducer";
 import { RootState } from "../../../redux/store";
-import { postClaim, postAppeal, postQuest } from "../../../API/commonAPI";
+import { postQuest } from "../../../API/commonAPI";
 import { useState } from "react";
 import { redColor } from "../../../config/MUI/color/color";
 
