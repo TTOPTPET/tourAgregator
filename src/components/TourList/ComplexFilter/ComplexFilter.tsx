@@ -90,8 +90,6 @@ export const ComplexFilter = ({
     });
   };
 
-  console.log(searchData);
-
   const handlerConfirmClick = () => {
     setFiltersLabels(getChipLabels(searchData));
     dispatch(setModalInactive("filterModal"));

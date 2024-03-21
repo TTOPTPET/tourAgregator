@@ -26,8 +26,6 @@ export const TourRouting: FC<TourRoutingProps> = ({
 
   const dispatch = useDispatch();
 
-  console.log(bookingData);
-
   const handlerPurchaseClick = () => {
     booking(
       bookingData,

@@ -38,7 +38,8 @@ type modalsId =
   | "сonfirmEmailModal"
   | "successLostPasswordModal"
   | "confirmAddTourExit"
-  | "needDeletePublicModal";
+  | "needDeletePublicModal"
+  | "gidQuestModal";
 
 enum actionTypes {
   SET_MODAL_ACTIVE = "SET_MODAL_ACTIVE",
@@ -63,6 +64,7 @@ interface IActionProps {
     dateTo?: string;
     publicTourId?: string;
     gidEmail?: string;
+    quest?: boolean;
     publicTours?: IPublicTour[] | undefined;
     record?: {
       tour?: {

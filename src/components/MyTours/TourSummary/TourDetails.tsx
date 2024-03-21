@@ -183,11 +183,9 @@ export const TourDetails: FC<ITourDetailsProps> = ({
               </Button>
               <Button
                 onClick={() => {
-                  console.log(true);
                   dispatch(
-                    setModalActive("errorReportModal", {
-                      tour: true,
-                      record: record,
+                    setModalActive("gidQuestModal", {
+                      gidEmail: record.contactInformation.email,
                     })
                   );
                 }}

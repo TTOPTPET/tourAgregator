@@ -20,6 +20,11 @@ function SuccessMessageSendModal() {
   );
 
   const dispatch = useDispatch();
+  const modal = activeModals.find(
+    (modal) => modal.id === "successMessageSendModal"
+  );
+
+  console.log(modal?.props?.quest);
 
   const handlerCloseClick = () => {
     dispatch(setModalInactive("successMessageSendModal"));
@@ -38,8 +43,9 @@ function SuccessMessageSendModal() {
           Ваше сообщение успешно отправлено!
         </Typography>
         <Typography variant={"caption"}>
-          Большое спасибо за обратную связь, мы постараемся решить Вашу проблему
-          как можно скорее!
+          {modal?.props?.quest
+            ? "Ваше сообщение передано гиду! В ближайшее время он с вами свяжется!"
+            : "Большое спасибо за обратную связь, мы постараемся решить Вашу проблему как можно скорее!"}
         </Typography>
 
         <Stack direction={"row"} justifyContent={"end"} marginTop={"30px"}>

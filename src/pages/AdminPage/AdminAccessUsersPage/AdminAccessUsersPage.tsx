@@ -49,7 +49,6 @@ export const AdminAccessTouristPage = ({
       }
     );
   };
-  console.log(page);
   const loadMore = () => {
     setLoading(true);
     getUsersList(

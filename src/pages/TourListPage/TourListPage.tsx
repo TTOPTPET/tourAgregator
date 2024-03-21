@@ -110,13 +110,11 @@ function TourListPage() {
   };
 
   const handlerDeleteLabel = (value: string) => {
-    console.log(value);
     const chipLabelTypeIndex = Object.values(ChipLabelType).indexOf(
       value as ChipLabelType
     );
     if (chipLabelTypeIndex !== -1) {
       const searchKey = Object.keys(ChipLabelType)[chipLabelTypeIndex];
-      console.log(searchKey);
       if (searchKey === "searchParam") {
         searchParam.set("title", "");
         navigate(`/`);
@@ -125,7 +123,6 @@ function TourListPage() {
     } else {
       const searchDataKeys = Object.keys(searchData);
       Object.values(searchData).forEach((item, key) => {
-        console.log(item);
         if (typeof item === "string") {
           if (item === value) {
             clearSearchField(
@@ -134,7 +131,6 @@ function TourListPage() {
             );
           }
         } else if (item instanceof Array) {
-          console.log(item);
           if (item.indexOf(value) !== -1) {
             clearSearchField(
               searchDataKeys[key] as keyof ISearchRequest,
@@ -164,8 +160,6 @@ function TourListPage() {
     );
   }, [filtersLabels]);
 
-  console.log(page);
-
   const loadMore = () => {
     getToursSorted(
       searchData,
@@ -182,11 +176,7 @@ function TourListPage() {
     );
   };
 
-  console.log(filtersLabels);
-
   useEffect(() => {
-    console.log(searchParam.get("title"));
-    console.log(searchData.searchParam);
     if (!!searchParam.get("title")) {
       setSearchData({
         ...searchData,

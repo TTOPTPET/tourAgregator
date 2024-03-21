@@ -2,6 +2,7 @@ import axios from "axios";
 import { ICreatorInfo, ITouristInfo } from "../models/userModels/IUserInfo";
 import { urlUser, urlTour } from "../config/config";
 import { IErrorMessage } from "../models/errorMessageModels/IErrorMessage";
+import { IQuestMessage } from "../models/errorMessageModels/IQuestMessage";
 
 export const getUserInfo = async (
   successCallback: (prop: ICreatorInfo | ITouristInfo) => void,
@@ -39,6 +40,22 @@ export const postAppeal = async (
 ) => {
   try {
     let response = await axios.post(urlTour + "/appeal/create", data, {
+      withCredentials: true,
+    });
+    successCallback(response?.status);
+  } catch (e) {
+    console.error(e);
+    errorCallback && errorCallback();
+  }
+};
+
+export const postQuest = async (
+  data: IQuestMessage,
+  successCallback: (prop: any) => void,
+  errorCallback?: () => void
+) => {
+  try {
+    let response = await axios.post(urlTour + "/quest", data, {
       withCredentials: true,
     });
     successCallback(response?.status);

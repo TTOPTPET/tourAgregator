@@ -18,6 +18,7 @@ import SuccessCancelBooking from "../Modals/SuccessCancelBooking/SuccessCancelBo
 import SuccesReturnMoney from "../Modals/SuccesReturnMoney/SuccesReturnMoney";
 import ErrorReportModal from "../Modals/ErrorReportModal/ErrorReportModal";
 import SuccessMessageSendModal from "../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
+import GidQuestModal from "../Modals/GidQuestModal/GidQuestModal";
 
 enum tabValues {
   upcomming,
@@ -43,8 +44,6 @@ export const MyTours = () => {
   useEffect(() => {
     setFullSortedTours(sortedRecords);
   }, [records]);
-
-  console.log(records);
 
   const theme = useTheme();
 
@@ -155,8 +154,8 @@ export const MyTours = () => {
       <ConfirmCancelBooking />
       <SuccessCancelBooking />
       <SuccesReturnMoney />
-      <ErrorReportModal />
       <SuccessMessageSendModal />
+      <GidQuestModal />
     </>
   );
 };

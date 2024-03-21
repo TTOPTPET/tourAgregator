@@ -146,7 +146,6 @@ export default function NewPublicModal({
     undefined
   );
 
-  console.log(editedPublic);
   const publicTours = modal?.props?.publicTours;
 
   const [dateError, setDateError] = useState(false);

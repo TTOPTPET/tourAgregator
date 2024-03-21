@@ -133,24 +133,3 @@ function BookingInfoModal({ selectedBooking }: BookingInfoModalProps) {
 }
 
 export default BookingInfoModal;
-
-const checkAge = (stringAge: string) => {
-  const age =
-    String(stringAge).length > 2
-      ? Number(String(stringAge).slice(-2))
-      : Number(String(stringAge));
-  const lastSymbol = Number(String(stringAge).slice(-1));
-  if (
-    (age >= 5 && age <= 20) ||
-    (lastSymbol >= 5 && lastSymbol <= 9) ||
-    lastSymbol === 0
-  ) {
-    return `${stringAge} лет`;
-  } else if (lastSymbol >= 2 && lastSymbol <= 4) {
-    return `${stringAge} года`;
-  } else if (lastSymbol === 1) {
-    return `${stringAge} год`;
-  } else {
-    return stringAge;
-  }
-};

@@ -146,7 +146,6 @@ export const AdminComponent = ({
         claimId,
         creationDateTime,
       } = props;
-      console.log(arrayProps);
       return (
         <div>
           <Accordion
