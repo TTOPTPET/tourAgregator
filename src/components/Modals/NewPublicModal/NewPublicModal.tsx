@@ -96,7 +96,9 @@ export default function NewPublicModal({
       case "meetingPoint":
         return value ? false : true;
       case "maxPersonNumber":
-        return value && +value > 0 && +value % 1 === 0 ? false : true;
+        return value && +value > 0 && +value % 1 === 0 && +value <= 100
+          ? false
+          : true;
       case "tourAmount":
         return value && Number(value) >= 10 && Number(value) <= 200000
           ? false
