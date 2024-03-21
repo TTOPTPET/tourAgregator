@@ -169,11 +169,10 @@ export const TourDetails: FC<ITourDetailsProps> = ({
               )}
               <Button
                 onClick={() => {
-                  console.log(true);
                   dispatch(
                     setModalActive("errorReportModal", {
-                      tour: true,
-                      record: record,
+                      gidEmail: record.contactInformation.email,
+                      publicTourId: record.publicTourId,
                     })
                   );
                 }}

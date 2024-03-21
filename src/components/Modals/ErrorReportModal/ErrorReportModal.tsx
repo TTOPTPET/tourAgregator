@@ -30,29 +30,18 @@ function ErrorReportModal() {
 
   const modal = activeModals.find((modal) => modal.id === "errorReportModal");
 
-  const [errorReportData, setErrorReportData] = useState<IErrorMessage>({
-    description: "",
-  });
+  const [errorReport, setErrorReport] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [gidEmail, setGidEmail] = useState(modal?.props?.gidEmail);
-  const [publicTourId, setPublicTourId] = useState(modal?.props?.publicTourId);
-
-  useEffect(() => {
-    modal?.props?.gidEmail &&
-      modal.props?.publicTourId &&
-      setErrorReportData((errorReportData) => ({
-        ...errorReportData,
-        gidEmail: gidEmail,
-        publicTourId: publicTourId,
-      }));
-  }, []);
-
   const handlerConfirmClick = () => {
-    gidEmail && publicTourId
+    modal?.props?.gidEmail && modal?.props?.publicTourId
       ? postClaim(
-          errorReportData as IErrorMessage,
+          {
+            description: errorReport,
+            gidEmail: modal?.props?.gidEmail,
+            publicTourId: modal?.props?.publicTourId,
+          },
           () => {
             dispatch(setModalActive("successMessageSendModal"));
             dispatch(setModalInactive("errorReportModal"));
@@ -62,7 +51,7 @@ function ErrorReportModal() {
           }
         )
       : postAppeal(
-          errorReportData.description,
+          errorReport,
           () => {
             dispatch(setModalActive("successMessageSendModal"));
             dispatch(setModalInactive("errorReportModal"));
@@ -78,7 +67,7 @@ function ErrorReportModal() {
       className="errorReportModal"
       onClose={() => {
         dispatch(setModalInactive("errorReportModal"));
-        setErrorReportData({ description: "" });
+        setErrorReport("");
         setErrorMessage("");
       }}
       open={isModalActive("errorReportModal", activeModals)}
@@ -89,12 +78,7 @@ function ErrorReportModal() {
         <Typography variant={"h5"}>Сообщение о проблеме</Typography>
         <StyledTextAreaAutosize
           placeholder="Опишите Вашу проблему"
-          onChange={(e) =>
-            setErrorReportData((errorReportData) => ({
-              ...errorReportData,
-              description: e.target.value,
-            }))
-          }
+          onChange={(e) => setErrorReport(e.target.value)}
         />
         {errorMessage && (
           <Typography

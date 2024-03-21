@@ -129,7 +129,7 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
             setRecords={setRecords}
           />
         </AccordionDetails>
-        <SuccessMessageSendModal />
+        {/* <SuccessMessageSendModal /> */}
       </Accordion>
     </>
   );
