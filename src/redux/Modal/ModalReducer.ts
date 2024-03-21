@@ -61,6 +61,8 @@ interface IActionProps {
     errorMessage?: string;
     dateFrom?: string;
     dateTo?: string;
+    publicTourId?: string;
+    gidEmail?: string;
     publicTours?: IPublicTour[] | undefined;
     record?: {
       tour?: {

@@ -1,7 +1,7 @@
 import "./App.css";
 import dayjs from "dayjs";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Container, ThemeProvider } from "@mui/material";
+import { Box, Container, ThemeProvider } from "@mui/material";
 
 import { mainThemes } from "./config/MUI/themes/mainTheme/mainTheme";
 import Header from "./components/Header/Header";
@@ -13,8 +13,8 @@ import { Suspense, useEffect } from "react";
 // import { setUserInfo } from "./redux/UserInfo/UserInfoReducer";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import NavTool from "./components/NavTool/NavTool";
-// import HelpButton from "./components/HelpButton/HelpButton";
-// import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
+import HelpButton from "./components/HelpButton/HelpButton";
+import ErrorReportModal from "./components/Modals/ErrorReportModal/ErrorReportModal";
 import { lazyWithRetry } from "./tools/lazyWithRetry";
 import { getCatalog } from "./API/tourListAPI/filterAPI/filterAPI";
 import { Catalog } from "./models/tourListModels/ICatalog";
@@ -22,7 +22,7 @@ import { useDispatch } from "react-redux";
 import { setCatalog } from "./redux/CatalogsReducer/CatalogsReducer";
 import { LOGGINED, ROLE } from "./config/types";
 import { useCookies } from "react-cookie";
-// import SuccessMessageSendModal from "./components/Modals/SuccessMessageSendModal/SuccessMessageSendModal";
+import SuccessMessageSendModal from "./components/Modals/SuccessMessageSendModal/SuccessMessageSendModal";
 // import ContactsPage from "./pages/ContactsPage/ContactsPage";
 // import DocumentsPage from "./pages/DocumentsPage/DocumentsPage";
 
@@ -216,7 +216,7 @@ function App() {
             </Routes>
           </Container>
         </Suspense>
-        {/* <Box
+        <Box
           sx={{
             position: "fixed",
             bottom: "50px",
@@ -225,12 +225,12 @@ function App() {
           }}
         >
           <HelpButton />
-        </Box> */}
+        </Box>
         <Footer />
         {/* HACK:Инструмент навигации для разработки */}
         {/* {import.meta.env.VITE_APP_ACCESS_TYPE === "DEV" && <NavTool />} */}
-        {/* <ErrorReportModal /> */}
-        {/* <SuccessMessageSendModal /> */}
+        <ErrorReportModal />
+        <SuccessMessageSendModal />
       </ThemeProvider>
     </BrowserRouter>
   );

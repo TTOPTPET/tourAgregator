@@ -75,11 +75,6 @@ export const BasicFilter = ({
   const handlerSearchClick = () => {
     setFiltersLabels(getChipLabels(searchData));
   };
-  console.log(searchData);
-
-  // useEffect(() => {
-  //   setFiltersLabels(getChipLabels(searchData));
-  // }, [searchData.searchParam]);
 
   const customRuRULocaleText: Partial<PickersLocaleText<any>> = {
     okButtonLabel: "Принять",
