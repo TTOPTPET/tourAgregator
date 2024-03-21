@@ -24,7 +24,6 @@ const StatisticTable = ({ children }: { children: JSX.Element[] }) => {
           <TableRow>
             <TableCell style={{ fontWeight: "bold" }} />
             <TableCell style={{ fontWeight: "bold" }}>Тур</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Статус</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Доход</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>
               Количество человек

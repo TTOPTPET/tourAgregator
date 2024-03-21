@@ -4,17 +4,16 @@ import { IStatistic } from "../../models/statisticModels/IStatistic";
 import { IStatisticSearch } from "../../models/statisticModels/IStatisticSearch";
 
 const getStatistic = async (
-  params: IStatisticSearch,
+  data: IStatisticSearch,
   successCallback: (prop: IStatistic[]) => void,
   errorCallback?: () => void
 ) => {
   try {
-    const response = await axios.get<IStatistic[]>(creatorUrl + "/statistics", {
-      params: params,
+    const response = await axios.post(creatorUrl + "/tours/statistics", data, {
       withCredentials: true,
     });
 
-    successCallback(response.data);
+    successCallback(response.data.data);
   } catch (e) {
     console.error(e);
     errorCallback && errorCallback();

@@ -53,13 +53,17 @@ function StatisticPage() {
         >
           <CircularProgress size={"80px"} />
         </Box>
-      ) : (
+      ) : statistic && statistic.length > 0 ? (
         <StatisticTable>
           {statistic &&
             statistic.map((item, index) => (
               <StatisticItem key={index} statistic={item} />
             ))}
         </StatisticTable>
+      ) : (
+        <Typography variant="h5" sx={{ mt: "40px", textAlign: "center" }}>
+          Статистики за данный период нет!
+        </Typography>
       )}
     </Box>
   );
