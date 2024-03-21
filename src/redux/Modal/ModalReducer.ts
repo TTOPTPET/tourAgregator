@@ -37,7 +37,8 @@ type modalsId =
   | "userAgreementModal"
   | "сonfirmEmailModal"
   | "successLostPasswordModal"
-  | "confirmAddTourExit";
+  | "confirmAddTourExit"
+  | "needDeletePublicModal";
 
 enum actionTypes {
   SET_MODAL_ACTIVE = "SET_MODAL_ACTIVE",

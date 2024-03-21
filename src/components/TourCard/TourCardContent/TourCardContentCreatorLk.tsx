@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 
 import { ITour, ITourResponse } from "../../../models/tourCardModel/ITour";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   darkTurquoiseColor,
   lightTurquoiseColor,
@@ -31,6 +31,8 @@ function TourCardContentCreatorLk({ tour }: TourCardProps) {
   const dispatch = useDispatch();
 
   const theme = useTheme();
+
+  const navigate = useNavigate();
 
   const lessThenBig = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -196,9 +198,12 @@ function TourCardContentCreatorLk({ tour }: TourCardProps) {
         sx={{ display: "flex", justifyContent: "flex-end", gap: "7px" }}
       >
         <Button
-          component={Link}
-          to={`/creator/editTour/${tour?.tourId}`}
           variant="editButton"
+          onClick={() => {
+            tour?.publicCount! > 0
+              ? dispatch(setModalActive("needDeletePublicModal"))
+              : navigate(`/creator/editTour/${tour?.tourId}`);
+          }}
         >
           <img
             src={EditIcon}
@@ -217,11 +222,13 @@ function TourCardContentCreatorLk({ tour }: TourCardProps) {
         <Button
           className="tour-card__button-delete"
           onClick={() =>
-            dispatch(
-              setModalActive("deleteTourModal", {
-                tourId: tour?.tourId,
-              })
-            )
+            tour?.publicCount! > 0
+              ? dispatch(setModalActive("needDeletePublicModal"))
+              : dispatch(
+                  setModalActive("deleteTourModal", {
+                    tourId: tour?.tourId,
+                  })
+                )
           }
           variant="deleteButton"
         >

@@ -10,6 +10,7 @@ import CreatorInfo from "../../components/UserInfo/CreatorInfo/CreatorInfo";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import DeleteTourModal from "../../components/Modals/DeleteTourModal/DeleteTourModal";
 import SuccessDeleteTourModal from "../../components/Modals/SuccessDeleteTourModal/SuccessDeleteTourModal";
+import NeedDeletePublicModal from "../../components/Modals/NeedDeletePublicModal/NeedDeletePublicModal";
 
 function CreatorLk() {
   const [myTours, setMyTours] = useState<ITour[]>([]);
@@ -118,6 +119,7 @@ function CreatorLk() {
       </Grid>
       <DeleteTourModal myTours={myTours} setMyTours={setMyTours} />
       <SuccessDeleteTourModal />
+      <NeedDeletePublicModal />
     </>
   );
 }
