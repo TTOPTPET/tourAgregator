@@ -73,7 +73,11 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
                     right: "0",
                   }}
                 >
-                  {record.tourAmount / 100}₽
+                  {String(record.tourAmount / 100).replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    " "
+                  )}
+                  ₽
                 </Typography>
               </Stack>
             </Grid>

@@ -1,17 +1,16 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-import { ITour, ITourResponse } from "../../../models/tourCardModel/ITour";
+import { ITourResponse } from "../../../models/tourCardModel/ITour";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   darkTurquoiseColor,
   lightTurquoiseColor,
 } from "../../../config/MUI/color/color";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalActive } from "../../../redux/Modal/ModalReducer";
-import { SetStateAction, Dispatch } from "react";
-import { SvgIcon, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import EditIcon from "../../../media/editTourIcon.svg";
 import DeleteIcon from "../../../media/deleteTourIcon.svg";
 import { DarkStyledTooltip } from "../../../config/MUI/styledComponents/StyledTooltip";
@@ -21,7 +20,6 @@ import complexityIcon from "../../../media/complexityIcon.svg";
 import categoryIcon from "../../../media/walking-guy.svg";
 import { ICatalog } from "../../../models/tourListModels/ICatalog";
 import { RootState } from "../../../redux/store";
-import dayjs from "dayjs";
 
 type TourCardProps = {
   tour: ITourResponse;

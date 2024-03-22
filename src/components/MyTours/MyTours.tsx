@@ -24,6 +24,14 @@ enum tabValues {
   past,
 }
 
+const weights = [
+  "isActive",
+  "cancellation",
+  "consideration",
+  "cancelled",
+  "refund",
+].reverse();
+
 export const MyTours = () => {
   const [records, setRecords] = useState<IUserRecord[]>([]);
   const [tabValue, setTabValue] = useState<tabValues>(tabValues.upcomming);
@@ -34,10 +42,13 @@ export const MyTours = () => {
     a.dateFrom > b.dateFrom ? 1 : -1
   );
 
+  const getWeight = (item: string) =>
+    weights.findIndex((weightedItem) => item.indexOf(weightedItem) > -1);
+
   const sortedRecords =
     sortedByDateRecords &&
     sortedByDateRecords.sort((a, b) =>
-      a.statusBooking > b.statusBooking ? -1 : 1
+      getWeight(a.statusBooking) > getWeight(b.statusBooking) ? -1 : 1
     );
 
   useEffect(() => {

@@ -69,7 +69,11 @@ export default function TouristOrder({ bookingInfo, index }: Props) {
             </Stack>
           </Stack>
           <Typography variant={"caption"} mr={2}>
-            {bookingInfo?.tourAmount / 100 || 0}₽
+            {String(bookingInfo?.tourAmount / 100).replace(
+              /\B(?=(\d{3})+(?!\d))/g,
+              " "
+            ) || 0}
+            ₽
           </Typography>
         </Stack>
       </Paper>

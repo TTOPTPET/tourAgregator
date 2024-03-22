@@ -51,7 +51,13 @@ export default function CalendarSidebar({
         <Stack direction={"column"}>
           <Typography variant={"caption"}>Стоимость:</Typography>
           <Typography variant={"caption"} fontWeight={"700"}>
-            {selectedPublic?.tourAmount ? selectedPublic?.tourAmount / 100 : 0}₽
+            {selectedPublic?.tourAmount
+              ? String(selectedPublic?.tourAmount / 100).replace(
+                  /\B(?=(\d{3})+(?!\d))/g,
+                  " "
+                )
+              : 0}
+            ₽
           </Typography>
         </Stack>
 
@@ -132,7 +138,11 @@ export default function CalendarSidebar({
             sx={{ backgroundColor: whiteColor, borderRadius: 6, padding: 3 }}
           >
             <Typography variant={"button"} align={"center"}>
-              {selectedPublic?.profit! / 100 || 0}₽
+              {String(selectedPublic?.profit! / 100).replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                " "
+              ) || 0}
+              ₽
             </Typography>
           </Paper>
         </Box>
