@@ -104,3 +104,20 @@ export const checkINN = async (
     errorCallback && errorCallback(e);
   }
 };
+
+export const deleteUser = async (
+  id: string,
+  successCallback: (prop: number) => void,
+  errorCallback?: (prop: any) => void
+) => {
+  try {
+    let response = await axios.delete(urlUser + `/${id}`, {
+      withCredentials: true,
+    });
+
+    successCallback(response?.status);
+  } catch (e) {
+    console.error(e);
+    errorCallback && errorCallback(e);
+  }
+};

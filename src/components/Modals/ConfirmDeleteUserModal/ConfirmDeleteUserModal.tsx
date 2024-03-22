@@ -6,40 +6,38 @@ import {
   Stack,
   CircularProgress,
 } from "@mui/material";
-
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTour } from "../../../API/creatorAPI/deleteTour";
-
 import {
   isModalActive,
-  setModalActive,
   setModalInactive,
 } from "../../../redux/Modal/ModalReducer";
 import { RootState } from "../../../redux/store";
-import { ITour } from "../../../models/tourCardModel/ITour";
-import { SetStateAction, Dispatch, useState } from "react";
-//   import CancelPostedToursModal from "../CancelPostedToursModal/CancelPostedToursModal";
-//   import SuccessCancelPostedTourModal from "../SuccessCancelPostedTourModal/SuccessCancelPostedTourModal";
-
-interface IConfirmDeleteUserModalProps {
-  myTours: ITour[];
-  setMyTours: Dispatch<SetStateAction<ITour[]>>;
-}
+import { useState } from "react";
+import { deleteUser } from "../../../API/authAPI";
+import { logout } from "../../../API/authAPI/logout";
+import { useNavigate } from "react-router-dom";
+import { LOGGINED, ROLE } from "../../../config/types";
+import { useCookies } from "react-cookie";
+import { redColor } from "../../../config/MUI/color/color";
 
 function ConfirmDeleteUserModal() {
   const activeModals = useSelector(
     (state: RootState) => state.modal.activeModals
   );
 
-  const modalProps = activeModals.find(
+  const modal = activeModals.find(
     (modal) => modal.id === "confirmDeleteUserModal"
   );
 
-  let tourId = modalProps?.props?.tourId;
+  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  let id = modal?.props?.userId;
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const [postedTours, setPostedTours] = useState<ITour[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handlerBackClick = () => {
@@ -47,26 +45,34 @@ function ConfirmDeleteUserModal() {
   };
 
   const handlerConfirmClick = () => {
-    // setLoading(true);
-    // deleteTour(
-    //   tourId as string,
-    //   (value) => {
-    //     dispatch(setModalInactive("confirmDeleteUserModal"));
-    //     setMyTours([...myTours.filter((tour) => tour.tourId !== tourId)]);
-    //     dispatch(setModalActive("successconfirmDeleteUserModal"));
-    //     setLoading(false);
-    //   },
-    //   (data) => {
-    //     setPostedTours(data);
-    //     dispatch(setModalActive("сancelPostedToursModal"));
-    //     setLoading(false);
-    //   }
-    // );
+    setErrorMessage("");
+    setLoading(true);
+    deleteUser(
+      id as string,
+      () => {
+        logout(
+          () => {
+            navigate("/auth");
+            removeCookies(LOGGINED, { path: "/" });
+            removeCookies(ROLE, { path: "/" });
+          },
+          () => {}
+        );
+        setLoading(false);
+      },
+      () => {
+        setErrorMessage("Что-то пошло не так, попробуйте еще раз позже!");
+        setLoading(false);
+      }
+    );
   };
   return (
     <Dialog
       className="confirmDeleteUserModal"
-      onClose={() => dispatch(setModalInactive("confirmDeleteUserModal"))}
+      onClose={() => {
+        dispatch(setModalInactive("confirmDeleteUserModal"));
+        setErrorMessage("");
+      }}
       open={isModalActive("confirmDeleteUserModal", activeModals)}
       fullWidth
       maxWidth={"sm"}
@@ -88,6 +94,10 @@ function ConfirmDeleteUserModal() {
         >
           {loading ? (
             <CircularProgress />
+          ) : errorMessage ? (
+            <Typography variant="caption" color={redColor}>
+              {errorMessage}
+            </Typography>
           ) : (
             <>
               <Button onClick={handlerBackClick}>Назад</Button>

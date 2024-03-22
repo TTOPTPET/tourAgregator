@@ -40,7 +40,8 @@ type modalsId =
   | "confirmAddTourExit"
   | "needDeletePublicModal"
   | "gidQuestModal"
-  | "confirmDeleteUserModal";
+  | "confirmDeleteUserModal"
+  | "successEmailMessageSendModal";
 
 enum actionTypes {
   SET_MODAL_ACTIVE = "SET_MODAL_ACTIVE",
@@ -51,6 +52,7 @@ interface IActionProps {
   id: modalsId;
   props?: {
     tourId: string;
+    userId?: string;
     bookingId: number;
     multiply?: boolean;
     index?: number;
