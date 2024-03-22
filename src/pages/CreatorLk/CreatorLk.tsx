@@ -11,6 +11,9 @@ import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import DeleteTourModal from "../../components/Modals/DeleteTourModal/DeleteTourModal";
 import SuccessDeleteTourModal from "../../components/Modals/SuccessDeleteTourModal/SuccessDeleteTourModal";
 import NeedDeletePublicModal from "../../components/Modals/NeedDeletePublicModal/NeedDeletePublicModal";
+import { ICreatorInfo } from "../../models/userModels/IUserInfo";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 function CreatorLk() {
   const [myTours, setMyTours] = useState<ITour[]>([]);
@@ -19,6 +22,10 @@ function CreatorLk() {
   const theme = useTheme();
 
   const moreThenMid = useMediaQuery(theme.breakpoints.up("md"));
+
+  const CreatorData: ICreatorInfo = useSelector(
+    (state: RootState) => state?.userInfo?.userInfo as ICreatorInfo
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -88,7 +95,7 @@ function CreatorLk() {
 
   return (
     <>
-      <CreatorInfo />
+      <CreatorInfo CreatorData={CreatorData} />
       <Typography
         variant="h5"
         sx={{
@@ -105,7 +112,7 @@ function CreatorLk() {
         alignItems={"center"}
       >
         <Grid item lg={3} md={3} sm={4}>
-          <AddTourButton />
+          <AddTourButton isVerified={CreatorData.is_verified as boolean} />
         </Grid>
         {loading ? (
           skeleton()

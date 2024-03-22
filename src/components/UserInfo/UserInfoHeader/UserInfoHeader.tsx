@@ -1,15 +1,12 @@
 import {
   Box,
   Typography,
-  Button,
   useTheme,
   useMediaQuery,
   Stack,
   Paper,
 } from "@mui/material";
 import { DarkStyledTooltip } from "../../../config/MUI/styledComponents/StyledTooltip";
-
-import { useNavigate } from "react-router-dom";
 
 import checked from "../../../media/checkedVerify.svg";
 import banIcon from "../../../media/ban-status-icon.svg";
@@ -19,11 +16,7 @@ import {
   ITouristInfo,
   ICreatorInfo,
 } from "../../../models/userModels/IUserInfo";
-import { logout } from "../../../API/authAPI/logout";
 import { whiteColor } from "../../../config/MUI/color/color";
-import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
-import { LOGGINED, ROLE } from "../../../config/types";
 
 type UserInfoHeaderProps = {
   submitFuntion?: () => void;
@@ -35,12 +28,9 @@ type UserInfoHeaderProps = {
 function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
   const theme = useTheme();
 
-  const dispatch = useDispatch();
-
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const lessThenMid = useMediaQuery(theme.breakpoints.down("md"));
 
-  const navigate = useNavigate();
   return (
     <Box
       className="userInfo__header-wrapper"
@@ -82,7 +72,7 @@ function UserInfoHeader({ title, userInfo }: UserInfoHeaderProps) {
                   />
                 </Box>
                 <Typography variant={"caption"}>
-                  Отправьте данные на подтверждение, чтобы продавать туры
+                  Пройдите верификацию почты, чтобы продавать туры
                 </Typography>
               </Stack>
             </Paper>

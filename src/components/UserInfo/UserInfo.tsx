@@ -1,35 +1,12 @@
 import { useEffect } from "react";
-import {
-  ITouristInfo,
-  ICreatorInfo,
-  UserType,
-} from "../../models/userModels/IUserInfo";
-import { Box, Typography, Avatar as MuiAvatar, Paper } from "@mui/material";
-import userPhoto from "../../media/userPhoto.svg";
+import { ITouristInfo, ICreatorInfo } from "../../models/userModels/IUserInfo";
+import { Box, Typography } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import UserInfoSkeleton from "./UserInfoSkeleton/UserInfoSkeleton";
-// import CreatorDocumentsList from "../CreatorDocumentsList/CreatorDocumentsList";
-
-import {
-  setModalActive,
-  setModalInactive,
-} from "../../redux/Modal/ModalReducer";
-// import ErrorReportModal from "../Modals/ErrorReportModal/ErrorReportModal";
-// import SuccessMessageSendModal from "../Modals/SuccessMessageSendModal/SuccessMessageSendModal";
-// import CancelBookingModal from "../Modals/CancelBookingModal/CancelBookingModal";
-// import SuccessCancellingBookingModal from "../Modals/SuccessCancellingBookingModal/SuccessCancellingBookingModal";
-// import SuccessBookingModal from "../Modals/SuccessBookingModal/SuccessBookingModal";
-// import DeleteTourModal from "../Modals/DeleteTourModal/DeleteTourModal";
-// import SuccessDeleteTourModal from "../Modals/SuccessDeleteTourModal/SuccessDeleteTourModal";
-// import SuccessPayModal from "../Modals/SuccessPayModal/SuccessPayModal";
-// import SuccessEditUserInfoModal from "../Modals/SuccessEditUserInfoModal/SuccessEditUserInfoModal";
-// import EnterMobileCodeModal from "../Modals/EnterMobileCodeModal/EnterMobileCodeModal";
-import { useNavigate } from "react-router-dom";
 import { setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 import { getUserInfo } from "../../API/commonAPI";
-import { baseUrl } from "../../config/config";
 
 type UserInfoProps = {
   fields: JSX.Element;
@@ -39,12 +16,10 @@ type UserInfoProps = {
   documents?: JSX.Element;
 };
 
-function UserInfo({ header, fields, submitFuntion }: UserInfoProps) {
+function UserInfo({ header, fields }: UserInfoProps) {
   const userInfo: ITouristInfo | ICreatorInfo | undefined = useSelector(
     (state: RootState) => state?.userInfo?.userInfo
   );
-
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -153,30 +128,6 @@ function UserInfo({ header, fields, submitFuntion }: UserInfoProps) {
           </>
         )}
       </Box>
-      {/* {userInfo && userInfo?.typeUser !== UserType.tourist && (
-        <CreatorDocumentsList
-          files={userInfo.dataUser.documents}
-          loadingStatus={!userInfo.dataUser}
-          variant="displayInfo"
-        />
-      )} */}
-      {/* <CancelBookingModal />
-      <SuccessCancellingBookingModal />
-      <SuccessBookingModal /> */}
-      {/* <DeleteTourModal /> */}
-      {/* <SuccessDeleteTourModal />
-      <SuccessPayModal />
-      <SuccessEditUserInfoModal />
-      <EnterMobileCodeModal
-        successCallback={(resp) => {
-          setCookies(TOKEN, resp.accessToken, { path: "/" });
-          setCookies(REFRESH_TOKEN, resp.refreshToken, { path: "/" });
-          setCookies(USER_ROLE, resp.role, { path: "/" });
-          setCookies(BAN_STATUS, resp.status, { path: "/" });
-          dispatch(setModalInactive("enterMobileCodeModal"));
-          navigate("/");
-        }}
-      /> */}
     </>
   );
 }

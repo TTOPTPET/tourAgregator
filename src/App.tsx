@@ -85,6 +85,11 @@ const TourListPage = lazyWithRetry(() =>
     ({ default: TourListPage }) => ({ default: TourListPage })
   )
 );
+const SettingsPage = lazyWithRetry(() =>
+  import("./pages/SettingsPage/SettingsPage").then(
+    ({ default: TourListPage }) => ({ default: TourListPage })
+  )
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -183,6 +188,7 @@ function App() {
               {/* <Route path={"/"} element={<StartPage />} /> */}
               <Route path={"/admin/*"} element={<AdminPage />} />
               <Route path={"/auth"} element={<Authorization />} />
+              <Route path={"/settings"} element={<SettingsPage />} />
               <Route path={"/verify/:token"} element={<VerifyUserEmail />} />
               <Route
                 path={"/reset-password/:token"}

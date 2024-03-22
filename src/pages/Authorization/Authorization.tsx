@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Button,
   Stack,
@@ -21,13 +21,9 @@ import {
 } from "../../components/AuthorizationModules/AuthFabric/AuthTypes/AuthTypes";
 import { loginUser, registerUser } from "../../API/authAPI";
 import { lightTurquoiseColor, redColor } from "../../config/MUI/color/color";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setModalActive } from "../../redux/Modal/ModalReducer";
-import {
-  ICreatorInfo,
-  ITouristInfo,
-  UserType,
-} from "../../models/userModels/IUserInfo";
+import { UserType } from "../../models/userModels/IUserInfo";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
@@ -41,8 +37,6 @@ import {
 import { getUserInfo } from "../../API/commonAPI";
 import { setUserInfo } from "../../redux/UserInfo/UserInfoReducer";
 import LostPasswordModal from "../../components/Modals/LostPasswordModal/LostPasswordModal";
-import { ICheckINNResponse } from "../../models/authModels/ICheckINNResponse";
-import { RootState } from "../../redux/store";
 import { useCookies } from "react-cookie";
 import { LOGGINED, ROLE } from "../../config/types";
 
@@ -100,12 +94,6 @@ function Authorization() {
   const [innCheckLoading, setInnCheckLoading] = useState(false);
   const [INNCheckErr, setINNCheckErr] = useState(false);
   const [isINNChecked, setIsINNChecked] = useState(false);
-
-  // const UserInfo: ICreatorInfo | ITouristInfo = useSelector(
-  //   (state: RootState) => state?.userInfo?.userInfo
-  // );
-
-  const refBtn = useRef<HTMLButtonElement | null>(null);
 
   const dispatch = useDispatch();
 
@@ -218,6 +206,7 @@ function Authorization() {
     setUserLoginData(loginDefault);
     setUserRegisterData(registerDefault);
     setRegState(!regState);
+    setUserAgreement(false);
   };
 
   const handlerRegisterClick = () => {
@@ -229,6 +218,8 @@ function Authorization() {
         requestVerifyToken(() => {
           dispatch(setModalActive("сonfirmEmailModal"));
         }, userRegisterData.email);
+        setRegState((prev) => !prev);
+        setUserAgreement(false);
       },
       registerDataCopy,
       (e) => {

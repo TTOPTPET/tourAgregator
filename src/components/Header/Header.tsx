@@ -303,7 +303,7 @@ const Header = () => {
                             <MenuItem
                               style={{ gap: "10px" }}
                               onClick={() => {
-                                navigate("/creator/calendar");
+                                navigate("/settings");
                                 handlerCloseMenu();
                               }}
                             >

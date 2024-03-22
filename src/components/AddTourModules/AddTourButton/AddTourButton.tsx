@@ -1,14 +1,19 @@
 import plus from "../../../media/plus-circle-outline-white.svg";
-import Box from "@mui/material/Box";
 import { darkTurquoiseColor } from "../../../config/MUI/color/color";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
-function AddTourButton() {
+type AddTourButtonProps = {
+  isVerified: boolean;
+};
+
+function AddTourButton({ isVerified }: AddTourButtonProps) {
   return (
-    <Box
+    <Button
       component={Link}
       to={"/creator/addTour"}
       className="tour_button"
+      disabled={!isVerified}
       sx={{
         display: "block",
         width: { xs: 220, sm: 180, md: 205, lg: 280 },
@@ -30,7 +35,7 @@ function AddTourButton() {
         }}
         className="tour_button_icon"
       />
-    </Box>
+    </Button>
   );
 }
 

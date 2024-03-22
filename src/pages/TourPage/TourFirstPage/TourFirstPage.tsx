@@ -6,8 +6,6 @@ import { tourStepsMap } from "../TourPage";
 
 import TourCreatorInfo from "../TourCreatorInfo/TourCreatorInfo";
 import { ITourBookingData } from "../../../models/tourModels/ITourBookingData";
-import { useCookies } from "react-cookie";
-import { LOGGINED, ROLE } from "../../../config/types";
 
 interface TourFirstPageProps {
   images: any[];
@@ -23,13 +21,8 @@ export const TourFirstPage: FC<TourFirstPageProps> = ({
   images,
   setImage,
   tourInfo,
-  bookingData,
-  setBookingData,
-  setPage,
 }) => {
   const theme = useTheme();
-
-  const [cookies, setCookies, removeCookies] = useCookies([LOGGINED, ROLE]);
 
   const lessThenSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const upperThenMid = useMediaQuery(theme.breakpoints.up("md"));
