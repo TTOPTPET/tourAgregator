@@ -1,28 +1,23 @@
-import { FC, useState } from "react";
 import { IStatistic } from "../../../models/statisticModels/IStatistic";
-import {
-  Collapse,
-  IconButton,
-  TableCell,
-  TableRow,
-  Stack,
-} from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { TableCell, TableRow } from "@mui/material";
 
 interface IStatisticItemProps {
   statistic: IStatistic;
 }
 
-const StatisticItem: FC<IStatisticItemProps> = ({ statistic }) => {
-  const [open, setOpen] = useState<boolean>(false);
-
+const StatisticItem = ({ statistic }: IStatisticItemProps) => {
   return (
     <>
       <TableRow>
         <TableCell></TableCell>
         <TableCell>{statistic?.tourName || "Название тура"}</TableCell>
-        <TableCell>{statistic?.tourAmount / 100 || 0} ₽</TableCell>
+        <TableCell>
+          {String(statistic?.tourAmount / 100).replace(
+            /\B(?=(\d{3})+(?!\d))/g,
+            " "
+          ) || 0}{" "}
+          ₽
+        </TableCell>
         <TableCell>{statistic?.touristsAmount || 0}</TableCell>
       </TableRow>
     </>

@@ -1,6 +1,6 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { IStatisticSearch } from "../../../models/statisticModels/IStatisticSearch";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { IStatistic } from "../../../models/statisticModels/IStatistic";
@@ -12,11 +12,11 @@ interface IStatisticSearchProps {
   setStatistic: Dispatch<SetStateAction<IStatistic[]>>;
 }
 
-const StatisticSearch: FC<IStatisticSearchProps> = ({
+const StatisticSearch = ({
   statisticSearch,
   setStatisticSearch,
   setStatistic,
-}) => {
+}: IStatisticSearchProps) => {
   const handlerChangeSearchField = (
     type: keyof IStatisticSearch,
     value: Dayjs
