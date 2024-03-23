@@ -6,19 +6,10 @@ import { IAuthResponse } from "../../../models/authModels/IAuthResponse";
 import { cloneDeep } from "lodash";
 import { ICheckINNResponse } from "../../../models/authModels/ICheckINNResponse";
 
-// const userAuthDefault: IAuthResponse = {
-//   sessionToken: "SESSION",
-// };
-
-const checkINNDefault = {
-  status: true,
-};
-
 export const loginUser = async (
   data: IUserLogin,
   successCallback: (prop: IAuthResponse) => void,
-  errorCallback?: (prop: any) => void,
-  useDefault?: boolean
+  errorCallback?: (prop: any) => void
 ) => {
   try {
     let response = await axios.post<IAuthResponse>(urlUser + "/login", data, {
@@ -36,8 +27,7 @@ export const loginUser = async (
 export const registerUser = async (
   successCallback: (prop: number) => void,
   data: IUserRegister,
-  errorCallback?: (prop: any) => void,
-  useDefault?: boolean
+  errorCallback?: (prop: any) => void
 ) => {
   let copyData = cloneDeep(data);
   delete copyData.passwordSecond;
@@ -88,13 +78,8 @@ export const verify = async (
 export const checkINN = async (
   successCallback: (prop: ICheckINNResponse) => void,
   inn?: string,
-  errorCallback?: (prop: any) => void,
-  useDefault?: boolean
+  errorCallback?: (prop: any) => void
 ) => {
-  if (useDefault) {
-    successCallback(checkINNDefault);
-    return;
-  }
   try {
     let response = await axios.post(urlUser + `/${inn}`);
 

@@ -5,9 +5,15 @@ import "./BaseChip.css";
 
 interface IBaseChipProps {
   refund?: boolean;
+  touristCancelled?: boolean;
+  consideration?: boolean;
 }
 
-const BaseChip = ({ refund }: IBaseChipProps) => {
+const BaseChip = ({
+  refund,
+  touristCancelled,
+  consideration,
+}: IBaseChipProps) => {
   return (
     <Paper
       color={whiteColor}
@@ -24,11 +30,19 @@ const BaseChip = ({ refund }: IBaseChipProps) => {
           <Attention
             width={20}
             height={20}
-            className={refund ? "yellow-attention" : undefined}
+            className={
+              refund || touristCancelled ? "yellow-attention" : undefined
+            }
           />
         </SvgIcon>
         <Typography variant={"caption"}>
-          {refund ? "Деньги возвращены" : "Тур был отменен"}
+          {refund
+            ? "Деньги возвращены"
+            : touristCancelled
+              ? "Ожидается возврат средств"
+              : consideration
+                ? "Жалоба рассматривается"
+                : "Тур был отменен"}
         </Typography>
       </Stack>
     </Paper>

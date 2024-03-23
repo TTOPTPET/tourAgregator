@@ -1,5 +1,10 @@
 export interface IUserRecord {
-  statusBooking: "cancelled" | "refund" | "consideration" | "isActive";
+  statusBooking:
+    | "cancelled"
+    | "refund"
+    | "consideration"
+    | "isActive"
+    | "touristCancelled";
   dateFrom: string;
   dateTo: string;
   publicTourId: string;

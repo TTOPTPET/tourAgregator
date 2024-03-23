@@ -26,9 +26,9 @@ enum tabValues {
 
 const weights = [
   "isActive",
-  "cancellation",
   "consideration",
   "cancelled",
+  "touristCancelled",
   "refund",
 ].reverse();
 

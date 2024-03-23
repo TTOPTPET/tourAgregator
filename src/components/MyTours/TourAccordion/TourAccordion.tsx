@@ -13,9 +13,8 @@ import dayjs from "dayjs";
 import { SetStateAction, useState, Dispatch, FC } from "react";
 import { IUserRecord } from "../../../models/userModels/IUserRecord";
 import NavigateIcon from "../../../media/navigate_before.svg?react";
-import { TourDetails, checkPayForTour } from "../TourSummary/TourDetails";
 import BaseChip from "./Chips/BaseChip/BaseChip";
-import { checkReturnPayment } from "../TourSummary/TourDetails";
+import { TourDetails } from "../TourSummary/TourDetails";
 interface ITourAccordionProps {
   record: IUserRecord;
   records: IUserRecord[];
@@ -58,8 +57,16 @@ export const TourAccordion: FC<ITourAccordionProps> = ({
                     " - " +
                     dayjs(record.dateTo).format("D MMMM YYYY")}
                 </Typography>
-                {checkReturnPayment(record) && <BaseChip />}
-                {checkPayForTour(record) && <BaseChip refund={true} />}
+                {record.statusBooking === "cancelled" && <BaseChip />}
+                {record.statusBooking === "refund" && (
+                  <BaseChip refund={true} />
+                )}
+                {record.statusBooking === "touristCancelled" && (
+                  <BaseChip touristCancelled={true} />
+                )}
+                {record.statusBooking === "consideration" && (
+                  <BaseChip consideration={true} />
+                )}
               </Stack>
             </Grid>
             <Grid item width={"fit-content"} justifyContent={"right"}>

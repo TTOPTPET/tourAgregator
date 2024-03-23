@@ -25,14 +25,6 @@ interface ITourDetailsProps {
   setRecords?: Dispatch<SetStateAction<IUserRecord[]>>;
 }
 
-export const checkReturnPayment = (booking: IUserRecord) => {
-  return booking.statusBooking === "cancelled";
-};
-
-export const checkPayForTour = (booking: IUserRecord) => {
-  return booking.statusBooking === "refund";
-};
-
 export const TourDetails: FC<ITourDetailsProps> = ({
   record,
   bookingData,
@@ -150,9 +142,14 @@ export const TourDetails: FC<ITourDetailsProps> = ({
                       dispatch(setModalActive("succesReturnMoney"));
                       setRecords &&
                         setRecords((records) =>
-                          records.filter(
-                            (item) => item.bookingId !== record.bookingId
-                          )
+                          records.map((item) => {
+                            if (item.bookingId !== record.bookingId) {
+                              return {
+                                ...item,
+                                statusBooking: "touristCancelled",
+                              };
+                            } else return item;
+                          })
                         );
                     },
                     () => {
@@ -164,7 +161,7 @@ export const TourDetails: FC<ITourDetailsProps> = ({
               >
                 Оформить возврат
               </Button>
-              {!checkReturnPayment(record) && (
+              {record.statusBooking !== "refund" && (
                 <Typography variant={"caption"}>
                   до{" "}
                   {dayjs(record.dateFrom)
