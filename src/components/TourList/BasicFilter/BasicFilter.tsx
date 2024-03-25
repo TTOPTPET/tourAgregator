@@ -104,13 +104,14 @@ export const BasicFilter = ({
           <MenuItem value="">
             <em>-</em>
           </MenuItem>
-          {regions.map((region) => {
-            return (
-              <MenuItem key={region.code} value={region.code}>
-                {region.name}
-              </MenuItem>
-            );
-          })}
+          {regions &&
+            regions.map((region) => {
+              return (
+                <MenuItem key={region.code} value={region.code}>
+                  {region.name}
+                </MenuItem>
+              );
+            })}
         </TextField>
       </FormControl>
       <LocalizationProvider

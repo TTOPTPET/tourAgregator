@@ -169,26 +169,27 @@ export const ComplexFilter = ({
                 flexDirection: "column",
               }}
             >
-              {category.map((category) => (
-                <FormControlLabel
-                  key={category.code}
-                  value={category.code}
-                  control={
-                    <Checkbox
-                      checked={
-                        searchData.category &&
-                        searchData.category.indexOf(category.code) !== -1
-                          ? true
-                          : false
-                      }
-                    />
-                  }
-                  label={category.name}
-                  onChange={(e) => {
-                    handleCategoryChange(e);
-                  }}
-                />
-              ))}
+              {category &&
+                category.map((category) => (
+                  <FormControlLabel
+                    key={category.code}
+                    value={category.code}
+                    control={
+                      <Checkbox
+                        checked={
+                          searchData.category &&
+                          searchData.category.indexOf(category.code) !== -1
+                            ? true
+                            : false
+                        }
+                      />
+                    }
+                    label={category.name}
+                    onChange={(e) => {
+                      handleCategoryChange(e);
+                    }}
+                  />
+                ))}
             </Box>
             <Typography variant={"h5"} marginTop={lessThenSmall ? 0 : 5}>
               Стоимость
@@ -214,26 +215,27 @@ export const ComplexFilter = ({
                 flexDirection: "column",
               }}
             >
-              {complexity.map((complexity) => (
-                <FormControlLabel
-                  key={complexity.code}
-                  value={complexity.code}
-                  control={
-                    <Checkbox
-                      checked={
-                        searchData.complexity &&
-                        searchData.complexity.indexOf(complexity.code) !== -1
-                          ? true
-                          : false
-                      }
-                    />
-                  }
-                  label={complexity.name}
-                  onChange={(e) => {
-                    handleComplexityChange(e);
-                  }}
-                />
-              ))}
+              {complexity &&
+                complexity.map((complexity) => (
+                  <FormControlLabel
+                    key={complexity.code}
+                    value={complexity.code}
+                    control={
+                      <Checkbox
+                        checked={
+                          searchData.complexity &&
+                          searchData.complexity.indexOf(complexity.code) !== -1
+                            ? true
+                            : false
+                        }
+                      />
+                    }
+                    label={complexity.name}
+                    onChange={(e) => {
+                      handleComplexityChange(e);
+                    }}
+                  />
+                ))}
             </Box>
             <Typography variant={"h5"} marginTop={lessThenSmall ? 0 : 5}>
               Рекомендуемый возраст
