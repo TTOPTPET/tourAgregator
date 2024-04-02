@@ -138,10 +138,12 @@ export default function CalendarSidebar({
             sx={{ backgroundColor: whiteColor, borderRadius: 6, padding: 3 }}
           >
             <Typography variant={"button"} align={"center"}>
-              {String(selectedPublic?.profit! / 100).replace(
-                /\B(?=(\d{3})+(?!\d))/g,
-                " "
-              ) || 0}
+              {selectedPublic?.profit && selectedPublic?.profit > 0
+                ? String(selectedPublic?.profit! / 100).replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    " "
+                  )
+                : 0}
               ₽
             </Typography>
           </Paper>

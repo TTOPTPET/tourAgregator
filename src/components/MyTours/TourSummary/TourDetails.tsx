@@ -143,7 +143,7 @@ export const TourDetails: FC<ITourDetailsProps> = ({
                       setRecords &&
                         setRecords((records) =>
                           records.map((item) => {
-                            if (item.bookingId !== record.bookingId) {
+                            if (item.bookingId === record.bookingId) {
                               return {
                                 ...item,
                                 statusBooking: "touristCancelled",
