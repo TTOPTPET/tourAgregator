@@ -15,7 +15,7 @@ import { ICreatorInfo } from "../../models/userModels/IUserInfo";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
-function CreatorLk() {
+function ArchivePage() {
   const [myTours, setMyTours] = useState<ITour[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
 
@@ -34,7 +34,7 @@ function CreatorLk() {
         setMyTours(value);
         setLoading(false);
       },
-      { isArchived: false },
+      { isArchived: true },
       () => {
         setMyTours([]);
         setLoading(false);
@@ -47,7 +47,12 @@ function CreatorLk() {
     myTours?.map((tour, i) => {
       return (
         <Grid key={i} item lg={3} md={3} sm={4}>
-          <TourCard tour={tour} key={tour.tourId} tourCardType={"myTours"} />
+          <TourCard
+            tour={tour}
+            key={tour.tourId}
+            setMyTours={setMyTours}
+            tourCardType={"archive"}
+          />
         </Grid>
       );
     });
@@ -55,7 +60,7 @@ function CreatorLk() {
   const skeleton = () => {
     return (
       <>
-        <Grid item lg={3} md={3} sm={4}>
+        <Grid item lg={3}>
           <Skeleton
             variant="rounded"
             animation="wave"
@@ -66,7 +71,7 @@ function CreatorLk() {
             }}
           />
         </Grid>
-        <Grid item lg={3} md={3} sm={4}>
+        <Grid item lg={3}>
           <Skeleton
             variant="rounded"
             animation="wave"
@@ -77,51 +82,53 @@ function CreatorLk() {
             }}
           />
         </Grid>
-        {moreThenMid && (
-          <Grid item lg={3} md={3}>
-            <Skeleton
-              variant="rounded"
-              animation="wave"
-              sx={{
-                borderRadius: "30px",
-                width: { md: 205, lg: 280 },
-                height: { md: 310, lg: 420 },
-              }}
-            />
-          </Grid>
-        )}
+
+        <Grid item lg={3}>
+          <Skeleton
+            variant="rounded"
+            animation="wave"
+            sx={{
+              borderRadius: "30px",
+              width: { md: 205, lg: 280 },
+              height: { md: 310, lg: 420 },
+            }}
+          />
+        </Grid>
+        <Grid item lg={3}>
+          <Skeleton
+            variant="rounded"
+            animation="wave"
+            sx={{
+              borderRadius: "30px",
+              width: { md: 205, lg: 280 },
+              height: { md: 310, lg: 420 },
+            }}
+          />
+        </Grid>
       </>
     );
   };
 
   return (
     <>
-      <CreatorInfo CreatorData={CreatorData} />
-      <Typography
-        variant="h5"
-        sx={{
-          mb: { lg: "19px", md: "20px", sm: "10px", xs: "10px" },
-          mt: "10px",
-        }}
-      >
-        Мои туры
+      <Typography variant={"h3"} sx={{ display: "flex", alignItems: "center" }}>
+        Архивные туры
       </Typography>
+
       <Grid
         container
         spacing={2}
         justifyContent={{ sm: "flex-start", xs: "center" }}
         alignItems={"center"}
+        sx={{ mt: "30px" }}
       >
-        <Grid item lg={3} md={3} sm={4}>
-          <AddTourButton isVerified={CreatorData.is_verified as boolean} />
-        </Grid>
         {loading ? (
           skeleton()
         ) : myTours.length > 0 ? (
           elements
         ) : (
           <Typography variant="h4" sx={{ margin: "0 auto" }}>
-            Еще нет созданных шаблонов туров
+            Еще нет архивных шаблонов туров
           </Typography>
         )}
       </Grid>
@@ -132,4 +139,4 @@ function CreatorLk() {
   );
 }
 
-export default CreatorLk;
+export default ArchivePage;

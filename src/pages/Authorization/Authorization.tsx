@@ -229,8 +229,7 @@ function Authorization() {
             ? e?.response?.data?.errorMessage
             : "Что-то пошло не так, попробуйте еще раз позже!"
         );
-      },
-      false
+      }
     );
   };
 
@@ -257,8 +256,7 @@ function Authorization() {
           setErrAuth(true);
           setErrorMessage("Ошибка сервера, попробуйте позже!");
         }
-      },
-      false
+      }
     );
   };
 

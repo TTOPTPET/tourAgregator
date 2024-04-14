@@ -91,6 +91,12 @@ const SettingsPage = lazyWithRetry(() =>
   )
 );
 
+const ArchivePage = lazyWithRetry(() =>
+  import("./pages/ArchivePage/ArchivePage").then(
+    ({ default: ArchivePage }) => ({ default: ArchivePage })
+  )
+);
+
 function App() {
   const dispatch = useDispatch();
 
@@ -189,6 +195,7 @@ function App() {
               <Route path={"/admin/*"} element={<AdminPage />} />
               <Route path={"/auth"} element={<Authorization />} />
               <Route path={"/settings"} element={<SettingsPage />} />
+              <Route path={"/creator/archive"} element={<ArchivePage />} />
               <Route path={"/verify/:token"} element={<VerifyUserEmail />} />
               <Route
                 path={"/reset-password/:token"}

@@ -41,7 +41,8 @@ type modalsId =
   | "needDeletePublicModal"
   | "gidQuestModal"
   | "confirmDeleteUserModal"
-  | "successEmailMessageSendModal";
+  | "successEmailMessageSendModal"
+  | "successReturnTour";
 
 enum actionTypes {
   SET_MODAL_ACTIVE = "SET_MODAL_ACTIVE",

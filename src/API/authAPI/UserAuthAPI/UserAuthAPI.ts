@@ -78,8 +78,13 @@ export const verify = async (
 export const checkINN = async (
   successCallback: (prop: ICheckINNResponse) => void,
   inn?: string,
-  errorCallback?: (prop: any) => void
+  errorCallback?: (prop: any) => void,
+  useDefault?: boolean
 ) => {
+  if (useDefault) {
+    successCallback({ status: true });
+    return;
+  }
   try {
     let response = await axios.post(urlUser + `/${inn}`);
 

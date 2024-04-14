@@ -18,8 +18,6 @@ import {
 import { RootState } from "../../../redux/store";
 import { ITour } from "../../../models/tourCardModel/ITour";
 import { SetStateAction, Dispatch, useState } from "react";
-//   import CancelPostedToursModal from "../CancelPostedToursModal/CancelPostedToursModal";
-//   import SuccessCancelPostedTourModal from "../SuccessCancelPostedTourModal/SuccessCancelPostedTourModal";
 
 interface IDeleteTourModalProps {
   myTours: ITour[];
@@ -96,14 +94,6 @@ function DeleteTourModal({ myTours, setMyTours }: IDeleteTourModalProps) {
           )}
         </Stack>
       </DialogContent>
-      {/* <CancelPostedToursModal
-          postedTours={postedTours}
-          setPostedTours={setPostedTours}
-          tourId={tourId}
-          setMyTours={setMyTours}
-          myTours={myTours}
-        /> */}
-      {/* <SuccessCancelPostedTourModal /> */}
     </Dialog>
   );
 }

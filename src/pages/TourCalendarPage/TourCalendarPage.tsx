@@ -23,9 +23,13 @@ function TourCalendarPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    getMyTours((value) => {
-      setMyTours(value);
-    }, undefined);
+    getMyTours(
+      (value) => {
+        setMyTours(value);
+      },
+      { isArchived: false },
+      undefined
+    );
   }, []);
 
   useEffect(() => {

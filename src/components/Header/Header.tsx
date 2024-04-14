@@ -279,6 +279,20 @@ const Header = () => {
                                 />
                                 Календарь
                               </MenuItem>
+                              <MenuItem
+                                style={{ gap: "10px" }}
+                                onClick={() => {
+                                  navigate("/creator/archive");
+                                  handlerCloseMenu();
+                                }}
+                              >
+                                <img
+                                  src={calendarIcon}
+                                  alt={"profile"}
+                                  style={{ width: "26px" }}
+                                />
+                                Архив
+                              </MenuItem>
                             </>
                           )}
 

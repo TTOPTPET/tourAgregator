@@ -4,7 +4,6 @@ import axios from "axios";
 export const deleteTour = async (
   tourId: string,
   successCallback: (params: any) => void,
-  editedCallback?: (prop: any) => void,
   errorCallback?: () => void
 ) => {
   try {
@@ -16,9 +15,25 @@ export const deleteTour = async (
     );
     successCallback(response?.status);
   } catch (e: any) {
-    if (e?.response?.status === 300) {
-      editedCallback && editedCallback(e.response?.data);
-    }
+    console.error(e);
+    errorCallback && errorCallback();
+  }
+};
+
+export const returnTour = async (
+  params: {
+    id: string;
+  },
+  successCallback: (params: any) => void,
+  errorCallback?: () => void
+) => {
+  try {
+    let response = await axios.get(urlCreatorTours + `/templates/activate`, {
+      withCredentials: true,
+      params,
+    });
+    successCallback(response?.status);
+  } catch (e: any) {
     console.error(e);
     errorCallback && errorCallback();
   }

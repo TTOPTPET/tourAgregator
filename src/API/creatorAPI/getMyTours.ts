@@ -4,11 +4,15 @@ import { ITour } from "../../models/tourCardModel/ITour";
 
 export const getMyTours = async (
   successCallback: (prop: ITour[]) => void,
+  params: {
+    isArchived: boolean;
+  },
   errorCallback?: () => void
 ) => {
   try {
     let response = await axios.get(urlCreatorTours + "/templates", {
       withCredentials: true,
+      params,
     });
     successCallback(response?.data.data);
   } catch (e) {

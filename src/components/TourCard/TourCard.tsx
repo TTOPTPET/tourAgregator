@@ -1,19 +1,22 @@
 import Box from "@mui/material/Box";
 
-import { ITourResponse } from "../../models/tourCardModel/ITour";
+import { ITour, ITourResponse } from "../../models/tourCardModel/ITour";
 
 import TourCardPhoto from "./TourCardPhoto/TourCardPhoto";
 import TourCardContentCreatorLk from "./TourCardContent/TourCardContentCreatorLk";
 import TourCardContentCardList from "./TourCardContent/TourCardContentCardList";
+import TourCardContentArchive from "./TourCardContent/TourCardContentArchive";
+import { Dispatch, SetStateAction } from "react";
 
-type CardType = "tourList" | "myTours";
+type CardType = "tourList" | "myTours" | "archive";
 
 type TourCardProps = {
   tour: ITourResponse;
   tourCardType: CardType;
+  setMyTours?: Dispatch<SetStateAction<ITour[]>>;
 };
 
-function TourCard({ tour, tourCardType }: TourCardProps) {
+function TourCard({ tour, tourCardType, setMyTours }: TourCardProps) {
   return (
     <Box
       className="tour_card"
@@ -28,6 +31,9 @@ function TourCard({ tour, tourCardType }: TourCardProps) {
 
       {tourCardType === "myTours" && <TourCardContentCreatorLk tour={tour} />}
       {tourCardType === "tourList" && <TourCardContentCardList tour={tour} />}
+      {tourCardType === "archive" && (
+        <TourCardContentArchive tour={tour} setMyTours={setMyTours} />
+      )}
     </Box>
   );
 }

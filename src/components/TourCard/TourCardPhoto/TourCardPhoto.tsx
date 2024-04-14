@@ -1,16 +1,11 @@
 import Box from "@mui/material/Box";
 
-import { lightTurquoiseColor } from "../../../config/MUI/color/color";
-
-import { LightStyledTooltip } from "../../../config/MUI/styledComponents/StyledTooltip";
-
-import cancelIcon from "../../../media/ban-status-icon.svg";
 import noPhoto from "../../../media/noPhoto.png";
 
-import { ITour, ITourResponse } from "../../../models/tourCardModel/ITour";
+import { ITourResponse } from "../../../models/tourCardModel/ITour";
 import { Typography } from "@mui/material";
 
-type CardType = "tourList" | "myTours";
+type CardType = "tourList" | "myTours" | "archive";
 type TourCardProps = {
   tour: ITourResponse;
   tourCardType: CardType;
