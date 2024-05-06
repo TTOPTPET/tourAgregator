@@ -13,12 +13,12 @@ const Footer = () => {
         direction={media ? "column" : "row"}
         padding={"20px"}
         sx={{ width: "100%" }}
-        justifyContent={media ? "center" : "space-between"}
+        justifyContent={"center"}
         textAlign={"center"}
         gap={"15px"}
       >
-        <Stack direction={"column"} gap={"15px"}>
-          <Typography variant={"caption"}>© 2023 «СвойПуть.ру»</Typography>
+        <Stack direction={"column"} gap={"20px"}>
+          <Typography variant={"caption"}>© 2024 «СвойПуть.ру»</Typography>
           <Typography variant={"caption"}>
             Проект на{" "}
             <span style={{ fontFamily: "Unbounded", color: darkBlueColor }}>
@@ -27,43 +27,6 @@ const Footer = () => {
             </span>
           </Typography>
         </Stack>
-        <Stack
-          direction={media ? "column" : "row"}
-          gap={media ? "15px" : "30px"}
-        >
-          <Typography
-            variant={"caption"}
-            component={Link}
-            to={"/"}
-            style={{ textDecoration: "none" }}
-          >
-            Пользовательское соглашение
-          </Typography>
-          <Typography
-            variant={"caption"}
-            component={Link}
-            to={"/documents"}
-            style={{ textDecoration: "none" }}
-          >
-            Юридическая информация
-          </Typography>
-          <Typography
-            variant={"caption"}
-            component={Link}
-            to={"/contacts"}
-            style={{ textDecoration: "none" }}
-          >
-            Контакты
-          </Typography>
-        </Stack>
-        {/* <a
-          href="https://vk.com/way_to_mountains"
-          rel={"noreferrer"}
-          target={"_blank"}
-          style={{ float: "right" }}
-        >
-          <img src={vkIcon} alt="vk icon" style={{ width: "20px" }} />
-        </a> */}
       </Stack>
     </Container>
   );

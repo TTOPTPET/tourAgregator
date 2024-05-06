@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import MenuIcon from "../../media/menu-icon.svg";
 import StatIcon from "../../media/chart-box.svg";
 import CashIcon from "../../media/cash-icon.svg";
-import NotificationIcon from "../../media/notification.svg";
+import archiveIcon from "../../media/archiveIcon.svg";
 import exitIcon from "../../media/exitIcon.svg";
 import { useCookies } from "react-cookie";
 import { LOGGINED, ROLE } from "../../config/types";
@@ -62,7 +62,7 @@ const Header = () => {
   useEffect(() => {
     if (menuRef.current) {
       cookies.ROLE === 2
-        ? setMenuPosition(menuRef.current.getBoundingClientRect().right - 280)
+        ? setMenuPosition(menuRef.current.getBoundingClientRect().right - 238)
         : cookies.ROLE === 1
           ? setMenuPosition(menuRef.current.getBoundingClientRect().right - 220)
           : setMenuPosition(
@@ -254,7 +254,7 @@ const Header = () => {
                               <MenuItem
                                 style={{ gap: "10px" }}
                                 onClick={() => {
-                                  navigate("/creator/payment");
+                                  navigate("/addCardPage");
                                   handlerCloseMenu();
                                 }}
                               >
@@ -263,7 +263,7 @@ const Header = () => {
                                   alt={"profile"}
                                   style={{ width: "26px" }}
                                 />
-                                Финансовые настройки
+                                Добавление карты
                               </MenuItem>
                               <MenuItem
                                 style={{ gap: "10px" }}
@@ -287,7 +287,7 @@ const Header = () => {
                                 }}
                               >
                                 <img
-                                  src={calendarIcon}
+                                  src={archiveIcon}
                                   alt={"profile"}
                                   style={{ width: "26px" }}
                                 />

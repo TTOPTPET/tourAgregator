@@ -111,35 +111,13 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
           setTourInfo={setTourInfo}
           isEditing={isEditing}
         />
-        <Typography variant={"h6"} marginBottom={1}>
-          Описание
-        </Typography>
-        <StyledTextAreaAutosize
-          placeholder={"Описание тура (не более 2500 символов)"}
-          maxLength={2500}
-          minRows={2}
-          sx={{
-            minHeight: "30px",
-            backgroundColor: lightTurquoiseColor,
-            margin: "0 0",
-            border:
-              (addError && tourInfo?.tourDescription === undefined) ||
-              tourInfo?.tourDescription === ""
-                ? `1px solid ${redColor}`
-                : "",
-          }}
-          value={tourInfo?.tourDescription || ""}
-          onChange={(e) => {
-            setTourInfo({ ...tourInfo, tourDescription: e.target.value });
-          }}
-        />
       </Grid>
       <Grid
-        container
+        // container
         item
         xs={6}
-        justifyContent={"flex-start"}
-        minWidth={500}
+        // justifyContent={"flex-start"}
+        // minWidth={500}
         mt={media ? 2 : 0}
       >
         {isEditing && (
@@ -148,7 +126,13 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
           </Grid>
         )}
 
-        <Grid container item justifyContent={"space-between"} mt={2}>
+        <Grid
+          container
+          // item
+          justifyContent={"space-between"}
+          mt={isEditing ? 2 : undefined}
+          height={"220px"}
+        >
           <Grid item md={6}>
             <Stack direction={"column"}>
               <Typography variant={"h6"} marginBottom={1}>
@@ -182,6 +166,59 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
                   })}
                 </TextField>
               </FormControl>
+            </Stack>
+            <Stack>
+              <Typography variant={"h6"} sx={{ mb: "15px", mt: "60px" }}>
+                Рекомендуемый возраст
+              </Typography>
+              <Stack
+                direction={"row"}
+                gap={2}
+                width={"100%"}
+                sx={{ mb: "15px" }}
+              >
+                <TextField
+                  InputProps={{ inputProps: { min: 0 } }}
+                  label={"От"}
+                  value={tourInfo?.recommendedAgeFrom || ""}
+                  required
+                  error={
+                    (addError && tourInfo?.recommendedAgeFrom === undefined) ||
+                    tourInfo?.recommendedAgeFrom === 0 ||
+                    ageErrorStatus
+                  }
+                  onChange={(e) => {
+                    Number.isInteger(+e.target.value)
+                      ? handleAgeChange(e.target.value, "recomendedAgeFrom")
+                      : null;
+                  }}
+                />
+                <TextField
+                  InputProps={{ inputProps: { min: 0 } }}
+                  label={"До"}
+                  value={tourInfo?.recommendedAgeTo || ""}
+                  required
+                  error={
+                    (addError && tourInfo?.recommendedAgeTo === undefined) ||
+                    tourInfo?.recommendedAgeTo === 0 ||
+                    ageErrorStatus
+                  }
+                  onChange={(e) => {
+                    Number.isInteger(+e.target.value)
+                      ? handleAgeChange(e.target.value, "recomendedAgeTo")
+                      : null;
+                  }}
+                />
+              </Stack>
+              {ageErrorStatus && (
+                <Typography
+                  variant="caption"
+                  className="author__error"
+                  sx={{ color: redColor, margin: "0 auto" }}
+                >
+                  {ageErrorMessage}
+                </Typography>
+              )}
             </Stack>
           </Grid>
           <Grid item md={4.5}>
@@ -218,55 +255,29 @@ export const AddTourFirstPage: FC<IAddTourFirstPageProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container md={7}>
-          <Stack>
-            <Typography variant={"h6"} sx={{ mb: "15px" }}>
-              Рекомендуемый возраст
-            </Typography>
-            <Stack direction={"row"} gap={2} width={"100%"} sx={{ mb: "15px" }}>
-              <TextField
-                InputProps={{ inputProps: { min: 0 } }}
-                label={"От"}
-                value={tourInfo?.recommendedAgeFrom || ""}
-                required
-                error={
-                  (addError && tourInfo?.recommendedAgeFrom === undefined) ||
-                  tourInfo?.recommendedAgeFrom === 0 ||
-                  ageErrorStatus
-                }
-                onChange={(e) => {
-                  Number.isInteger(+e.target.value)
-                    ? handleAgeChange(e.target.value, "recomendedAgeFrom")
-                    : null;
-                }}
-              />
-              <TextField
-                InputProps={{ inputProps: { min: 0 } }}
-                label={"До"}
-                value={tourInfo?.recommendedAgeTo || ""}
-                required
-                error={
-                  (addError && tourInfo?.recommendedAgeTo === undefined) ||
-                  tourInfo?.recommendedAgeTo === 0 ||
-                  ageErrorStatus
-                }
-                onChange={(e) => {
-                  Number.isInteger(+e.target.value)
-                    ? handleAgeChange(e.target.value, "recomendedAgeTo")
-                    : null;
-                }}
-              />
-            </Stack>
-            {ageErrorStatus && (
-              <Typography
-                variant="caption"
-                className="author__error"
-                sx={{ color: redColor, margin: "0 auto" }}
-              >
-                {ageErrorMessage}
-              </Typography>
-            )}
-          </Stack>
+        <Grid item container md={12} mt={"30px"}>
+          <Typography variant={"h6"} marginBottom={"15px"}>
+            Описание
+          </Typography>
+          <StyledTextAreaAutosize
+            placeholder={"Описание тура (не более 2500 символов)"}
+            maxLength={2500}
+            minRows={2}
+            sx={{
+              minHeight: "60px",
+              backgroundColor: lightTurquoiseColor,
+              margin: "0 0",
+              border:
+                (addError && tourInfo?.tourDescription === undefined) ||
+                tourInfo?.tourDescription === ""
+                  ? `1px solid ${redColor}`
+                  : "",
+            }}
+            value={tourInfo?.tourDescription || ""}
+            onChange={(e) => {
+              setTourInfo({ ...tourInfo, tourDescription: e.target.value });
+            }}
+          />
         </Grid>
       </Grid>
     </Grid>

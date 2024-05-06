@@ -180,7 +180,7 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
             onChange={(e) => setAdditionalText(e.target.value)}
           />
         </Grid>
-        <Stack minHeight={350}>
+        <Stack minHeight={250}>
           <Typography variant={"h5"}>Сложность маршрута</Typography>
           <RadioGroup
             value={tourInfo?.complexity || ""}
@@ -209,9 +209,7 @@ export const AddTourSecondPage: FC<IAddTourSecondPageProps> = ({
           </RadioGroup>
         </Stack>
       </Grid>
-      <Typography variant={"h5"} mt={5}>
-        Маршрут
-      </Typography>
+      <Typography variant={"h5"}>Маршрут</Typography>
       <MapLeaflet
         width={"100%"}
         height={"330px"}

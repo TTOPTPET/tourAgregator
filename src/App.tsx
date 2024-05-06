@@ -128,6 +128,11 @@ function App() {
 
   dayjs.locale("ru");
 
+  const AddCardPageRedirect = () => {
+    window.location.href = "/AddCardPage.html";
+    return <></>;
+  };
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={mainThemes}>
@@ -183,6 +188,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/addCardPage" element={<AddCardPageRedirect />} />
               <Route
                 path={"/creator/stats"}
                 element={

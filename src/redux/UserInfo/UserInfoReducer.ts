@@ -1,9 +1,4 @@
-import {
-  ICreatorInfo,
-  ITouristInfo,
-  UserType,
-  //   CreatorType,
-} from "../../models/userModels/IUserInfo";
+import { ICreatorInfo, ITouristInfo } from "../../models/userModels/IUserInfo";
 enum actionTypes {
   SET_USER_INFO = "SET_USER_INFO",
   CLEAR_FIELDS_CREATOR = "CLEAR_FIELDS_CREATOR",
@@ -34,17 +29,6 @@ const UserInfoReducer = (state = defaultState, action: IAction) => {
         ...state,
         userInfo: { ...state.userInfo, ...action.payload },
       };
-    // case actionTypes.CLEAR_FIELDS_CREATOR:
-    //   if (state.userInfo.role_id === UserType.creator) {
-    //     return {
-    //       ...state,
-    //       userInfo: {
-    //         ...state.userInfo,
-    //         dataUser: { ...state.userInfo.dataUser, fieldsCreator: {} },
-    //       },
-    //     };
-    //   }
-    //   break;
     default:
       return state;
   }

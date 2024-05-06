@@ -54,8 +54,7 @@ function DeleteTourModal({ myTours, setMyTours }: IDeleteTourModalProps) {
         dispatch(setModalActive("successDeleteTourModal"));
         setLoading(false);
       },
-      (data) => {
-        setPostedTours(data);
+      () => {
         dispatch(setModalActive("сancelPostedToursModal"));
         setLoading(false);
       }

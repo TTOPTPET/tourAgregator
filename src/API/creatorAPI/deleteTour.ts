@@ -28,10 +28,14 @@ export const returnTour = async (
   errorCallback?: () => void
 ) => {
   try {
-    let response = await axios.get(urlCreatorTours + `/templates/activate`, {
-      withCredentials: true,
-      params,
-    });
+    let response = await axios.post(
+      urlCreatorTours + `/templates/activate`,
+      undefined,
+      {
+        withCredentials: true,
+        params,
+      }
+    );
     successCallback(response?.status);
   } catch (e: any) {
     console.error(e);
